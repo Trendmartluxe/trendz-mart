@@ -156,7 +156,7 @@
       </button>
     </div>
 
-    <!-- Add Store Review Form (Toggleable) -->
+    <!-- Add Store Review Form -->
     <div id="storeReviewForm" class="hidden bg-[#141418] p-4 rounded-xl gold-border mb-6">
       <h4 class="text-xs font-bold text-white mb-2 uppercase">Share Your Experience</h4>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
@@ -172,7 +172,7 @@
     </div>
 
     <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-      <!-- Injected reviews -->
+      <!-- Reviews inject here -->
     </div>
   </section>
 
@@ -188,7 +188,7 @@
       <div class="bg-neutral-900/80 p-4 rounded-xl border border-neutral-800">
         <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider">How To Order?</h4>
         <ul class="text-xs text-neutral-400 mt-2 space-y-1.5 list-disc pl-4">
-          <li>Select your favorite designs & view all images (Real, AI & Details).</li>
+          <li>Select your favorite designs & view all images (Real, AI & Details)[span_0](start_span)[span_0](end_span).</li>
           <li>Click <strong class="text-neutral-200">Complete Order on WhatsApp</strong>.</li>
           <li>Share delivery address & choose Cash on Delivery.</li>
           <li>Get tracking link on WhatsApp.</li>
@@ -256,7 +256,6 @@
 
     // ===================================================================
     // PRODUCT CATALOG
-    // [0] Real Look, [1] Model Look, [2] Details Sheet
     // ===================================================================
     const products = [
       {
@@ -268,18 +267,18 @@
         tag: "Best Seller",
         rating: "4.9",
         specs: {
-          material: "Premium Stainless Steel",
-          pendant: "Faceted Emerald Green Heart",
-          chain: "Flexible Snake Chain",
+          material: "Stainless Steel",
+          pendant: "Heart Shape",
+          chain: "Snake Chain",
           length: "Approx. 20 inches",
-          clasp: "Secure Lobster Clasp",
-          finish: "18K High-Gloss Gold Plating"
+          clasp: "Lobster Clasp",
+          finish: "Polished Gold"
         },
-        description: "Timeless symbol of love and elegance. Crafted from durable stainless steel with long-lasting shine. Anti-tarnish, water-resistant, hypoallergenic, and perfect for everyday styling or gifting.",
+        description: "A timeless symbol of love and care. Crafted from premium stainless steel for long-lasting shine and durability. Anti-tarnish, water resistant, lightweight, and perfect for daily wear.",
         images: [
-          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80", // Replace with your uploaded Link 1 (Real)
-          "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80", // Replace with your uploaded Link 2 (Model)
-          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80"  // Replace with your uploaded Link 3 (Details)
+          "https://i.ibb.co/TxKrprF9/image.jpg", // Real Look
+          "https://i.ibb.co/Lhb4YX1g/image.jpg", // Model Look
+          "https://i.ibb.co/hjwKdBXS/image.jpg"  // Details Sheet
         ],
         reviews: [
           { name: "Ananya P.", rating: 5, comment: "The emerald green heart looks so royal in real life! Loved the snake chain." },
@@ -305,7 +304,7 @@
           "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"
         ],
         reviews: [
-          { name: "Sneha R.", rating: 5, comment: "Very classy chocker. Looks very rich!" }
+          { name: "Sneha R.", rating: 5, comment: "Very classy choker. Looks very rich!" }
         ]
       },
       {
@@ -350,7 +349,6 @@
       }
     ];
 
-    // Initial Store Reviews
     let storeReviews = [
       { name: "Simran K.", rating: 5, comment: "Necklace quality is insane! Been wearing it daily in the shower, no color fading at all." },
       { name: "Pooja M.", rating: 5, comment: "COD option was very smooth. Received packaging in Dombivli within 3 days. Loved the finish!" },
@@ -360,7 +358,6 @@
     let cart = [];
     let currentFilter = 'All';
 
-    // Header Links
     const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe jewelry collection ke bare me inquiry karni hai.");
     document.getElementById("navWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
     document.getElementById("footerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
@@ -424,7 +421,6 @@
       }).join('');
     }
 
-    // ==================== PRODUCT MODAL (GALLERY + SPECS + REVIEWS) ====================
     let activeModalImages = [];
     let currentImageIndex = 0;
     let activeProductId = null;
@@ -457,7 +453,6 @@
       const modalContent = document.getElementById("modalContent");
       modalContent.innerHTML = `
         <div class="space-y-4">
-          <!-- Main Big Image -->
           <div class="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden bg-black border border-neutral-800">
             <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-cover transition-opacity duration-200" />
             
@@ -471,7 +466,6 @@
             </span>
           </div>
 
-          <!-- Thumbnail Strip -->
           <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             ${activeModalImages.map((img, i) => `
               <button onclick="setModalImg(${i})" class="thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 ${i === 0 ? 'border-amber-400' : 'border-neutral-800'} transition-all" id="thumb-${i}">
@@ -481,7 +475,6 @@
             `).join('')}
           </div>
 
-          <!-- Product Details -->
           <div>
             <div class="flex items-center justify-between">
               <span class="text-[10px] uppercase tracking-wider text-amber-400 bg-amber-950/40 border border-amber-800 px-2 py-0.5 rounded-md font-semibold">${prod.tag}</span>
@@ -503,7 +496,6 @@
             ${specsHtml}
           </div>
 
-          <!-- Action Buttons -->
           <div class="grid grid-cols-2 gap-2 pt-2">
             <button onclick="addToCart(${prod.id}); closeProductModal();" class="w-full py-3 rounded-xl font-bold text-xs gold-btn active:scale-95 transition-transform">
               Add to Bag (₹${prod.price})
@@ -513,13 +505,12 @@
             </button>
           </div>
 
-          <!-- PRODUCT REVIEWS SECTION -->
+          <!-- Reviews Section -->
           <div class="mt-6 pt-4 border-t border-neutral-800">
             <div class="flex items-center justify-between mb-3">
               <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Customer Reviews (${prod.reviews ? prod.reviews.length : 0})</h4>
             </div>
 
-            <!-- Customer Review Input Form -->
             <div class="bg-[#17171c] p-3 rounded-xl border border-neutral-800/80 mb-3 space-y-2">
               <span class="text-[11px] font-semibold text-neutral-300">Rate this product:</span>
               <div class="grid grid-cols-2 gap-2">
@@ -534,7 +525,6 @@
               <button onclick="submitProductReview(${prod.id})" class="gold-btn px-3 py-1.5 rounded-lg text-[10px] font-bold">Post Review</button>
             </div>
 
-            <!-- Reviews List -->
             <div class="space-y-2" id="prodModalReviewsList">
               ${(prod.reviews || []).map(r => `
                 <div class="bg-black/40 p-2.5 rounded-lg border border-neutral-800 text-[11px]">
@@ -596,7 +586,6 @@
       setModalImg(currentImageIndex < activeModalImages.length - 1 ? currentImageIndex + 1 : 0);
     }
 
-    // Submit Product Specific Review
     function submitProductReview(productId) {
       const name = document.getElementById("prodRevName").value.trim();
       const rating = parseInt(document.getElementById("prodRevRating").value);
@@ -611,11 +600,10 @@
       if (prod) {
         if (!prod.reviews) prod.reviews = [];
         prod.reviews.unshift({ name, rating, comment });
-        openProductModal(productId); // Refresh modal to show newly added review
+        openProductModal(productId);
       }
     }
 
-    // Store Level Review functions
     function toggleStoreReviewForm() {
       const form = document.getElementById("storeReviewForm");
       form.classList.toggle("hidden");
@@ -650,7 +638,6 @@
       alert("Aapka review website par add ho gaya hai! Thank you ✨");
     }
 
-    // Direct WhatsApp Order
     function orderSingleProductWhatsApp(productId) {
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
@@ -659,7 +646,6 @@
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    // Cart Operations
     function toggleCart() {
       const sidebar = document.getElementById("cartSidebar");
       const overlay = document.getElementById("cartOverlay");
@@ -764,7 +750,6 @@
       window.open(url, "_blank");
     }
 
-    // Initialize Page
     renderProducts();
     renderStoreReviews();
     updateCartUI();
