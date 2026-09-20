@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRENDZ MART LUXE | Premium Anti-Tarnish Jewelry</title>
+  <title>TRENDZ MART LUXE | Trending Anti-Tarnish & Lifestyle Store</title>
   
   <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -56,7 +56,7 @@
     ✨ Free Express Shipping & Cash on Delivery (COD) Available ✨
   </div>
 
-  <!-- Main Navigation Header (With Uploaded Logo) -->
+  <!-- Main Navigation Header -->
   <header class="sticky top-0 z-40 bg-[#0e0e11]/95 backdrop-blur-md border-b border-neutral-800/80 px-4 py-3">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
       
@@ -93,28 +93,35 @@
   <!-- Luxury Hero Banner with Dark Silk HD Background -->
   <section class="relative px-5 pt-14 pb-12 text-center max-w-4xl mx-auto my-5 rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(11, 11, 14, 0.76), rgba(11, 11, 14, 0.94)), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1600&q=85');">
     <span class="inline-block text-[10px] sm:text-[11px] font-bold tracking-[0.22em] text-amber-300 uppercase bg-black/70 border border-amber-500/40 px-4 py-1 rounded-full backdrop-blur-md shadow-sm">
-      ✨ Waterproof • Non-Tarnish • 18K Gold Plated ✨
+      ✨ Anti-Tarnish Jewelry & Trending Lifestyle Finds ✨
     </span>
     <h2 class="font-cinzel text-2xl sm:text-4xl font-bold mt-4 text-white leading-tight tracking-wider">
-      ELEVATE YOUR EVERYDAY ELEGANCE
+      BIGGEST SAVINGS & TOP TRENDS
     </h2>
     <p class="text-xs sm:text-sm text-neutral-300 mt-3 max-w-md mx-auto leading-relaxed">
-      Handcrafted waterproof jewelry made for everyday luxury. Shop anti-tarnish rings, necklaces & earrings with Cash on Delivery.
+      Curated premium jewelry, viral aesthetic organizers, cute water sippers & hair accessories. Flat massive discounts with Cash on Delivery.
     </p>
 
-    <!-- Category Filter Buttons -->
-    <div class="flex items-center justify-center gap-2 mt-6 overflow-x-auto pb-1 text-xs">
-      <button onclick="filterCategory('All')" class="filter-btn px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm" data-cat="All">All</button>
-      <button onclick="filterCategory('Necklace')" class="filter-btn px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 backdrop-blur-sm" data-cat="Necklace">Necklaces</button>
-      <button onclick="filterCategory('Earrings')" class="filter-btn px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 backdrop-blur-sm" data-cat="Earrings">Earrings</button>
-      <button onclick="filterCategory('Bracelet')" class="filter-btn px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 backdrop-blur-sm" data-cat="Bracelet">Bracelets</button>
+    <!-- Category Filter Tabs (Scrollable on Mobile) -->
+    <div class="flex items-center justify-start sm:justify-center gap-2 mt-6 overflow-x-auto pb-2 text-xs no-scrollbar">
+      <button onclick="filterCategory('All')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm" data-cat="All">All Deals</button>
+      <button onclick="filterCategory('Necklace')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Necklace">Necklaces</button>
+      <button onclick="filterCategory('Earrings')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Earrings">Earrings</button>
+      <button onclick="filterCategory('Kada & Rings')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Kada & Rings">Kada & Rings</button>
+      <button onclick="filterCategory('Clips & Accessories')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Clips & Accessories">Clips & Hair</button>
+      <button onclick="filterCategory('Makeup Boxes')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Makeup Boxes">Makeup Box</button>
+      <button onclick="filterCategory('Water Sippers')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Water Sippers">Water Sippers</button>
     </div>
   </section>
 
-  <!-- Product Catalog Grid -->
+  <!-- Product Catalog Grid (Sorted by Highest Discount First) -->
   <main class="max-w-5xl mx-auto px-3 sm:px-6">
+    <div class="flex items-center justify-between mb-3 px-1">
+      <span class="text-[11px] uppercase tracking-widest text-neutral-400 font-semibold">⚡ Top Discounted Deals</span>
+      <span class="text-[10px] text-amber-400 bg-amber-950/60 border border-amber-800/80 px-2 py-0.5 rounded">Highest % OFF First</span>
+    </div>
     <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
-      <!-- Products render dynamically -->
+      <!-- Dynamic Products -->
     </div>
   </main>
 
@@ -144,12 +151,12 @@
     </div>
   </section>
 
-  <!-- Customer Reviews Section (With Live Rating/Review Submit) -->
+  <!-- Customer Reviews Section -->
   <section class="max-w-5xl mx-auto px-4 mt-14">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
       <div>
         <h3 class="font-cinzel text-lg sm:text-xl font-bold text-amber-400">Loved by 2,000+ Customers</h3>
-        <p class="text-xs text-neutral-400 mt-0.5">Real verified reviews from jewelry lovers</p>
+        <p class="text-xs text-neutral-400 mt-0.5">Real verified reviews from happy shoppers</p>
       </div>
       <button onclick="toggleStoreReviewForm()" class="px-4 py-2 rounded-xl text-xs font-semibold gold-btn active:scale-95 transition-all">
         ✍️ Leave a Review
@@ -182,22 +189,22 @@
       <div>
         <h3 class="font-cinzel text-lg font-bold text-amber-400">About TRENDZ MART LUXE</h3>
         <p class="text-xs text-neutral-300 mt-2 leading-relaxed">
-          At TRENDZ MART LUXE, we bring you trending anti-tarnish jewelry with premium 18K PVD gold plating. Never take off your favorites before shower or workout. Long-lasting, skin-safe, and stylish.
+          At TRENDZ MART LUXE, we bring you trending anti-tarnish jewelry, viral lifestyle accessories, makeup organizers, and everyday essentials. Quality you can trust with Cash on Delivery support across India.
         </p>
       </div>
       <div class="bg-neutral-900/80 p-4 rounded-xl border border-neutral-800">
         <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider">How To Order?</h4>
         <ul class="text-xs text-neutral-400 mt-2 space-y-1.5 list-disc pl-4">
-          <li>Select your favorite designs & view all images (Real, Styling & Details).</li>
+          <li>Select your favorite items & view multi-angle photos.</li>
           <li>Click <strong class="text-neutral-200">Complete Order on WhatsApp</strong>.</li>
-          <li>Share delivery address & choose Cash on Delivery.</li>
-          <li>Get tracking link on WhatsApp.</li>
+          <li>Send your delivery address and choose Cash on Delivery.</li>
+          <li>Get tracking updates straight on WhatsApp.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Footer (With Uploaded Logo) -->
+  <!-- Footer -->
   <footer class="mt-16 bg-[#09090b] border-t border-neutral-900 py-10 px-4 text-center">
     <div class="w-14 h-14 rounded-full border border-amber-400/40 bg-black mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-inner">
       <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'">
@@ -263,7 +270,7 @@
     const WHATSAPP_NUMBER = "918369511325"; 
 
     // ===================================================================
-    // PRODUCT CATALOG
+    // CATALOG PRODUCTS (With All Categories)
     // ===================================================================
     const products = [
       {
@@ -317,7 +324,28 @@
       },
       {
         id: 3,
-        title: "Chunky Water-Resistant Hoop Earrings",
+        title: "Roman Numeral Luxury Cuff Kada Bangle",
+        category: "Kada & Rings",
+        price: 549,
+        originalPrice: 1199,
+        tag: "18K Plated",
+        rating: "5.0",
+        specs: {
+          material: "Titanium Steel",
+          type: "Oval Snap Bangle",
+          finish: "Mirror Polish Gold"
+        },
+        description: "Signature Roman numeral engraved oval cuff kada. Easy snap lock and lifetime luster.",
+        images: [
+          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80"
+        ],
+        reviews: [
+          { name: "Pooja D.", rating: 5, comment: "Pure luxury feeling, perfectly fits my wrist." }
+        ]
+      },
+      {
+        id: 4,
+        title: "Chunky Water-Resistant Gold Hoop Earrings",
         category: "Earrings",
         price: 349,
         originalPrice: 699,
@@ -336,23 +364,65 @@
         ]
       },
       {
-        id: 4,
-        title: "Roman Numeral Luxury Cuff Bangle",
-        category: "Bracelet",
-        price: 549,
-        originalPrice: 1199,
-        tag: "18K Plated",
-        rating: "5.0",
+        id: 5,
+        title: "Viral Aesthetic Pastel Gradient Water Sipper (2 Litre)",
+        category: "Water Sippers",
+        price: 499,
+        originalPrice: 999,
+        tag: "Trending Viral",
+        rating: "4.9",
         specs: {
-          material: "Titanium Steel",
-          type: "Oval Snap Bangle"
+          capacity: "2000 ML (2 Litre)",
+          features: "Motivational Time Markers, Straw & Handle",
+          material: "BPA Free Food Grade Tritan"
         },
-        description: "Signature Roman numeral engraved oval cuff bracelet. Easy snap lock and lifetime luster.",
+        description: "Viral 2L motivational water sipper with leak-proof straw, flip cover lock, and durable carry handle.",
         images: [
-          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80"
+          "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80"
         ],
         reviews: [
-          { name: "Pooja D.", rating: 5, comment: "Pure luxury feeling, perfectly fits my wrist." }
+          { name: "Megha S.", rating: 5, comment: "Colors are so cute! Quality is solid." }
+        ]
+      },
+      {
+        id: 6,
+        title: "360° Rotating Acrylic Luxury Makeup Organizer Box",
+        category: "Makeup Boxes",
+        price: 699,
+        originalPrice: 1499,
+        tag: "Best Seller",
+        rating: "4.8",
+        specs: {
+          material: "Crystal Clear Acrylic",
+          feature: "360 Degree Smooth Rotation, Multi Compartments",
+          use: "Cosmetics, Skincare, Perfumes"
+        },
+        description: "Keep all your lipsticks, serums, and cosmetics neatly organized with 360-degree silent rotation.",
+        images: [
+          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"
+        ],
+        reviews: [
+          { name: "Farah K.", rating: 5, comment: "Spacious and looks super clean on vanity table." }
+        ]
+      },
+      {
+        id: 7,
+        title: "Korean Matte Pastel Claw Hair Clips (Pack of 4)",
+        category: "Clips & Accessories",
+        price: 249,
+        originalPrice: 599,
+        tag: "Top Offer",
+        rating: "4.9",
+        specs: {
+          pack: "Set of 4 Trendy Colors",
+          material: "Non-slip matte acrylic resin with strong spring"
+        },
+        description: "Heavy-duty strong grip matte claw clips designed for thick & thin hair. Does not slip or tug hair.",
+        images: [
+          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"
+        ],
+        reviews: [
+          { name: "Aashi P.", rating: 5, comment: "Colors and grip are just perfect!" }
         ]
       }
     ];
@@ -366,7 +436,7 @@
     let cart = [];
     let currentFilter = 'All';
 
-    const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe jewelry collection ke bare me inquiry karni hai.");
+    const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe collection ke bare me inquiry karni hai.");
     document.getElementById("navWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
     document.getElementById("footerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
 
@@ -374,9 +444,9 @@
       currentFilter = category;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         if(btn.dataset.cat === category) {
-          btn.className = "filter-btn px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm";
+          btn.className = "filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm";
         } else {
-          btn.className = "filter-btn px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 backdrop-blur-sm";
+          btn.className = "filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800";
         }
       });
       renderProducts();
@@ -384,19 +454,32 @@
 
     function renderProducts() {
       const grid = document.getElementById("productGrid");
-      const filtered = currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter);
+      
+      // Filter list
+      let filtered = currentFilter === 'All' ? [...products] : products.filter(p => p.category === currentFilter);
+
+      // AUTO-SORT: Highest Discount Percentage First!
+      filtered.sort((a, b) => {
+        const discA = ((a.originalPrice - a.price) / a.originalPrice);
+        const discB = ((b.originalPrice - b.price) / b.originalPrice);
+        return discB - discA;
+      });
 
       grid.innerHTML = filtered.map(item => {
         const mainImg = item.images && item.images.length > 0 ? item.images[0] : item.image;
         const imgCount = item.images ? item.images.length : 1;
+        const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
 
         return `
           <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
             <div class="relative overflow-hidden group cursor-pointer bg-neutral-900" onclick="openProductModal(${item.id})">
               <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-              <span class="absolute top-2 left-2 bg-black/85 backdrop-blur border border-amber-400/40 text-[9px] text-amber-300 px-2 py-0.5 rounded-full font-medium">
-                ${item.tag}
+              
+              <!-- HIGH-VISIBILITY BIG DISCOUNT BADGE -->
+              <span class="absolute top-2 left-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-lg border border-white/20 tracking-wider animate-pulse">
+                ${discountPercent}% OFF
               </span>
+
               <span class="absolute top-2 right-2 bg-black/75 text-[9px] text-neutral-300 px-2 py-0.5 rounded-full backdrop-blur border border-neutral-700 flex items-center gap-1">
                 📸 ${imgCount} Photos
               </span>
@@ -407,10 +490,13 @@
             
             <div class="p-3 flex-1 flex flex-col justify-between">
               <div onclick="openProductModal(${item.id})" class="cursor-pointer">
-                <h3 class="text-xs font-medium text-neutral-100 line-clamp-1 hover:text-amber-400 transition-colors">${item.title}</h3>
-                <div class="flex items-baseline gap-2 mt-1">
+                <span class="text-[9px] text-amber-400/80 uppercase font-semibold tracking-wider">${item.category}</span>
+                <h3 class="text-xs font-medium text-neutral-100 line-clamp-1 hover:text-amber-400 transition-colors mt-0.5">${item.title}</h3>
+                
+                <div class="flex items-baseline gap-1.5 mt-1.5 flex-wrap">
                   <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
                   <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
+                  <span class="text-[9px] font-extrabold text-emerald-400 bg-emerald-950/70 border border-emerald-700/60 px-1.5 py-0.2 rounded">Save ${discountPercent}%</span>
                 </div>
                 <p class="text-[10px] text-green-400 mt-1 font-medium">✔ Free COD Delivery</p>
               </div>
@@ -441,7 +527,8 @@
       activeModalImages = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
       currentImageIndex = 0;
 
-      const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging"];
+      const discountPercent = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
+      const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging / Details"];
 
       let specsHtml = '';
       if (prod.specs) {
@@ -473,7 +560,11 @@
               ${labels[0] || 'Image 1'}
             </span>
 
-            <span class="absolute top-2 left-2 bg-black/75 border border-neutral-700 text-neutral-300 text-[9px] px-2 py-0.5 rounded-full flex items-center gap-1">
+            <span class="absolute top-2 left-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-[11px] font-extrabold px-3 py-0.5 rounded-full border border-white/20">
+              🔥 SPECIAL DEAL: ${discountPercent}% OFF
+            </span>
+
+            <span class="absolute top-2 right-2 bg-black/75 border border-neutral-700 text-neutral-300 text-[9px] px-2 py-0.5 rounded-full flex items-center gap-1">
               🔍 Tap to Zoom
             </span>
           </div>
@@ -495,10 +586,11 @@
             
             <h2 class="text-base sm:text-lg font-bold text-white mt-2">${prod.title}</h2>
             
-            <div class="flex items-baseline gap-2 mt-1">
-              <span class="text-xl font-bold text-amber-400">₹${prod.price}</span>
+            <div class="flex items-baseline gap-2 mt-2 flex-wrap">
+              <span class="text-2xl font-bold text-amber-400">₹${prod.price}</span>
               <span class="text-xs text-neutral-500 line-through">₹${prod.originalPrice}</span>
-              <span class="text-[11px] text-green-400 font-semibold ml-2">Cash on Delivery Available</span>
+              <span class="text-xs font-extrabold text-white bg-emerald-600 px-2 py-0.5 rounded-md">${discountPercent}% OFF</span>
+              <span class="text-[11px] text-green-400 font-semibold ml-2">✔ Free Cash on Delivery</span>
             </div>
 
             <p class="text-xs text-neutral-300 mt-2.5 leading-relaxed bg-[#17171d] p-3 rounded-lg border border-neutral-800/80">
@@ -574,7 +666,7 @@
       currentImageIndex = index;
       const mainImg = document.getElementById("modalMainImg");
       const label = document.getElementById("activeImgLabel");
-      const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging"];
+      const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging / Details"];
 
       if (mainImg) mainImg.src = activeModalImages[index];
       if (label) label.innerText = labels[index] || `Image ${index + 1}`;
@@ -664,7 +756,7 @@
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
 
-      const msg = `Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}*\nPrice: ₹${prod.price} (MRP: ₹${prod.originalPrice})\nPayment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Full Address Yahan Likhein]`;
+      const msg = `Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}*\nCategory: ${prod.category}\nPrice: ₹${prod.price} (MRP: ₹${prod.originalPrice})\nPayment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Full Address Yahan Likhein]`;
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
@@ -722,7 +814,7 @@
           <div class="text-center py-16">
             <div class="text-3xl mb-2 text-neutral-600">🛍️</div>
             <p class="text-xs text-neutral-400">Your bag is currently empty.</p>
-            <p class="text-[10px] text-neutral-500 mt-1">Explore our collection and add your favorite pieces!</p>
+            <p class="text-[10px] text-neutral-500 mt-1">Explore our deals and add items to your bag!</p>
           </div>
         `;
         return;
@@ -759,7 +851,7 @@
       cart.forEach((item, index) => {
         const itemTotal = item.price * item.qty;
         grandTotal += itemTotal;
-        summary += `${index + 1}. ${item.title}\n   Qty: ${item.qty} | Price: ₹${itemTotal}\n`;
+        summary += `${index + 1}. ${item.title}\n   Category: ${item.category}\n   Qty: ${item.qty} | Price: ₹${itemTotal}\n`;
       });
 
       summary += `\n--------------------------\n`;
