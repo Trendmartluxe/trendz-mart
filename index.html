@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TREND MART LUXE | Premium Anti-Tarnish Jewelry</title>
+  <title>M S COLLECTION | Premium Anti-Tarnish Jewelry</title>
   
   <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -40,6 +40,13 @@
     .cart-drawer {
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -56,13 +63,12 @@
       <!-- Brand Logo & Title -->
       <a href="#" class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full border border-amber-400/40 bg-black flex items-center justify-center overflow-hidden">
-          <!-- Metallic Shopping Bag Icon Representation of Logo -->
           <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
         </div>
         <div>
-          <h1 class="font-cinzel text-lg sm:text-xl font-bold tracking-[0.18em] gold-gradient-text">TREND MART LUXE</h1>
+          <h1 class="font-cinzel text-lg sm:text-xl font-bold tracking-[0.18em] gold-gradient-text">M S COLLECTION</h1>
           <p class="text-[9px] tracking-widest text-neutral-400 uppercase">Trends You Love, Quality You Deserve</p>
         </div>
       </a>
@@ -113,7 +119,7 @@
     </div>
   </main>
 
-  <!-- Trust Badges (Makes Store Look Real & Reliable) -->
+  <!-- Trust Badges -->
   <section class="max-w-5xl mx-auto px-4 mt-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 bg-[#121216] rounded-2xl gold-border text-center">
       <div class="p-2">
@@ -165,22 +171,22 @@
     </div>
   </section>
 
-  <!-- About & Care Tips -->
+  <!-- About Section -->
   <section class="max-w-5xl mx-auto px-4 mt-14">
     <div class="bg-[#121216] p-6 rounded-2xl gold-border grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
       <div>
-        <h3 class="font-cinzel text-lg font-bold text-amber-400">About TREND MART LUXE</h3>
+        <h3 class="font-cinzel text-lg font-bold text-amber-400">About M S COLLECTION</h3>
         <p class="text-xs text-neutral-300 mt-2 leading-relaxed">
-          At Trend Mart Luxe, we believe you shouldn't have to take off your jewelry before every shower or workout. Our collection features premium stainless-steel anti-tarnish jewelry with 18K PVD gold plating designed to last forever without losing its shine.
+          At M S COLLECTION, we bring you trending anti-tarnish jewelry with premium 18K PVD gold plating. Never take off your favorites before shower or workout. Long-lasting, skin-safe, and stylish.
         </p>
       </div>
       <div class="bg-neutral-900/80 p-4 rounded-xl border border-neutral-800">
         <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider">How To Order?</h4>
         <ul class="text-xs text-neutral-400 mt-2 space-y-1.5 list-disc pl-4">
-          <li>Select your favorite designs & add to bag.</li>
+          <li>Select your favorite designs & view all images (Real, AI & Details).</li>
           <li>Click <strong class="text-neutral-200">Complete Order on WhatsApp</strong>.</li>
           <li>Share delivery address & choose Cash on Delivery.</li>
-          <li>Receive order tracking details directly on WhatsApp.</li>
+          <li>Get tracking link on WhatsApp.</li>
         </ul>
       </div>
     </div>
@@ -188,21 +194,31 @@
 
   <!-- Footer -->
   <footer class="mt-16 bg-[#09090b] border-t border-neutral-900 py-10 px-4 text-center">
-    <h3 class="font-cinzel text-base font-bold gold-gradient-text">TREND MART LUXE</h3>
+    <h3 class="font-cinzel text-base font-bold gold-gradient-text">M S COLLECTION</h3>
     <p class="text-[10px] text-neutral-500 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
     <div class="flex justify-center gap-6 text-xs text-neutral-400 mt-4">
       <a href="#productGrid" class="hover:text-amber-300">Catalog</a>
       <a id="footerWhatsappBtn" href="#" target="_blank" class="hover:text-amber-300">WhatsApp Support</a>
       <a href="javascript:alert('For returns or exchange, message us on WhatsApp with your unboxing video.')" class="hover:text-amber-300">Return Policy</a>
     </div>
-    <p class="text-[11px] text-neutral-600 mt-6">© 2026 TREND MART LUXE. All Rights Reserved.</p>
+    <p class="text-[11px] text-neutral-600 mt-6">© 2026 M S COLLECTION. All Rights Reserved.</p>
   </footer>
+
+  <!-- ==================== PRODUCT DETAIL / IMAGE GALLERY MODAL ==================== -->
+  <div id="productModalOverlay" onclick="closeProductModal()" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+  <div id="productModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-lg bg-[#111115] border border-amber-400/30 rounded-2xl z-50 hidden p-4 sm:p-6 shadow-2xl transition-all duration-300 max-h-[90vh] overflow-y-auto">
+    <!-- Close Button -->
+    <button onclick="closeProductModal()" class="absolute top-3 right-3 text-neutral-400 hover:text-white bg-black/60 rounded-full w-8 h-8 flex items-center justify-center font-bold text-base z-10">✕</button>
+
+    <!-- Modal Content Injected Here -->
+    <div id="modalContent"></div>
+  </div>
 
   <!-- Slide-Over Shopping Cart Drawer -->
   <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
 
   <div id="cartSidebar" class="cart-drawer fixed top-0 right-0 h-full w-[88%] max-w-sm bg-[#111114] border-l border-neutral-800 z-50 translate-x-full flex flex-col justify-between shadow-2xl">
-    <!-- Cart Header -->
     <div class="p-4 border-b border-neutral-800 flex items-center justify-between">
       <div>
         <h3 class="font-cinzel font-bold text-amber-400 text-sm tracking-wider">YOUR SHOPPING BAG</h3>
@@ -212,11 +228,9 @@
     </div>
 
     <!-- Items List -->
-    <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3">
-      <!-- Items dynamically injected -->
-    </div>
+    <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
 
-    <!-- Cart Footer / WhatsApp Checkout -->
+    <!-- Cart Footer -->
     <div class="p-4 border-t border-neutral-800 bg-[#0c0c0e]">
       <div class="flex justify-between items-center mb-1 text-sm font-semibold">
         <span class="text-neutral-400">Subtotal:</span>
@@ -237,12 +251,13 @@
 
   <script>
     // ===================================================================
-    // 1. APNA 10-DIGIT WHATSAPP NUMBER YAHAN DALIYE (Line 268)
+    // 1. APNA 10-DIGIT WHATSAPP NUMBER
     // ===================================================================
     const WHATSAPP_NUMBER = "918369511325"; 
 
     // ===================================================================
-    // 2. PRODUCT CATALOG (Naye product yahan easily add kar sakte hain)
+    // 2. PRODUCT CATALOG (Har product me 3 ya 4 images add kar sakte hain)
+    // [0] = Real Photo, [1] = AI Model Look, [2] = Details / Close-Up
     // ===================================================================
     const products = [
       {
@@ -253,7 +268,12 @@
         originalPrice: 999,
         tag: "Best Seller",
         rating: "4.9",
-        image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80"
+        description: "18K PVD Gold Plated premium 4-leaf clover design. Waterproof, sweatproof, and hypoallergenic for everyday wear.",
+        images: [
+          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80", // 1. Real Photo
+          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80", // 2. AI Model Look
+          "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80"  // 3. Details Close-up
+        ]
       },
       {
         id: 2,
@@ -263,7 +283,12 @@
         originalPrice: 799,
         tag: "Trending",
         rating: "4.8",
-        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80"
+        description: "Sleek liquid-gold look. Flexible snake bone chain designed for comfortable layering.",
+        images: [
+          "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=700&q=80"
+        ]
       },
       {
         id: 3,
@@ -273,7 +298,12 @@
         originalPrice: 699,
         tag: "Anti-Tarnish",
         rating: "4.9",
-        image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80"
+        description: "Ultra-lightweight hollow chunky hoops. Guaranteed non-fading luster even with regular perfume & water contact.",
+        images: [
+          "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80"
+        ]
       },
       {
         id: 4,
@@ -283,7 +313,12 @@
         originalPrice: 1199,
         tag: "18K Plated",
         rating: "5.0",
-        image: "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=600&q=80"
+        description: "Signature Roman numeral engraved oval cuff bracelet. Easy snap lock and lifetime color warranty.",
+        images: [
+          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"
+        ]
       },
       {
         id: 5,
@@ -293,7 +328,12 @@
         originalPrice: 899,
         tag: "Hot Pick",
         rating: "4.8",
-        image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=600&q=80"
+        description: "Vibrant blue enamel with sparkling zirconia accents. Protects against negative energies while keeping style high.",
+        images: [
+          "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80"
+        ]
       },
       {
         id: 6,
@@ -303,7 +343,12 @@
         originalPrice: 749,
         tag: "Waterproof",
         rating: "4.9",
-        image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80"
+        description: "Freshwater imitation pearl drops hanging from gold huggies. Classy aesthetic for daily office or college wear.",
+        images: [
+          "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=700&q=80",
+          "https://images.unsplash.com/photo-1611591475817-f58c704f5e08?auto=format&fit=crop&w=700&q=80"
+        ]
       }
     ];
 
@@ -311,7 +356,7 @@
     let currentFilter = 'All';
 
     // Header Links setup
-    const defaultMsg = encodeURIComponent("Hello TREND MART LUXE! Mujhe collection ke bare me inquiry karni hai.");
+    const defaultMsg = encodeURIComponent("Hello M S COLLECTION! Mujhe jewelry collection ke bare me inquiry karni hai.");
     document.getElementById("navWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
     document.getElementById("footerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
 
@@ -333,39 +378,195 @@
       const grid = document.getElementById("productGrid");
       const filtered = currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter);
 
-      grid.innerHTML = filtered.map(item => `
-        <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
-          <div class="relative overflow-hidden group">
-            <img src="${item.image}" alt="${item.title}" class="w-full h-44 sm:h-52 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-            <span class="absolute top-2 left-2 bg-black/85 backdrop-blur border border-amber-400/40 text-[9px] text-amber-300 px-2 py-0.5 rounded-full font-medium">
-              ${item.tag}
-            </span>
-            <span class="absolute bottom-2 right-2 bg-black/80 text-[10px] text-amber-400 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5">
-              ★ ${item.rating}
-            </span>
-          </div>
-          
-          <div class="p-3 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-xs font-medium text-neutral-100 line-clamp-1">${item.title}</h3>
-              <div class="flex items-baseline gap-2 mt-1">
-                <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
-                <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
-              </div>
-              <p class="text-[10px] text-green-400 mt-1 font-medium">✔ Free COD Delivery</p>
-            </div>
+      grid.innerHTML = filtered.map(item => {
+        const mainImg = item.images && item.images.length > 0 ? item.images[0] : item.image;
+        const imgCount = item.images ? item.images.length : 1;
 
-            <div class="mt-3 grid grid-cols-1 gap-1.5">
-              <button onclick="addToCart(${item.id})" class="w-full py-2 rounded-lg text-xs font-semibold gold-btn active:scale-95 transition-transform flex items-center justify-center gap-1">
-                <span>+ Add to Bag</span>
-              </button>
+        return `
+          <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
+            
+            <!-- Clickable Image area to open modal -->
+            <div class="relative overflow-hidden group cursor-pointer" onclick="openProductModal(${item.id})">
+              <img src="${mainImg}" alt="${item.title}" class="w-full h-44 sm:h-52 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+              
+              <span class="absolute top-2 left-2 bg-black/85 backdrop-blur border border-amber-400/40 text-[9px] text-amber-300 px-2 py-0.5 rounded-full font-medium">
+                ${item.tag}
+              </span>
+              
+              <!-- Badge showing multi-images -->
+              <span class="absolute top-2 right-2 bg-black/75 text-[9px] text-neutral-300 px-2 py-0.5 rounded-full backdrop-blur border border-neutral-700 flex items-center gap-1">
+                📸 ${imgCount} Photos
+              </span>
+
+              <span class="absolute bottom-2 right-2 bg-black/80 text-[10px] text-amber-400 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5">
+                ★ ${item.rating}
+              </span>
+            </div>
+            
+            <div class="p-3 flex-1 flex flex-col justify-between">
+              <div onclick="openProductModal(${item.id})" class="cursor-pointer">
+                <h3 class="text-xs font-medium text-neutral-100 line-clamp-1 hover:text-amber-400 transition-colors">${item.title}</h3>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
+                  <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
+                </div>
+                <p class="text-[10px] text-green-400 mt-1 font-medium">✔ Free COD Delivery</p>
+              </div>
+
+              <div class="mt-3 grid grid-cols-2 gap-1.5">
+                <button onclick="openProductModal(${item.id})" class="py-2 rounded-lg text-[11px] font-medium border border-neutral-700 text-neutral-300 hover:border-amber-400 hover:text-white transition-all">
+                  View (${imgCount})
+                </button>
+                <button onclick="addToCart(${item.id})" class="py-2 rounded-lg text-[11px] font-semibold gold-btn active:scale-95 transition-transform flex items-center justify-center gap-1">
+                  <span>+ Bag</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
-    // Toggle Cart Slider
+    // ==================== MULTI-IMAGE POPUP GALLERY ====================
+    let activeModalImages = [];
+    let currentImageIndex = 0;
+
+    function openProductModal(productId) {
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      activeModalImages = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
+      currentImageIndex = 0;
+
+      const labels = ["1. Real Look", "2. AI Model Look", "3. Detail / Clasp", "4. Packaging"];
+
+      const modalContent = document.getElementById("modalContent");
+      modalContent.innerHTML = `
+        <div class="space-y-4">
+          <!-- Main Big Image Display with Prev/Next buttons -->
+          <div class="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden bg-black border border-neutral-800">
+            <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-cover transition-opacity duration-200" />
+            
+            ${activeModalImages.length > 1 ? `
+              <button onclick="prevModalImg()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-700">❮</button>
+              <button onclick="nextModalImg()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-700">❯</button>
+            ` : ''}
+
+            <span id="activeImgLabel" class="absolute bottom-2 left-2 bg-black/80 text-[10px] text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+              ${labels[0] || 'Image 1'}
+            </span>
+          </div>
+
+          <!-- Thumbnail Strip (Click to switch image) -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+            ${activeModalImages.map((img, i) => `
+              <button onclick="setModalImg(${i})" class="thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 ${i === 0 ? 'border-amber-400' : 'border-neutral-800'} transition-all" id="thumb-${i}">
+                <img src="${img}" class="w-16 h-16 object-cover" />
+                <span class="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] text-center text-neutral-300 py-0.5">${labels[i] ? labels[i].split('.')[1].trim() : `Photo ${i+1}`}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Product Info -->
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase tracking-wider text-amber-400 bg-amber-950/40 border border-amber-800 px-2 py-0.5 rounded-md font-semibold">${prod.tag}</span>
+              <span class="text-xs text-amber-400 font-semibold">★ ${prod.rating} Rating</span>
+            </div>
+            
+            <h2 class="text-base sm:text-lg font-bold text-white mt-2">${prod.title}</h2>
+            
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-lg font-bold text-amber-400">₹${prod.price}</span>
+              <span class="text-xs text-neutral-500 line-through">₹${prod.originalPrice}</span>
+              <span class="text-[11px] text-green-400 font-semibold ml-2">Cash on Delivery Available</span>
+            </div>
+
+            <p class="text-xs text-neutral-400 mt-3 leading-relaxed bg-[#17171d] p-3 rounded-lg border border-neutral-800/80">
+              ${prod.description}
+            </p>
+          </div>
+
+          <!-- Modal Action Buttons -->
+          <div class="grid grid-cols-2 gap-2 pt-2">
+            <button onclick="addToCart(${prod.id}); closeProductModal();" class="w-full py-3 rounded-xl font-bold text-xs gold-btn active:scale-95 transition-transform">
+              Add to Bag (₹${prod.price})
+            </button>
+            <button onclick="orderSingleProductWhatsApp(${prod.id})" class="w-full py-3 rounded-xl font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white active:scale-95 transition-transform flex items-center justify-center gap-1.5">
+              <span>Order on WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Show Modal
+      const modal = document.getElementById("productModal");
+      const overlay = document.getElementById("productModalOverlay");
+      overlay.classList.remove("hidden");
+      modal.classList.remove("hidden");
+      setTimeout(() => {
+        overlay.classList.remove("opacity-0");
+      }, 10);
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById("productModal");
+      const overlay = document.getElementById("productModalOverlay");
+      overlay.classList.add("opacity-0");
+      setTimeout(() => {
+        overlay.classList.add("hidden");
+        modal.classList.add("hidden");
+      }, 250);
+    }
+
+    function setModalImg(index) {
+      currentImageIndex = index;
+      const mainImg = document.getElementById("modalMainImg");
+      const label = document.getElementById("activeImgLabel");
+      const labels = ["1. Real Look", "2. AI Model Look", "3. Detail / Clasp", "4. Packaging"];
+
+      if (mainImg) mainImg.src = activeModalImages[index];
+      if (label) label.innerText = labels[index] || `Image ${index + 1}`;
+
+      // Update active thumbnail border
+      activeModalImages.forEach((_, i) => {
+        const thumb = document.getElementById(`thumb-${i}`);
+        if (thumb) {
+          if (i === index) {
+            thumb.className = "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 border-amber-400 transition-all";
+          } else {
+            thumb.className = "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 border-neutral-800 transition-all";
+          }
+        }
+      });
+    }
+
+    function prevModalImg() {
+      if (currentImageIndex > 0) {
+        setModalImg(currentImageIndex - 1);
+      } else {
+        setModalImg(activeModalImages.length - 1);
+      }
+    }
+
+    function nextModalImg() {
+      if (currentImageIndex < activeModalImages.length - 1) {
+        setModalImg(currentImageIndex + 1);
+      } else {
+        setModalImg(0);
+      }
+    }
+
+    // Direct Single Product WhatsApp Order
+    function orderSingleProductWhatsApp(productId) {
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      const msg = `Hello M S COLLECTION! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}*\nPrice: ₹${prod.price}\nPayment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Full Address Yahan Likhein]`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    // ==================== CART OPERATIONS ====================
     function toggleCart() {
       const sidebar = document.getElementById("cartSidebar");
       const overlay = document.getElementById("cartOverlay");
@@ -382,7 +583,6 @@
       }
     }
 
-    // Cart Operations
     function addToCart(productId) {
       const existing = cart.find(p => p.id === productId);
       if (existing) {
@@ -427,30 +627,33 @@
         return;
       }
 
-      cartList.innerHTML = cart.map(item => `
-        <div class="flex items-center gap-3 bg-[#17171c] p-2.5 rounded-xl border border-neutral-800/80">
-          <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover" />
-          <div class="flex-1">
-            <h4 class="text-xs font-medium text-white line-clamp-1">${item.title}</h4>
-            <p class="text-xs text-amber-400 font-bold mt-0.5">₹${item.price}</p>
+      cartList.innerHTML = cart.map(item => {
+        const img = item.images && item.images.length > 0 ? item.images[0] : item.image;
+        return `
+          <div class="flex items-center gap-3 bg-[#17171c] p-2.5 rounded-xl border border-neutral-800/80">
+            <img src="${img}" class="w-12 h-12 rounded-lg object-cover" />
+            <div class="flex-1">
+              <h4 class="text-xs font-medium text-white line-clamp-1">${item.title}</h4>
+              <p class="text-xs text-amber-400 font-bold mt-0.5">₹${item.price}</p>
+            </div>
+            <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-2 py-1 rounded-lg">
+              <button onclick="updateQty(${item.id}, -1)" class="text-xs text-neutral-400 hover:text-white font-bold px-1">−</button>
+              <span class="text-xs font-semibold text-white">${item.qty}</span>
+              <button onclick="updateQty(${item.id}, 1)" class="text-xs text-neutral-400 hover:text-white font-bold px-1">+</button>
+            </div>
           </div>
-          <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-2 py-1 rounded-lg">
-            <button onclick="updateQty(${item.id}, -1)" class="text-xs text-neutral-400 hover:text-white font-bold px-1">−</button>
-            <span class="text-xs font-semibold text-white">${item.qty}</span>
-            <button onclick="updateQty(${item.id}, 1)" class="text-xs text-neutral-400 hover:text-white font-bold px-1">+</button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
-    // Direct WhatsApp Checkout Formatter
+    // Complete Checkout on WhatsApp
     function sendOrderViaWhatsApp() {
       if (cart.length === 0) {
         alert("Aapka cart khaali hai!");
         return;
       }
 
-      let summary = "Hello TREND MART LUXE! 🛍️✨\n\nMujhe ye order confirm karna hai:\n\n";
+      let summary = "Hello M S COLLECTION! 🛍️✨\n\nMujhe ye order confirm karna hai:\n\n";
       let grandTotal = 0;
 
       cart.forEach((item, index) => {
