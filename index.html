@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TREND MART LUXE | Anti-Tarnish Jewelry & Trending</title>
+  <title>TREND MART LUXE | Anti-Tarnish Luxury Collection</title>
   
-  <!-- Tailwind CSS CDN for instant responsive design -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -25,58 +24,86 @@
     .gold-border {
       border: 1px solid rgba(212, 175, 55, 0.25);
     }
+    .cart-drawer {
+      transition: transform 0.3s ease-in-out;
+    }
   </style>
 </head>
-<body class="min-h-screen pb-12">
+<body class="min-h-screen pb-24">
 
-  <!-- Top Announcement Bar -->
+  <!-- Announcement Bar -->
   <div class="bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-black text-center text-xs font-semibold py-2 px-3 tracking-wide sticky top-0 z-50">
     ✨ Free Delivery & Cash on Delivery (COD) Available ✨
   </div>
 
-  <!-- Header / Navigation -->
-  <header class="border-b border-neutral-800 bg-[#111113]/90 backdrop-blur sticky top-8 z-40 px-4 py-4 flex items-center justify-between">
+  <!-- Header -->
+  <header class="border-b border-neutral-800 bg-[#111113]/95 backdrop-blur sticky top-8 z-40 px-4 py-3.5 flex items-center justify-between">
     <div>
-      <h1 class="brand-title text-xl font-bold tracking-widest text-amber-400">TREND MART LUXE</h1>
-      <p class="text-[10px] tracking-wider text-neutral-400 uppercase">Premium Anti-Tarnish Collection</p>
+      <h1 class="brand-title text-lg font-bold tracking-widest text-amber-400">TREND MART LUXE</h1>
+      <p class="text-[9px] tracking-wider text-neutral-400 uppercase">Premium Anti-Tarnish Collection</p>
     </div>
-    <a id="headerWhatsappBtn" href="#" target="_blank" class="px-3 py-1.5 rounded-full text-xs font-medium gold-gradient flex items-center gap-1.5 shadow-md">
-      💬 Chat
-    </a>
+
+    <!-- Cart Trigger Button -->
+    <button onclick="toggleCart()" class="relative p-2 rounded-full bg-neutral-800 border border-neutral-700 text-amber-400 active:scale-95 transition-transform flex items-center gap-1">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+      </svg>
+      <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+    </button>
   </header>
 
-  <!-- Hero Section -->
-  <div class="px-4 py-6 text-center max-w-lg mx-auto">
-    <span class="text-[11px] font-semibold tracking-widest text-amber-400 uppercase bg-amber-950/40 border border-amber-800/40 px-3 py-1 rounded-full">
-      Waterproof • Anti-Tarnish • 18K PVD Plating
+  <!-- Hero Headline -->
+  <div class="px-4 py-5 text-center max-w-lg mx-auto">
+    <span class="text-[10px] font-semibold tracking-widest text-amber-400 uppercase bg-amber-950/40 border border-amber-800/40 px-3 py-1 rounded-full">
+      Waterproof • Anti-Tarnish • COD Available
     </span>
-    <h2 class="text-2xl font-bold mt-3 text-white">Daily Wear Luxury Jewelry</h2>
-    <p class="text-xs text-neutral-400 mt-1">Tap on any product to instantly order on WhatsApp with Cash on Delivery.</p>
+    <h2 class="text-xl font-bold mt-2 text-white">Daily Wear Luxury Jewelry</h2>
   </div>
 
-  <!-- Products Grid (Mobile 2-columns) -->
+  <!-- Product Catalog (Mobile 2-Column) -->
   <main class="max-w-4xl mx-auto px-3">
     <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-      <!-- Products will render here automatically -->
+      <!-- Generated via JS -->
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="mt-12 text-center text-xs text-neutral-500 border-t border-neutral-900 pt-6 px-4">
-    <p class="font-semibold text-neutral-400 tracking-wider">TREND MART LUXE</p>
-    <p class="mt-1">100% Anti-Tarnish & Premium Quality Guaranteed.</p>
-    <p class="mt-3">Cash on Delivery Available Across India 🇮🇳</p>
-  </footer>
+  <!-- Cart Backdrop & Slide Drawer -->
+  <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity"></div>
 
-  <!-- JAVASCRIPT: Yahan Product List Aur WhatsApp Number Hai -->
+  <div id="cartSidebar" class="cart-drawer fixed top-0 right-0 h-full w-[85%] max-w-sm bg-[#121215] border-l border-neutral-800 z-50 translate-x-full flex flex-col justify-between shadow-2xl">
+    <!-- Drawer Header -->
+    <div class="p-4 border-b border-neutral-800 flex items-center justify-between">
+      <h3 class="font-bold text-amber-400 tracking-wider">Your Shopping Bag</h3>
+      <button onclick="toggleCart()" class="text-neutral-400 text-lg font-bold p-1">✕</button>
+    </div>
+
+    <!-- Items List -->
+    <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3">
+      <!-- Cart Items Render Here -->
+    </div>
+
+    <!-- Drawer Footer / WhatsApp Checkout -->
+    <div class="p-4 border-t border-neutral-800 bg-[#0f0f12]">
+      <div class="flex justify-between items-center mb-1 text-sm font-semibold">
+        <span class="text-neutral-300">Subtotal:</span>
+        <span id="cartTotal" class="text-amber-400 font-bold text-base">₹0</span>
+      </div>
+      <p class="text-[10px] text-green-400 mb-3">✔ Free Shipping & COD Included</p>
+      
+      <button onclick="sendOrderViaWhatsApp()" class="w-full py-3 rounded-xl font-bold text-xs gold-gradient flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+        <span>Complete Order on WhatsApp</span>
+      </button>
+    </div>
+  </div>
+
   <script>
     // -------------------------------------------------------------------
-    // 1. APNA WHATSAPP NUMBER YAHAN DALIYE (Bina + ke, jaise 918369511325)
+    // 1. APNA WHATSAPP NUMBER YAHAN DALIYE (Bina + ke)
     // -------------------------------------------------------------------
     const WHATSAPP_NUMBER = "918369511325"; 
 
     // -------------------------------------------------------------------
-    // 2. PRODUCTS KI LIST (Baad me naya product add karna ho toh yahin add karein)
+    // 2. PRODUCTS KI LIST
     // -------------------------------------------------------------------
     const products = [
       {
@@ -113,42 +140,136 @@
       }
     ];
 
-    // Setup Header General Chat Button
-    document.getElementById("headerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello TREND MART LUXE! Mujhe collection ke baare me poochhna hai.")}`;
+    let cart = [];
 
-    // Function to generate WhatsApp Order Link
-    function getOrderLink(product) {
-      const msg = `Hello TREND MART LUXE! 🛍️\n\nMujhe ye order karna hai:\n- Product: ${product.title}\n- Price: ₹${product.price}\n- Payment: Cash on Delivery (COD)\n\nKripya order details confirm karein.`;
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    // Render Products Grid
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = products.map(item => `
+        <div class="bg-[#151518] rounded-xl overflow-hidden gold-border flex flex-col justify-between shadow-lg">
+          <div class="relative">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-40 sm:h-52 object-cover bg-neutral-900" loading="lazy" />
+            <span class="absolute top-2 left-2 bg-black/80 backdrop-blur border border-amber-400/40 text-[9px] text-amber-300 px-2 py-0.5 rounded-full font-medium">
+              ${item.tag}
+            </span>
+          </div>
+          
+          <div class="p-2.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xs font-semibold text-neutral-100 line-clamp-1">${item.title}</h3>
+              <div class="flex items-baseline gap-1.5 mt-1">
+                <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
+                <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
+              </div>
+            </div>
+
+            <button onclick="addToCart(${item.id})" class="mt-2.5 w-full py-2 rounded-lg text-[11px] font-semibold gold-gradient active:scale-95 transition-transform flex items-center justify-center gap-1">
+              <span>+ Add to Cart</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
     }
 
-    // Render Products to Screen
-    const grid = document.getElementById("productGrid");
-    grid.innerHTML = products.map(item => `
-      <div class="bg-[#151518] rounded-xl overflow-hidden gold-border flex flex-col justify-between shadow-lg">
-        <div class="relative">
-          <img src="${item.image}" alt="${item.title}" class="w-full h-44 sm:h-56 object-cover bg-neutral-900" loading="lazy" />
-          <span class="absolute top-2 left-2 bg-black/80 backdrop-blur border border-amber-400/40 text-[10px] text-amber-300 px-2 py-0.5 rounded-full font-medium">
-            ${item.tag}
-          </span>
-        </div>
-        
-        <div class="p-3 flex-1 flex flex-col justify-between">
-          <div>
-            <h3 class="text-xs font-semibold text-neutral-100 line-clamp-2">${item.title}</h3>
-            <div class="flex items-baseline gap-2 mt-1">
-              <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
-              <span class="text-[11px] text-neutral-500 line-through">₹${item.originalPrice}</span>
-            </div>
-            <p class="text-[10px] text-green-400 mt-0.5">✔ COD Available</p>
-          </div>
+    // Toggle Cart Drawer
+    function toggleCart() {
+      const sidebar = document.getElementById("cartSidebar");
+      const overlay = document.getElementById("cartOverlay");
+      const isClosed = sidebar.classList.contains("translate-x-full");
 
-          <a href="${getOrderLink(item)}" target="_blank" class="mt-3 block w-full text-center py-2 rounded-lg text-xs font-semibold gold-gradient active:scale-95 transition-transform">
-            Order on WhatsApp
-          </a>
+      if (isClosed) {
+        sidebar.classList.remove("translate-x-full");
+        overlay.classList.remove("hidden");
+        setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+      } else {
+        sidebar.classList.add("translate-x-full");
+        overlay.classList.add("opacity-0");
+        setTimeout(() => overlay.classList.add("hidden"), 300);
+      }
+    }
+
+    // Add To Cart Function
+    function addToCart(productId) {
+      const existing = cart.find(p => p.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        const prod = products.find(p => p.id === productId);
+        cart.push({ ...prod, qty: 1 });
+      }
+      updateCartUI();
+      toggleCart();
+    }
+
+    // Modify Quantities
+    function updateQty(id, delta) {
+      const item = cart.find(p => p.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(p => p.id !== id);
+      }
+      updateCartUI();
+    }
+
+    // Update Cart HTML & Counter
+    function updateCartUI() {
+      const cartCount = document.getElementById("cartCount");
+      const cartList = document.getElementById("cartItemsList");
+      const cartTotal = document.getElementById("cartTotal");
+
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+      cartCount.innerText = totalItems;
+      cartTotal.innerText = `₹${totalPrice}`;
+
+      if (cart.length === 0) {
+        cartList.innerHTML = `<div class="text-center py-12 text-xs text-neutral-500">Your bag is empty.</div>`;
+        return;
+      }
+
+      cartList.innerHTML = cart.map(item => `
+        <div class="flex items-center gap-3 bg-neutral-900/60 p-2.5 rounded-lg border border-neutral-800">
+          <img src="${item.image}" class="w-12 h-12 rounded object-cover" />
+          <div class="flex-1">
+            <h4 class="text-xs font-medium text-white line-clamp-1">${item.title}</h4>
+            <p class="text-xs text-amber-400 font-bold mt-0.5">₹${item.price}</p>
+          </div>
+          <div class="flex items-center gap-2 bg-neutral-800 px-2 py-1 rounded">
+            <button onclick="updateQty(${item.id}, -1)" class="text-xs text-neutral-300 font-bold px-1">−</button>
+            <span class="text-xs text-white">${item.qty}</span>
+            <button onclick="updateQty(${item.id}, 1)" class="text-xs text-neutral-300 font-bold px-1">+</button>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
+    }
+
+    // Checkout via WhatsApp
+    function sendOrderViaWhatsApp() {
+      if (cart.length === 0) {
+        alert("Aapka cart khaali hai!");
+        return;
+      }
+
+      let summary = "Hello TREND MART LUXE! 🛍️\n\nMujhe ye products order karne hain:\n\n";
+      let grandTotal = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        grandTotal += itemTotal;
+        summary += `${index + 1}. ${item.title} (x${item.qty}) - ₹${itemTotal}\n`;
+      });
+
+      summary += `\nTotal Amount: ₹${grandTotal}\nPayment: Cash on Delivery (COD)\n\nKripya mera order confirm karein!`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(summary)}`;
+      window.open(url, "_blank");
+    }
+
+    // Run On Load
+    renderProducts();
+    updateCartUI();
   </script>
 </body>
 </html>
