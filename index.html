@@ -114,7 +114,7 @@
   <!-- Product Catalog Grid -->
   <main class="max-w-5xl mx-auto px-3 sm:px-6">
     <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
-      <!-- Products render dynamically -->
+      <!-- Dynamic Products -->
     </div>
   </main>
 
@@ -144,7 +144,7 @@
     </div>
   </section>
 
-  <!-- Customer Reviews Section (With Submit Feature) -->
+  <!-- Customer Reviews Section -->
   <section class="max-w-5xl mx-auto px-4 mt-14">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
       <div>
@@ -156,7 +156,7 @@
       </button>
     </div>
 
-    <!-- Add Store Review Form -->
+    <!-- Review Form -->
     <div id="storeReviewForm" class="hidden bg-[#141418] p-4 rounded-xl gold-border mb-6">
       <h4 class="text-xs font-bold text-white mb-2 uppercase">Share Your Experience</h4>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
@@ -172,7 +172,7 @@
     </div>
 
     <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-      <!-- Reviews inject here -->
+      <!-- Store Reviews -->
     </div>
   </section>
 
@@ -188,7 +188,7 @@
       <div class="bg-neutral-900/80 p-4 rounded-xl border border-neutral-800">
         <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider">How To Order?</h4>
         <ul class="text-xs text-neutral-400 mt-2 space-y-1.5 list-disc pl-4">
-          <li>Select your favorite designs & view all images (Real, AI & Details)[span_0](start_span)[span_0](end_span).</li>
+          <li>Select your favorite designs & view all images (Real, AI & Details).</li>
           <li>Click <strong class="text-neutral-200">Complete Order on WhatsApp</strong>.</li>
           <li>Share delivery address & choose Cash on Delivery.</li>
           <li>Get tracking link on WhatsApp.</li>
@@ -209,12 +209,19 @@
     <p class="text-[11px] text-neutral-600 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
 
-  <!-- ==================== PRODUCT DETAIL / GALLERY & REVIEW MODAL ==================== -->
+  <!-- ==================== PRODUCT DETAIL MODAL ==================== -->
   <div id="productModalOverlay" onclick="closeProductModal()" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
 
   <div id="productModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-lg bg-[#111115] border border-amber-400/30 rounded-2xl z-50 hidden p-4 sm:p-6 shadow-2xl transition-all duration-300 max-h-[92vh] overflow-y-auto">
     <button onclick="closeProductModal()" class="absolute top-3 right-3 text-neutral-400 hover:text-white bg-black/70 rounded-full w-8 h-8 flex items-center justify-center font-bold text-base z-10">✕</button>
     <div id="modalContent"></div>
+  </div>
+
+  <!-- ==================== FULLSCREEN ZOOM LIGHTBOX ==================== -->
+  <div id="zoomModal" onclick="closeZoomModal()" class="fixed inset-0 bg-black/95 z-[70] hidden flex items-center justify-center p-2 backdrop-blur-md">
+    <button onclick="closeZoomModal()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg z-[80]">✕</button>
+    <img id="zoomModalImg" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl transition-transform duration-300" />
+    <span class="absolute bottom-4 bg-black/75 border border-neutral-700 text-neutral-300 text-xs px-3 py-1 rounded-full pointer-events-none">Pinch or double tap to zoom | Tap ✕ to close</span>
   </div>
 
   <!-- Slide-Over Shopping Cart Drawer -->
@@ -229,10 +236,8 @@
       <button onclick="toggleCart()" class="text-neutral-400 hover:text-white text-xl font-bold p-1">✕</button>
     </div>
 
-    <!-- Items List -->
     <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
 
-    <!-- Cart Footer -->
     <div class="p-4 border-t border-neutral-800 bg-[#0c0c0e]">
       <div class="flex justify-between items-center mb-1 text-sm font-semibold">
         <span class="text-neutral-400">Subtotal:</span>
@@ -258,7 +263,7 @@
     // PRODUCT CATALOG
     // ===================================================================
     const products = [
-            {
+      {
         id: 1,
         title: "Emerald Green Heart Pendant Snake Chain Necklace",
         category: "Necklace",
@@ -285,7 +290,6 @@
           { name: "Kavita M.", rating: 5, comment: "Wore it continuously for 4 days in water, no color loss. Total value for money at ₹449!" }
         ]
       },
-
       {
         id: 2,
         title: "Snake Bone Minimalist Gold Choker",
@@ -385,8 +389,8 @@
 
         return `
           <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
-            <div class="relative overflow-hidden group cursor-pointer" onclick="openProductModal(${item.id})">
-              <img src="${mainImg}" alt="${item.title}" class="w-full h-44 sm:h-52 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+            <div class="relative overflow-hidden group cursor-pointer bg-neutral-900" onclick="openProductModal(${item.id})">
+              <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
               <span class="absolute top-2 left-2 bg-black/85 backdrop-blur border border-amber-400/40 text-[9px] text-amber-300 px-2 py-0.5 rounded-full font-medium">
                 ${item.tag}
               </span>
@@ -454,23 +458,29 @@
       const modalContent = document.getElementById("modalContent");
       modalContent.innerHTML = `
         <div class="space-y-4">
-          <div class="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden bg-black border border-neutral-800">
-            <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-cover transition-opacity duration-200" />
+          <!-- Main Image Display Container (Click to Zoom) -->
+          <div class="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden bg-black/90 border border-neutral-800 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
+            <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-contain transition-opacity duration-200" />
             
             ${activeModalImages.length > 1 ? `
-              <button onclick="prevModalImg()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-700">❮</button>
-              <button onclick="nextModalImg()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-700">❯</button>
+              <button onclick="event.stopPropagation(); prevModalImg();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-700">❮</button>
+              <button onclick="event.stopPropagation(); nextModalImg();" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-700">❯</button>
             ` : ''}
 
             <span id="activeImgLabel" class="absolute bottom-2 left-2 bg-black/85 text-[10px] text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/30 font-medium">
               ${labels[0] || 'Image 1'}
             </span>
+
+            <span class="absolute top-2 left-2 bg-black/75 border border-neutral-700 text-neutral-300 text-[9px] px-2 py-0.5 rounded-full flex items-center gap-1">
+              🔍 Tap to Zoom
+            </span>
           </div>
 
+          <!-- Thumbnail Strip -->
           <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             ${activeModalImages.map((img, i) => `
-              <button onclick="setModalImg(${i})" class="thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 ${i === 0 ? 'border-amber-400' : 'border-neutral-800'} transition-all" id="thumb-${i}">
-                <img src="${img}" class="w-16 h-16 object-cover" />
+              <button onclick="setModalImg(${i})" class="thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 bg-neutral-900 ${i === 0 ? 'border-amber-400' : 'border-neutral-800'} transition-all" id="thumb-${i}">
+                <img src="${img}" class="w-16 h-16 object-contain" />
                 <span class="absolute bottom-0 inset-x-0 bg-black/85 text-[8px] text-center text-neutral-300 py-0.5">${labels[i] ? labels[i].split('.')[1].trim() : `Photo ${i+1}`}</span>
               </button>
             `).join('')}
@@ -573,8 +583,8 @@
         const thumb = document.getElementById(`thumb-${i}`);
         if (thumb) {
           thumb.className = i === index 
-            ? "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 border-amber-400 transition-all"
-            : "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 border-neutral-800 transition-all";
+            ? "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 bg-neutral-900 border-amber-400 transition-all"
+            : "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 bg-neutral-900 border-neutral-800 transition-all";
         }
       });
     }
@@ -585,6 +595,18 @@
 
     function nextModalImg() {
       setModalImg(currentImageIndex < activeModalImages.length - 1 ? currentImageIndex + 1 : 0);
+    }
+
+    // Zoom Lightbox Functions
+    function openZoomModal() {
+      const zoomModal = document.getElementById("zoomModal");
+      const zoomModalImg = document.getElementById("zoomModalImg");
+      zoomModalImg.src = activeModalImages[currentImageIndex];
+      zoomModal.classList.remove("hidden");
+    }
+
+    function closeZoomModal() {
+      document.getElementById("zoomModal").classList.add("hidden");
     }
 
     function submitProductReview(productId) {
