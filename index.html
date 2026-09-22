@@ -90,39 +90,97 @@
     </div>
   </header>
 
-  <!-- Luxury Hero Banner with Dark Silk HD Background -->
-  <section class="relative px-5 pt-14 pb-12 text-center max-w-4xl mx-auto my-5 rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(11, 11, 14, 0.76), rgba(11, 11, 14, 0.94)), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1600&q=85');">
-    <span class="inline-block text-[10px] sm:text-[11px] font-bold tracking-[0.22em] text-amber-300 uppercase bg-black/70 border border-amber-500/40 px-4 py-1 rounded-full backdrop-blur-md shadow-sm">
-      ✨ Anti-Tarnish Jewelry & Trending Lifestyle Finds ✨
-    </span>
-    <h2 class="font-cinzel text-2xl sm:text-4xl font-bold mt-4 text-white leading-tight tracking-wider">
-      BIGGEST SAVINGS & TOP TRENDS
-    </h2>
-    <p class="text-xs sm:text-sm text-neutral-300 mt-3 max-w-md mx-auto leading-relaxed">
-      Curated premium jewelry, viral aesthetic organizers, cute water sippers & hair accessories. Flat massive discounts with Cash on Delivery.
-    </p>
+  <!-- Top Search & Quick Category Filters Bar -->
+  <section class="max-w-5xl mx-auto px-4 pt-4">
+    <div class="bg-[#121216] border border-neutral-800 rounded-2xl p-3 shadow-lg">
+      <div class="relative mb-3">
+        <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400 pointer-events-none">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </span>
+        <input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search anti-tarnish kada, necklaces, earrings, rings..." class="w-full pl-9 pr-4 py-2 bg-black/60 border border-neutral-800 rounded-xl text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400 transition-colors" />
+      </div>
 
-    <!-- Category Filter Tabs (Scrollable on Mobile) -->
-    <div class="flex items-center justify-start sm:justify-center gap-2 mt-6 overflow-x-auto pb-2 text-xs no-scrollbar">
-      <button onclick="filterCategory('All')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm" data-cat="All">All Deals</button>
-      <button onclick="filterCategory('Necklace')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Necklace">Necklaces</button>
-      <button onclick="filterCategory('Earrings')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Earrings">Earrings</button>
-      <button onclick="filterCategory('Kada & Rings')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Kada & Rings">Kada & Rings</button>
-      <button onclick="filterCategory('Clips & Accessories')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Clips & Accessories">Clips & Hair</button>
-      <button onclick="filterCategory('Makeup Boxes')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Makeup Boxes">Makeup Box</button>
-      <button onclick="filterCategory('Water Sippers')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800" data-cat="Water Sippers">Water Sippers</button>
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+        <button onclick="filterCategory('All')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm" data-cat="All">All</button>
+        <button onclick="filterCategory('Anti-Tarnish Kada')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Anti-Tarnish Kada">Anti-Tarnish Kada</button>
+        <button onclick="filterCategory('Anti-Tarnish Necklaces')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Anti-Tarnish Necklaces">Anti-Tarnish Necklaces</button>
+        <button onclick="filterCategory('Anti-Tarnish Bangles')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Anti-Tarnish Bangles">Anti-Tarnish Bangles</button>
+        <button onclick="filterCategory('Anti-Tarnish Earrings')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Anti-Tarnish Earrings">Anti-Tarnish Earrings</button>
+        <button onclick="filterCategory('Anti-Tarnish Rings')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Anti-Tarnish Rings">Rings</button>
+        <button onclick="filterCategory('Insta Unique Products')" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Insta Unique Products">Insta Unique Products</button>
+      </div>
     </div>
   </section>
 
-  <!-- Product Catalog Grid (Sorted by Highest Discount First) -->
-  <main class="max-w-5xl mx-auto px-3 sm:px-6">
-    <div class="flex items-center justify-between mb-3 px-1">
-      <span class="text-[11px] uppercase tracking-widest text-neutral-400 font-semibold">⚡ Top Discounted Deals</span>
-      <span class="text-[10px] text-amber-400 bg-amber-950/60 border border-amber-800/80 px-2 py-0.5 rounded">Highest % OFF First</span>
+  <!-- ==================== 1. TOP MAIN HERO IMAGE ==================== -->
+  <section id="heroTopSection" class="max-w-5xl mx-auto px-4 mt-4">
+    <div class="relative rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl bg-neutral-950">
+      <img src="./Image_0369.jpeg" alt="Top Hero Banner" class="w-full h-auto max-h-[460px] object-cover" onerror="this.src='https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1600&q=85'" />
     </div>
-    <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
-      <!-- Dynamic Products -->
-    </div>
+  </section>
+
+  <!-- ==================== MAIN CATALOG SECTIONS ==================== -->
+  <main class="max-w-5xl mx-auto px-3 sm:px-6 mt-6 space-y-10">
+
+    <!-- A. NECKLACES SECTION -->
+    <section id="section-necklaces" class="catalog-section">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">✨ Anti-Tarnish Necklaces</span>
+        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Trending Collection</span>
+      </div>
+      <div id="grid-necklaces" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
+    </section>
+
+    <!-- B. EARRINGS HERO IMAGE + SECTION -->
+    <section id="section-earrings" class="catalog-section">
+      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
+        <img src="./Image_0367.jpeg" alt="Earrings Hero Image" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+      </div>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">✨ Anti-Tarnish Earrings</span>
+        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Water & Sweat Proof</span>
+      </div>
+      <div id="grid-earrings" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
+    </section>
+
+    <!-- C. KADA & BANGLES HERO IMAGE + SECTION -->
+    <section id="section-kada" class="catalog-section">
+      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
+        <img src="./Image_0368.jpeg" alt="Kada Hero Image" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+      </div>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">✨ Anti-Tarnish Kada & Bangles</span>
+        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">18K Gold Plated</span>
+      </div>
+      <div id="grid-kada" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
+    </section>
+
+    <!-- D. RINGS HERO IMAGE + SECTION -->
+    <section id="section-rings" class="catalog-section">
+      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
+        <img src="./Image_0370.jpeg" alt="Rings Hero Image" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+      </div>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">✨ Anti-Tarnish Rings</span>
+        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Adjustable & Daily Wear</span>
+      </div>
+      <div id="grid-rings" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
+    </section>
+
+    <!-- E. INSTA UNIQUE PRODUCTS HERO IMAGE + SECTION -->
+    <section id="section-insta" class="catalog-section">
+      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
+        <img src="./Image_0371.jpeg" alt="Insta Unique Products Hero Image" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+      </div>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">✨ Insta Unique Products & Accessories</span>
+        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Viral Finds</span>
+      </div>
+      <div id="grid-insta" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
+    </section>
+
   </main>
 
   <!-- Trust Badges -->
@@ -178,9 +236,7 @@
       <button onclick="submitStoreReview()" class="gold-btn px-4 py-2 rounded-lg text-xs font-bold active:scale-95">Submit Review</button>
     </div>
 
-    <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-      <!-- Store reviews injected dynamically -->
-    </div>
+    <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
   </section>
 
   <!-- About Section -->
@@ -212,7 +268,7 @@
     <h3 class="font-cinzel text-base font-bold gold-gradient-text">TRENDZ MART LUXE</h3>
     <p class="text-[10px] text-neutral-500 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
     <div class="flex justify-center gap-6 text-xs text-neutral-400 mt-4">
-      <a href="#productGrid" class="hover:text-amber-300">Catalog</a>
+      <a href="#section-necklaces" class="hover:text-amber-300">Catalog</a>
       <a id="footerWhatsappBtn" href="#" target="_blank" class="hover:text-amber-300">WhatsApp Support</a>
       <a href="javascript:alert('For returns or exchange, message us on WhatsApp with your unboxing video.')" class="hover:text-amber-300">Return Policy</a>
     </div>
@@ -270,13 +326,13 @@
     const WHATSAPP_NUMBER = "918369511325"; 
 
     // ===================================================================
-    // CATALOG PRODUCTS (With All Categories)
+    // CATALOG PRODUCTS
     // ===================================================================
     const products = [
       {
         id: 1,
         title: "Emerald Green Heart Pendant Snake Chain Necklace",
-        category: "Necklace",
+        category: "Anti-Tarnish Necklaces",
         price: 449,
         originalPrice: 899,
         tag: "Best Seller",
@@ -303,7 +359,7 @@
       {
         id: 2,
         title: "Snake Bone Minimalist Gold Choker",
-        category: "Necklace",
+        category: "Anti-Tarnish Necklaces",
         price: 399,
         originalPrice: 799,
         tag: "Trending",
@@ -325,7 +381,7 @@
       {
         id: 3,
         title: "Roman Numeral Luxury Cuff Kada Bangle",
-        category: "Kada & Rings",
+        category: "Anti-Tarnish Kada",
         price: 549,
         originalPrice: 1199,
         tag: "18K Plated",
@@ -346,7 +402,7 @@
       {
         id: 4,
         title: "Chunky Water-Resistant Gold Hoop Earrings",
-        category: "Earrings",
+        category: "Anti-Tarnish Earrings",
         price: 349,
         originalPrice: 699,
         tag: "Anti-Tarnish",
@@ -364,9 +420,30 @@
         ]
       },
       {
+        id: 8,
+        title: "Crystal Solitaire Minimalist Gold Ring",
+        category: "Anti-Tarnish Rings",
+        price: 299,
+        originalPrice: 599,
+        tag: "Adjustable",
+        rating: "4.8",
+        specs: {
+          material: "Stainless Steel",
+          size: "Adjustable Free Size",
+          finish: "18K Gold Plated"
+        },
+        description: "Gleaming solitaire stone ring designed with adjustable band. Waterproof and daily-wear friendly.",
+        images: [
+          "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=700&q=80"
+        ],
+        reviews: [
+          { name: "Riya K.", rating: 5, comment: "Simple yet looks expensive. Doesn't turn green!" }
+        ]
+      },
+      {
         id: 5,
         title: "Viral Aesthetic Pastel Gradient Water Sipper (2 Litre)",
-        category: "Water Sippers",
+        category: "Insta Unique Products",
         price: 499,
         originalPrice: 999,
         tag: "Trending Viral",
@@ -387,7 +464,7 @@
       {
         id: 6,
         title: "360° Rotating Acrylic Luxury Makeup Organizer Box",
-        category: "Makeup Boxes",
+        category: "Insta Unique Products",
         price: 699,
         originalPrice: 1499,
         tag: "Best Seller",
@@ -408,7 +485,7 @@
       {
         id: 7,
         title: "Korean Matte Pastel Claw Hair Clips (Pack of 4)",
-        category: "Clips & Accessories",
+        category: "Insta Unique Products",
         price: 249,
         originalPrice: 599,
         tag: "Top Offer",
@@ -435,84 +512,144 @@
 
     let cart = [];
     let currentFilter = 'All';
+    let searchQuery = '';
 
     const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe collection ke bare me inquiry karni hai.");
     document.getElementById("navWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
     document.getElementById("footerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
 
+    function handleSearch(val) {
+      searchQuery = val.trim().toLowerCase();
+      renderAllSections();
+    }
+
     function filterCategory(category) {
       currentFilter = category;
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        if(btn.dataset.cat === category) {
-          btn.className = "filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm";
+        if (btn.dataset.cat === category) {
+          btn.className = "filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm";
         } else {
-          btn.className = "filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800";
+          btn.className = "filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50";
         }
       });
-      renderProducts();
+      renderAllSections();
     }
 
-    function renderProducts() {
-      const grid = document.getElementById("productGrid");
-      
-      // Filter list
-      let filtered = currentFilter === 'All' ? [...products] : products.filter(p => p.category === currentFilter);
+    function createProductCard(item) {
+      const mainImg = item.images && item.images.length > 0 ? item.images[0] : item.image;
+      const imgCount = item.images ? item.images.length : 1;
+      const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
 
-      // AUTO-SORT: Highest Discount Percentage First!
-      filtered.sort((a, b) => {
-        const discA = ((a.originalPrice - a.price) / a.originalPrice);
-        const discB = ((b.originalPrice - b.price) / b.originalPrice);
-        return discB - discA;
-      });
-
-      grid.innerHTML = filtered.map(item => {
-        const mainImg = item.images && item.images.length > 0 ? item.images[0] : item.image;
-        const imgCount = item.images ? item.images.length : 1;
-        const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
-
-        return `
-          <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
-            <div class="relative overflow-hidden group cursor-pointer bg-neutral-900" onclick="openProductModal(${item.id})">
-              <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-              
-              <!-- HIGH-VISIBILITY BIG DISCOUNT BADGE -->
-              <span class="absolute top-2 left-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-lg border border-white/20 tracking-wider animate-pulse">
-                ${discountPercent}% OFF
-              </span>
-
-              <span class="absolute top-2 right-2 bg-black/75 text-[9px] text-neutral-300 px-2 py-0.5 rounded-full backdrop-blur border border-neutral-700 flex items-center gap-1">
-                📸 ${imgCount} Photos
-              </span>
-              <span class="absolute bottom-2 right-2 bg-black/80 text-[10px] text-amber-400 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5">
-                ★ ${item.rating}
-              </span>
-            </div>
+      return `
+        <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
+          <div class="relative overflow-hidden group cursor-pointer bg-neutral-900" onclick="openProductModal(${item.id})">
+            <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
             
-            <div class="p-3 flex-1 flex flex-col justify-between">
-              <div onclick="openProductModal(${item.id})" class="cursor-pointer">
-                <span class="text-[9px] text-amber-400/80 uppercase font-semibold tracking-wider">${item.category}</span>
-                <h3 class="text-xs font-medium text-neutral-100 line-clamp-1 hover:text-amber-400 transition-colors mt-0.5">${item.title}</h3>
-                
-                <div class="flex items-baseline gap-1.5 mt-1.5 flex-wrap">
-                  <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
-                  <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
-                  <span class="text-[9px] font-extrabold text-emerald-400 bg-emerald-950/70 border border-emerald-700/60 px-1.5 py-0.2 rounded">Save ${discountPercent}%</span>
-                </div>
-                <p class="text-[10px] text-green-400 mt-1 font-medium">✔ Free COD Delivery</p>
-              </div>
+            <span class="absolute top-2 left-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-lg border border-white/20 tracking-wider animate-pulse">
+              ${discountPercent}% OFF
+            </span>
 
-              <div class="mt-3 grid grid-cols-2 gap-1.5">
-                <button onclick="openProductModal(${item.id})" class="py-2 rounded-lg text-[11px] font-medium border border-neutral-700 text-neutral-300 hover:border-amber-400 hover:text-white transition-all">
-                  View (${imgCount})
-                </button>
-                <button onclick="addToCart(${item.id})" class="py-2 rounded-lg text-[11px] font-semibold gold-btn active:scale-95 transition-transform flex items-center justify-center gap-1">
-                  <span>+ Bag</span>
-                </button>
+            <span class="absolute top-2 right-2 bg-black/75 text-[9px] text-neutral-300 px-2 py-0.5 rounded-full backdrop-blur border border-neutral-700 flex items-center gap-1">
+              📸 ${imgCount} Photos
+            </span>
+            <span class="absolute bottom-2 right-2 bg-black/80 text-[10px] text-amber-400 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5">
+              ★ ${item.rating}
+            </span>
+          </div>
+          
+          <div class="p-3 flex-1 flex flex-col justify-between">
+            <div onclick="openProductModal(${item.id})" class="cursor-pointer">
+              <span class="text-[9px] text-amber-400/80 uppercase font-semibold tracking-wider">${item.category}</span>
+              <h3 class="text-xs font-medium text-neutral-100 line-clamp-1 hover:text-amber-400 transition-colors mt-0.5">${item.title}</h3>
+              
+              <div class="flex items-baseline gap-1.5 mt-1.5 flex-wrap">
+                <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
+                <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
+                <span class="text-[9px] font-extrabold text-emerald-400 bg-emerald-950/70 border border-emerald-700/60 px-1.5 py-0.2 rounded">Save ${discountPercent}%</span>
               </div>
+              <p class="text-[10px] text-green-400 mt-1 font-medium">✔ Free COD Delivery</p>
+            </div>
+
+            <div class="mt-3 grid grid-cols-2 gap-1.5">
+              <button onclick="openProductModal(${item.id})" class="py-2 rounded-lg text-[11px] font-medium border border-neutral-700 text-neutral-300 hover:border-amber-400 hover:text-white transition-all">
+                View (${imgCount})
+              </button>
+              <button onclick="addToCart(${item.id})" class="py-2 rounded-lg text-[11px] font-semibold gold-btn active:scale-95 transition-transform flex items-center justify-center gap-1">
+                <span>+ Bag</span>
+              </button>
             </div>
           </div>
-        `;
-      }).join('');
+        </div>
+      `;
+    }
+
+    function renderAllSections() {
+      const sectionConfigs = [
+        {
+          id: 'section-necklaces',
+          gridId: 'grid-necklaces',
+          categories: ['Anti-Tarnish Necklaces', 'Necklace']
+        },
+        {
+          id: 'section-earrings',
+          gridId: 'grid-earrings',
+          categories: ['Anti-Tarnish Earrings', 'Earrings']
+        },
+        {
+          id: 'section-kada',
+          gridId: 'grid-kada',
+          categories: ['Anti-Tarnish Kada', 'Anti-Tarnish Bangles', 'Kada & Rings']
+        },
+        {
+          id: 'section-rings',
+          gridId: 'grid-rings',
+          categories: ['Anti-Tarnish Rings']
+        },
+        {
+          id: 'section-insta',
+          gridId: 'grid-insta',
+          categories: ['Insta Unique Products', 'Water Sippers', 'Makeup Boxes', 'Clips & Accessories']
+        }
+      ];
+
+      sectionConfigs.forEach(sec => {
+        const secElement = document.getElementById(sec.id);
+        const gridElement = document.getElementById(sec.gridId);
+
+        let items = products.filter(p => sec.categories.includes(p.category));
+
+        // Filter tab logic
+        if (currentFilter !== 'All') {
+          if (currentFilter === 'Anti-Tarnish Bangles' || currentFilter === 'Anti-Tarnish Kada') {
+            items = items.filter(p => ['Anti-Tarnish Kada', 'Anti-Tarnish Bangles', 'Kada & Rings'].includes(p.category));
+          } else {
+            items = items.filter(p => p.category === currentFilter);
+          }
+        }
+
+        // Search query logic
+        if (searchQuery) {
+          items = items.filter(p => 
+            p.title.toLowerCase().includes(searchQuery) ||
+            p.category.toLowerCase().includes(searchQuery) ||
+            (p.description && p.description.toLowerCase().includes(searchQuery))
+          );
+        }
+
+        if (items.length === 0) {
+          secElement.style.display = 'none';
+          gridElement.innerHTML = '';
+        } else {
+          secElement.style.display = 'block';
+          // Sort by highest discount percentage
+          items.sort((a, b) => {
+            const discA = ((a.originalPrice - a.price) / a.originalPrice);
+            const discB = ((b.originalPrice - b.price) / b.originalPrice);
+            return discB - discA;
+          });
+          gridElement.innerHTML = items.map(p => createProductCard(p)).join('');
+        }
+      });
     }
 
     let activeModalImages = [];
@@ -864,7 +1001,8 @@
       window.open(url, "_blank");
     }
 
-    renderProducts();
+    // Initialize display
+    renderAllSections();
     renderStoreReviews();
     updateCartUI();
   </script>
