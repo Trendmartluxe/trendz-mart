@@ -47,6 +47,12 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    /* Touch optimization for image slide areas */
+    .swipe-container {
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      user-select: none;
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -334,23 +340,21 @@
     <div id="modalContent"></div>
   </div>
 
-  <!-- ==================== FULLSCREEN ZOOM LIGHTBOX (WITH SLIDE/SWIPE) ==================== -->
+  <!-- ==================== FULLSCREEN ZOOM LIGHTBOX ==================== -->
   <div id="zoomModal" class="fixed inset-0 bg-black/95 z-[70] hidden flex items-center justify-center p-2 backdrop-blur-md select-none">
     <button onclick="closeZoomModal()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg z-[80]">✕</button>
     
-    <!-- Previous Button in Zoom -->
     <button onclick="prevZoomImg()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-amber-400/30 z-[80] shadow-lg">❮</button>
     
-    <div id="zoomTouchArea" class="relative max-w-full max-h-[85vh] flex items-center justify-center">
-      <img id="zoomModalImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-all duration-200" />
+    <div id="zoomTouchArea" class="swipe-container relative max-w-full max-h-[85vh] flex items-center justify-center">
+      <img id="zoomModalImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-all duration-200 pointer-events-none" />
     </div>
 
-    <!-- Next Button in Zoom -->
     <button onclick="nextZoomImg()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-amber-400/30 z-[80] shadow-lg">❯</button>
 
-    <div class="absolute bottom-4 flex items-center gap-2">
-      <span id="zoomCounter" class="bg-black/80 border border-neutral-700 text-amber-300 text-xs px-3 py-1 rounded-full pointer-events-none">1 / 1</span>
-      <span class="bg-black/80 border border-neutral-700 text-neutral-400 text-xs px-3 py-1 rounded-full pointer-events-none">Swipe or tap ❮ ❯ to slide</span>
+    <div class="absolute bottom-4 flex items-center gap-2 pointer-events-none">
+      <span id="zoomCounter" class="bg-black/80 border border-neutral-700 text-amber-300 text-xs px-3 py-1 rounded-full">1 / 1</span>
+      <span class="bg-black/80 border border-neutral-700 text-neutral-400 text-xs px-3 py-1 rounded-full">Swipe or tap ❮ ❯</span>
     </div>
   </div>
 
@@ -588,10 +592,11 @@
       const overlay = document.getElementById("termsModalOverlay");
       overlay.classList.remove("hidden");
       modal.classList.remove("hidden");
+      history.pushState({ modal: 'terms' }, '');
       setTimeout(() => overlay.classList.remove("opacity-0"), 10);
     }
 
-    function closeTermsModal() {
+    function closeTermsModal(triggeredByPopstate = false) {
       const modal = document.getElementById("termsModal");
       const overlay = document.getElementById("termsModalOverlay");
       overlay.classList.add("opacity-0");
@@ -599,6 +604,9 @@
         overlay.classList.add("hidden");
         modal.classList.add("hidden");
       }, 250);
+      if (!triggeredByPopstate && history.state && history.state.modal === 'terms') {
+        history.back();
+      }
     }
 
     function handleSearch(val) {
@@ -701,7 +709,6 @@
 
         let items = products.filter(p => sec.categories.includes(p.category));
 
-        // Filter tab logic
         if (currentFilter !== 'All') {
           if (currentFilter === 'Anti-Tarnish Bangles' || currentFilter === 'Anti-Tarnish Kada') {
             items = items.filter(p => ['Anti-Tarnish Kada', 'Anti-Tarnish Bangles', 'Kada & Rings'].includes(p.category));
@@ -710,7 +717,6 @@
           }
         }
 
-        // Search query logic
         if (searchQuery) {
           items = items.filter(p => 
             p.title.toLowerCase().includes(searchQuery) ||
@@ -738,19 +744,39 @@
     let currentImageIndex = 0;
     let activeProductId = null;
 
-    // SWIPE TOUCH VARIABLES
+    // TOUCH SWIPE SETUP WITH EDGE-DETECTION (PREVENTS ACCIDENTAL BACK NAVIGATION)
     let touchStartX = 0;
-    let touchEndX = 0;
+    let touchStartY = 0;
 
-    function handleSwipeGesture(onSwipeLeft, onSwipeRight) {
-      const diffX = touchStartX - touchEndX;
-      if (Math.abs(diffX) > 40) { // minimum swipe threshold
-        if (diffX > 0) {
-          onSwipeLeft(); // Swipe Left -> Next Image
-        } else {
-          onSwipeRight(); // Swipe Right -> Prev Image
+    function bindSwipe(element, onNext, onPrev) {
+      if (!element) return;
+      element.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        // Ignore gestures that start within 25px of the edge to prevent safari back gesture conflict
+        if (touch.clientX < 25 || touch.clientX > window.innerWidth - 25) {
+          touchStartX = 0;
+          return;
         }
-      }
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      }, { passive: true });
+
+      element.addEventListener('touchend', (e) => {
+        if (!touchStartX) return;
+        const touch = e.changedTouches[0];
+        const diffX = touchStartX - touch.clientX;
+        const diffY = touchStartY - touch.clientY;
+
+        // Ensure horizontal swipe is dominant over vertical scroll
+        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) {
+            onNext();
+          } else {
+            onPrev();
+          }
+        }
+        touchStartX = 0;
+      }, { passive: true });
     }
 
     function openProductModal(productId) {
@@ -782,9 +808,8 @@
       const modalContent = document.getElementById("modalContent");
       modalContent.innerHTML = `
         <div class="space-y-4 select-none">
-          <!-- MAIN IMAGE VIEWER WITH SWIPE AND ARROWS -->
-          <div id="modalSwipeArea" class="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden bg-black/90 border border-neutral-800 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
-            <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-contain transition-opacity duration-200" />
+          <div id="modalSwipeArea" class="swipe-container relative w-full h-80 sm:h-96 rounded-xl overflow-hidden bg-black/90 border border-neutral-800 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
+            <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-contain pointer-events-none transition-opacity duration-200" />
             
             ${activeModalImages.length > 1 ? `
               <button onclick="event.stopPropagation(); prevModalImg();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-amber-400 hover:text-white w-9 h-9 rounded-full flex items-center justify-center text-base font-bold border border-amber-400/30 z-20 shadow-md">❮</button>
@@ -878,29 +903,22 @@
         </div>
       `;
 
-      // Touch listener for regular modal swipe
-      const swipeArea = document.getElementById("modalSwipeArea");
-      if (swipeArea) {
-        swipeArea.addEventListener('touchstart', (e) => {
-          touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        swipeArea.addEventListener('touchend', (e) => {
-          touchEndX = e.changedTouches[0].screenX;
-          handleSwipeGesture(nextModalImg, prevModalImg);
-        }, { passive: true });
-      }
+      bindSwipe(document.getElementById("modalSwipeArea"), nextModalImg, prevModalImg);
 
       const modal = document.getElementById("productModal");
       const overlay = document.getElementById("productModalOverlay");
       overlay.classList.remove("hidden");
       modal.classList.remove("hidden");
+      
+      // Push history state so back-button/swipe closes the modal instead of exiting the site
+      history.pushState({ modal: 'product' }, '');
+
       setTimeout(() => {
         overlay.classList.remove("opacity-0");
       }, 10);
     }
 
-    function closeProductModal() {
+    function closeProductModal(triggeredByPopstate = false) {
       const modal = document.getElementById("productModal");
       const overlay = document.getElementById("productModalOverlay");
       overlay.classList.add("opacity-0");
@@ -908,6 +926,11 @@
         overlay.classList.add("hidden");
         modal.classList.add("hidden");
       }, 250);
+
+      // If user clicked ✕ or overlay, remove history entry cleanly
+      if (!triggeredByPopstate && history.state && history.state.modal === 'product') {
+        history.back();
+      }
     }
 
     function setModalImg(index) {
@@ -940,11 +963,12 @@
     }
 
     // ===================================================================
-    // ZOOM LIGHTBOX FUNCTIONS (WITH SWIPE & BUTTONS)
+    // ZOOM LIGHTBOX FUNCTIONS
     // ===================================================================
     function openZoomModal() {
       const zoomModal = document.getElementById("zoomModal");
       zoomModal.classList.remove("hidden");
+      history.pushState({ modal: 'zoom' }, '');
       updateZoomImgView();
     }
 
@@ -968,22 +992,35 @@
       updateZoomImgView();
     }
 
-    function closeZoomModal() {
+    function closeZoomModal(triggeredByPopstate = false) {
       document.getElementById("zoomModal").classList.add("hidden");
+      if (!triggeredByPopstate && history.state && history.state.modal === 'zoom') {
+        history.back();
+      }
     }
 
-    // Add Swipe Support for Zoom Modal
-    const zoomTouchArea = document.getElementById("zoomTouchArea");
-    if (zoomTouchArea) {
-      zoomTouchArea.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
+    bindSwipe(document.getElementById("zoomTouchArea"), nextZoomImg, prevZoomImg);
 
-      zoomTouchArea.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipeGesture(nextZoomImg, prevZoomImg);
-      }, { passive: true });
-    }
+    // ===================================================================
+    // POPSTATE EVENT HANDLER: SMART BACK GESTURE SUPPORT
+    // ===================================================================
+    window.addEventListener('popstate', (e) => {
+      const zoomModal = document.getElementById("zoomModal");
+      const prodModal = document.getElementById("productModal");
+      const termsModal = document.getElementById("termsModal");
+      const cartSidebar = document.getElementById("cartSidebar");
+
+      // Close topmost opened modal only without leaving the site
+      if (zoomModal && !zoomModal.classList.contains("hidden")) {
+        closeZoomModal(true);
+      } else if (prodModal && !prodModal.classList.contains("hidden")) {
+        closeProductModal(true);
+      } else if (termsModal && !termsModal.classList.contains("hidden")) {
+        closeTermsModal(true);
+      } else if (cartSidebar && !cartSidebar.classList.contains("translate-x-full")) {
+        toggleCart(true);
+      }
+    });
 
     function submitProductReview(productId) {
       const name = document.getElementById("prodRevName").value.trim();
@@ -1045,7 +1082,7 @@
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    function toggleCart() {
+    function toggleCart(triggeredByPopstate = false) {
       const sidebar = document.getElementById("cartSidebar");
       const overlay = document.getElementById("cartOverlay");
       const isClosed = sidebar.classList.contains("translate-x-full");
@@ -1053,11 +1090,15 @@
       if (isClosed) {
         sidebar.classList.remove("translate-x-full");
         overlay.classList.remove("hidden");
+        history.pushState({ modal: 'cart' }, '');
         setTimeout(() => overlay.classList.remove("opacity-0"), 10);
       } else {
         sidebar.classList.add("translate-x-full");
         overlay.classList.add("opacity-0");
         setTimeout(() => overlay.classList.add("hidden"), 350);
+        if (!triggeredByPopstate && history.state && history.state.modal === 'cart') {
+          history.back();
+        }
       }
     }
 
