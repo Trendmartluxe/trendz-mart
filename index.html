@@ -7,7 +7,7 @@
   
   <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Firebase App & Firestore Cloud Database -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -24,7 +24,7 @@
       font-family: 'Cinzel', serif;
     }
     .gold-gradient-text {
-      background: linear-gradient(135deg, #2b2b2b 0%, #634d1c 50%, #9c7832 100%);
+      background: linear-gradient(135deg, #111111 0%, #4d3a12 50%, #8c6928 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -97,55 +97,66 @@
       -webkit-user-select: none;
       user-select: none;
     }
+    
+    /* Purchase Popup Animation */
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(20px); }
+      15% { opacity: 1; transform: translateY(0); }
+      85% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+    .purchase-popup {
+      animation: slideUpFade 5s ease-in-out forwards;
+    }
   </style>
 </head>
 <body class="min-h-screen">
 
-  <!-- Top Announcement Bar with Flash Sale Timer -->
+  <!-- Top Announcement Bar with Coupon & Flash Sale -->
   <div class="bg-[#111111] text-[#f2ebd9] text-center text-[11px] font-medium py-2 px-3 tracking-widest uppercase shadow-sm flex items-center justify-center gap-3 flex-wrap">
-    <span>✨ Free Express Shipping & Cash on Delivery Across India ✨</span>
+    <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order ✨</span>
     <span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30">
-      ⚡ Flash Sale Ends in: <span id="saleCountdown">02:45:12</span>
+      🎁 Free Gift on Orders Above ₹599
     </span>
   </div>
 
-  <!-- Main Navigation Header (Enlarged Logo & Single Line Luxury Title) -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-3 sm:px-4 py-3">
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-3 sm:px-4 py-2.5">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
       
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-lg flex-shrink-0">
+      <a href="#" class="flex items-center gap-2.5">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
           <img id="brandHeaderLogo" src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover scale-110" onerror="this.style.display='none'; document.getElementById('fallbackLogoIcon').style.display='block';">
-          <svg id="fallbackLogoIcon" style="display:none;" class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg id="fallbackLogoIcon" style="display:none;" class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
         </div>
         <div>
-          <h1 class="font-cinzel text-xs sm:text-base font-extrabold tracking-[0.12em] gold-gradient-text uppercase whitespace-nowrap">TRENDZ MART LUXE</h1>
-          <p class="text-[8px] sm:text-[9px] tracking-[0.18em] text-neutral-500 uppercase font-semibold mt-0.5">Jewellery • Kids • Hair • Trending</p>
+          <h1 class="font-cinzel text-base sm:text-xl font-black tracking-[0.12em] gold-gradient-text uppercase leading-tight">TRENDZ MART LUXE</h1>
+          <p class="text-[8px] sm:text-[9px] tracking-[0.18em] text-neutral-500 uppercase font-bold mt-0.5">Jewellery • Kids • Hair • Trending</p>
         </div>
       </a>
 
-      <!-- Quick Nav, Wishlist & Cart -->
-      <div class="flex items-center gap-2">
+      <!-- Quick Nav, Compact Wishlist & Cart -->
+      <div class="flex items-center gap-1.5">
         <a id="navWhatsappBtn" href="#" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-neutral-300 text-neutral-800 hover:bg-neutral-100 transition-colors">
           <span>WhatsApp Help</span>
         </a>
 
-        <!-- Wishlist Button -->
-        <button onclick="toggleWishlist()" class="relative p-2.5 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
-          <svg class="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
+        <!-- Compact Wishlist Button -->
+        <button onclick="toggleWishlist()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
+          <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
-          <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-extrabold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+          <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
         </button>
         
-        <!-- Cart Button -->
-        <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Compact Cart Button -->
+        <button onclick="toggleCart()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
-          <span id="cartCount" class="absolute -top-1 -right-1 bg-neutral-900 text-white text-[10px] font-extrabold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-neutral-900 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
         </button>
       </div>
 
@@ -287,8 +298,8 @@
       </div>
       <div class="p-2">
         <div class="text-xl mb-1">✨</div>
-        <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider">Premium Quality</h4>
-        <p class="text-[10px] text-neutral-500 mt-0.5">Handpicked & durable</p>
+        <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider">Verified Quality</h4>
+        <p class="text-[10px] text-neutral-500 mt-0.5">100% Quality Checked</p>
       </div>
       <div class="p-2">
         <div class="text-xl mb-1">🛍️</div>
@@ -377,6 +388,9 @@
     <p class="text-[11px] text-neutral-500 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
 
+  <!-- ==================== LIVE PURCHASE NOTIFICATION POPUP CONTAINER ==================== -->
+  <div id="purchasePopupContainer" class="fixed bottom-4 left-4 z-50 pointer-events-none"></div>
+
   <!-- ==================== SECRET ADMIN PANEL MODAL ==================== -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
 
@@ -404,11 +418,11 @@
     <div id="adminDashboardScreen" class="hidden space-y-6">
       <!-- Tabs -->
       <div class="flex gap-2 border-b border-neutral-200 pb-2">
-        <button onclick="switchAdminTab('products')" id="adminTabProducts" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-neutral-900 text-white">📦 Manage Products</button>
+        <button onclick="switchAdminTab('products')" id="adminTabProducts" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-neutral-900 text-white">📦 Manage Products & Views</button>
         <button onclick="switchAdminTab('orders')" id="adminTabOrders" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-neutral-100 text-neutral-700">🛒 Live Orders (<span id="adminOrdersCount">0</span>)</button>
       </div>
 
-      <!-- Tab 1: Products Manager -->
+      <!-- Tab 1: Products & Views Manager -->
       <div id="adminSectionProducts" class="space-y-4">
         <div class="bg-neutral-50 p-4 rounded-xl border border-neutral-200 space-y-3">
           <h4 class="text-xs font-bold text-neutral-900 uppercase">✨ Add New Product to Store</h4>
@@ -429,7 +443,7 @@
         </div>
 
         <div>
-          <h4 class="text-xs font-bold text-neutral-900 uppercase mb-2">Existing Products</h4>
+          <h4 class="text-xs font-bold text-neutral-900 uppercase mb-2">Existing Products & Real Views Control</h4>
           <div id="adminProductsList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
         </div>
       </div>
@@ -541,13 +555,22 @@
     <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
 
     <div class="p-4 border-t border-neutral-200 bg-neutral-50">
+      <!-- Coupon Code Section -->
+      <div class="mb-3">
+        <div class="flex gap-2">
+          <input id="couponInput" type="text" placeholder="Enter coupon LUXE10" class="flex-1 bg-white border border-neutral-300 rounded-lg px-3 py-2 text-xs uppercase font-bold text-neutral-900 focus:outline-none focus:border-neutral-900" />
+          <button onclick="applyCoupon()" class="bg-neutral-900 text-white px-4 py-2 rounded-lg text-xs font-bold active:scale-95">Apply</button>
+        </div>
+        <p id="couponMsg" class="text-[10px] text-green-600 font-semibold mt-1"></p>
+      </div>
+
       <div class="flex justify-between items-center mb-1 text-sm font-semibold">
         <span class="text-neutral-600">Subtotal:</span>
         <span id="cartTotal" class="text-neutral-950 font-bold text-base">₹0</span>
       </div>
       <div class="flex justify-between items-center text-[11px] text-neutral-500 mb-3">
-        <span>Delivery Fee:</span>
-        <span class="text-green-600 font-bold uppercase">Free</span>
+        <span>Delivery Fee & Free Gift:</span>
+        <span class="text-green-600 font-bold uppercase">Free Shipping + Free Gift🎁</span>
       </div>
       
       <button onclick="sendOrderViaWhatsApp()" class="w-full py-3.5 rounded-xl font-bold text-xs gold-btn active:scale-95 transition-transform flex items-center justify-center gap-2">
@@ -592,6 +615,7 @@
         tag: "Best Seller",
         rating: "4.9",
         inStock: true,
+        views: 142,
         specs: { material: "Stainless Steel", pendant: "Heart Shape", chain: "Snake Chain", length: "20 inches", finish: "18K Gold" },
         description: "A timeless symbol of love and care. Crafted from premium stainless steel for long-lasting shine and durability. Anti-tarnish, water resistant, lightweight.",
         images: ["./IMG_0252.png", "./IMG_0253.png", "./3bddeff2-a170-4f39-9e83-078bd3aa54e2.jpeg"],
@@ -609,6 +633,7 @@
         tag: "Trending",
         rating: "4.8",
         inStock: true,
+        views: 98,
         specs: { material: "Stainless Steel", finish: "18K PVD Gold", length: "16+2 inch adjustable" },
         description: "Sleek liquid-gold look. Flexible snake bone chain designed for comfortable layering.",
         images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80"],
@@ -623,6 +648,7 @@
         tag: "18K Plated",
         rating: "5.0",
         inStock: true,
+        views: 215,
         specs: { material: "Titanium Steel", type: "Oval Snap Bangle" },
         description: "Signature Roman numeral engraved oval cuff kada. Easy snap lock and lifetime luster.",
         images: ["./IMG_0368.jpeg"],
@@ -637,6 +663,7 @@
         tag: "Anti-Tarnish",
         rating: "4.9",
         inStock: true,
+        views: 134,
         specs: { material: "Hollow Stainless Steel", clasp: "Click-top latch" },
         description: "Ultra-lightweight hollow chunky hoops. Guaranteed non-fading luster even with regular water contact.",
         images: ["./IMG_0367.jpeg"],
@@ -651,6 +678,7 @@
         tag: "Adjustable",
         rating: "4.8",
         inStock: true,
+        views: 89,
         specs: { material: "Stainless Steel", size: "Adjustable Free Size" },
         description: "Gleaming solitaire stone ring designed with adjustable band. Waterproof and daily-wear friendly.",
         images: ["./IMG_0370.jpeg"],
@@ -665,6 +693,7 @@
         tag: "Top Offer",
         rating: "4.9",
         inStock: true,
+        views: 310,
         specs: { pack: "Set of 4 Trendy Colors", material: "Matte acrylic resin" },
         description: "Heavy-duty strong grip matte claw clips designed for thick & thin hair. Does not slip or tug hair.",
         images: ["https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"],
@@ -679,6 +708,7 @@
         tag: "Kids Favorite",
         rating: "4.9",
         inStock: true,
+        views: 188,
         specs: { capacity: "2000 ML (2 Litre)", material: "BPA Free Tritan" },
         description: "Cute dual-shade motivational water sipper with leak-proof pop-up straw and carry strap.",
         images: ["./IMG_0371.jpeg"],
@@ -693,6 +723,7 @@
         tag: "Best Seller",
         rating: "4.8",
         inStock: true,
+        views: 260,
         specs: { material: "Crystal Clear Acrylic", feature: "360 Degree Rotation" },
         description: "Keep all your lipsticks, serums, and cosmetics neatly organized with 360-degree silent rotation.",
         images: ["https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"],
@@ -710,10 +741,89 @@
     let wishlist = [];
     let currentFilter = 'All';
     let searchQuery = '';
+    let couponApplied = false;
+    let couponDiscount = 0;
 
     const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe collection ke bare me inquiry karni hai.");
     document.getElementById("navWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
     document.getElementById("footerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
+
+    // ==================== RECENT PURCHASE NOTIFICATION SYSTEM ====================
+    const buyerNames = ["Pooja", "Sneha", "Riya", "Simran", "Megha", "Aashi", "Kavita", "Farah", "Iqra", "Tanvi", "Neha", "Divya"];
+    const buyerLocations = ["Dombivli", "Mumbai", "Thane", "Mumbra", "Pune", "Nashik", "Navi Mumbai", "Kalyan", "Delhi", "Bangalore"];
+    const purchaseTimes = ["2 mins ago", "5 mins ago", "12 mins ago", "28 mins ago", "1 hour ago", "3 hours ago"];
+
+    function triggerRandomPurchasePopup() {
+      const container = document.getElementById("purchasePopupContainer");
+      if (!container) return;
+
+      const randomBuyer = buyerNames[Math.floor(Math.random() * buyerNames.length)];
+      const randomLoc = buyerLocations[Math.floor(Math.random() * buyerLocations.length)];
+      const randomTime = purchaseTimes[Math.floor(Math.random() * purchaseTimes.length)];
+      const randomProd = products[Math.floor(Math.random() * products.length)];
+      const prodImg = randomProd.images ? randomProd.images[0] : "";
+
+      const popup = document.createElement("div");
+      popup.className = "purchase-popup bg-white border border-neutral-300 rounded-xl p-3 shadow-2xl flex items-center gap-3 max-w-xs mb-2 z-50";
+      popup.innerHTML = `
+        <img src="${prodImg}" class="w-10 h-10 object-contain bg-neutral-50 rounded-lg border border-neutral-200 p-0.5 flex-shrink-0" />
+        <div class="text-[11px] leading-tight">
+          <p class="font-bold text-neutral-900">${randomBuyer} from ${randomLoc}</p>
+          <p class="text-neutral-600 line-clamp-1 mt-0.5">Ordered ${randomProd.title}</p>
+          <p class="text-[9px] text-[#8c6928] font-semibold mt-1">✨ Verified Buyer • ${randomTime}</p>
+        </div>
+      `;
+
+      container.appendChild(popup);
+      setTimeout(() => { popup.remove(); }, 5000);
+    }
+
+    // Trigger purchase popups randomly between 2 to 4 minutes
+    function scheduleNextPopup() {
+      const randomInterval = (Math.floor(Math.random() * 60) + 120) * 1000; // 2 to 3 minutes
+      setTimeout(() => {
+        triggerRandomPurchasePopup();
+        scheduleNextPopup();
+      }, randomInterval);
+    }
+    setTimeout(scheduleNextPopup, 10000); // first popup after 10 seconds
+
+    // Real Visitor Tracker
+    async function trackRealVisitor(productId) {
+      if (!db) return;
+      const ref = db.collection("product_views").doc(String(productId));
+      try {
+        await db.runTransaction(async (transaction) => {
+          const doc = await transaction.get(ref);
+          let newViews = 120;
+          if (doc.exists) {
+            newViews = (doc.data().views || 100) + 1;
+            transaction.update(ref, { views: newViews });
+          } else {
+            transaction.set(ref, { views: 121 });
+            newViews = 121;
+          }
+          const p = products.find(item => item.id === productId);
+          if (p) p.views = newViews;
+        });
+      } catch(e) {}
+    }
+
+    function listenToLiveViews() {
+      if (!db) return;
+      db.collection("product_views").onSnapshot(snapshot => {
+        snapshot.docs.forEach(doc => {
+          const prodId = parseInt(doc.id);
+          const realViews = doc.data().views;
+          const p = products.find(item => item.id === prodId);
+          if (p && realViews) {
+            p.views = realViews;
+            const viewEl = document.getElementById(`view-count-${prodId}`);
+            if (viewEl) viewEl.innerText = `👀 ${realViews} views`;
+          }
+        });
+      });
+    }
 
     // Flash Sale Countdown Simulation
     let timeRemaining = 2 * 3600 + 45 * 60 + 12;
@@ -743,9 +853,7 @@
         overlay.classList.add("hidden");
         modal.classList.add("hidden");
       }, 250);
-      if (!triggeredByPopstate && history.state && history.state.modal === 'terms') {
-        history.back();
-      }
+      if (!triggeredByPopstate && history.state && history.state.modal === 'terms') history.back();
     }
 
     function handleSearch(val) {
@@ -771,6 +879,7 @@
       const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
       const isWishlisted = wishlist.some(w => w.id === item.id);
       const inStock = item.inStock !== false;
+      const viewsCount = item.views || 120;
 
       return `
         <div class="bg-white rounded-xl overflow-hidden gold-border product-card-3d flex flex-col justify-between relative">
@@ -788,22 +897,25 @@
               ${discountPercent}% OFF
             </span>
 
-            <span class="absolute bottom-2 left-2 bg-amber-50 text-[9px] text-amber-800 border border-amber-300 px-2 py-0.5 rounded font-bold">
-              🔥 Only 3 left!
+            <span id="view-count-${item.id}" class="absolute bottom-2 left-2 bg-white/95 backdrop-blur text-[9px] text-amber-900 border border-amber-200 px-2 py-0.5 rounded-full font-semibold shadow-sm">
+              👀 ${viewsCount} views
             </span>
           </div>
           
           <div class="p-3 flex-1 flex flex-col justify-between">
             <div onclick="openProductModal(${item.id})" class="cursor-pointer">
-              <span class="text-[9px] text-[#8c6928] uppercase font-bold tracking-wider">${item.category}</span>
-              <h3 class="text-xs font-semibold text-neutral-900 line-clamp-1 hover:text-neutral-600 transition-colors mt-0.5">${item.title}</h3>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[9px] text-[#8c6928] uppercase font-bold tracking-wider">${item.category}</span>
+                <span class="text-[9px] text-green-700 font-bold bg-green-50 border border-green-200 px-1.5 py-0.2 rounded">✓ Verified Buyer Choice</span>
+              </div>
+              <h3 class="text-xs font-semibold text-neutral-900 line-clamp-1 hover:text-neutral-600 transition-colors">${item.title}</h3>
               
               <div class="flex items-baseline gap-1.5 mt-1.5 flex-wrap">
                 <span class="text-sm font-bold text-neutral-950">₹${item.price}</span>
                 <span class="text-[10px] text-neutral-400 line-through">₹${item.originalPrice}</span>
                 <span class="text-[9px] font-extrabold text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.2 rounded">Save ${discountPercent}%</span>
               </div>
-              <p class="text-[10px] text-green-600 mt-1 font-medium">✔ Free COD Delivery</p>
+              <p class="text-[10px] text-green-600 mt-1 font-medium">✔ Free COD Delivery + Free Gift 🎁</p>
             </div>
 
             <div class="mt-3 grid grid-cols-2 gap-1.5">
@@ -891,6 +1003,8 @@
 
     function openProductModal(productId) {
       activeProductId = productId;
+      trackRealVisitor(productId);
+
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
 
@@ -946,7 +1060,7 @@
           <div>
             <div class="flex items-center justify-between">
               <span class="text-[10px] uppercase tracking-wider text-[#8c6928] bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-bold">${prod.tag}</span>
-              <span class="text-xs text-neutral-800 font-semibold">★ ${prod.rating} Rating</span>
+              <span class="text-xs text-amber-900 bg-amber-50 px-2 py-0.5 rounded font-bold border border-amber-200">👀 ${prod.views || 120} total views</span>
             </div>
             
             <h2 class="text-base sm:text-lg font-bold text-neutral-950 mt-2">${prod.title}</h2>
@@ -955,7 +1069,11 @@
               <span class="text-2xl font-bold text-neutral-950">₹${prod.price}</span>
               <span class="text-xs text-neutral-400 line-through">₹${prod.originalPrice}</span>
               <span class="text-xs font-extrabold text-white bg-green-600 px-2 py-0.5 rounded-md">${discountPercent}% OFF</span>
-              <span class="text-[11px] text-green-600 font-semibold ml-2">✔ Free Cash on Delivery</span>
+              <span class="text-[11px] text-green-600 font-semibold ml-2">✔ Free COD Delivery</span>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 p-2 rounded-lg mt-2.5 text-[11px] text-amber-900 font-medium flex items-center gap-2">
+              <span>🎁</span> <strong>Special Offer:</strong> Free Mystery Gift included with this order (Orders > ₹599)
             </div>
 
             <p class="text-xs text-neutral-600 mt-2.5 leading-relaxed bg-neutral-50 p-3 rounded-lg border border-neutral-200">
@@ -1072,7 +1190,7 @@
       `).join('');
     }
 
-    // Cart Logic
+    // Cart & Coupon Logic
     function toggleCart(triggeredByPopstate = false) {
       const sidebar = document.getElementById("cartSidebar");
       const overlay = document.getElementById("cartOverlay");
@@ -1109,9 +1227,27 @@
       updateCartUI();
     }
 
+    function applyCoupon() {
+      const code = document.getElementById("couponInput").value.trim().toUpperCase();
+      const msg = document.getElementById("couponMsg");
+      if (code === "LUXE10") {
+        couponApplied = true;
+        couponDiscount = 0.20; // 20% off
+        msg.innerText = "🎉 Coupon LUXE10 applied! 20% OFF added.";
+        updateCartUI();
+      } else {
+        alert("Invalid coupon code! Use LUXE10");
+      }
+    }
+
     function updateCartUI() {
       const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      
+      if (couponApplied) {
+        totalPrice = Math.round(totalPrice * (1 - couponDiscount));
+      }
+
       document.getElementById("cartCount").innerText = totalItems;
       document.getElementById("cartTotal").innerText = `₹${totalPrice}`;
 
@@ -1140,25 +1276,31 @@
     async function sendOrderViaWhatsApp() {
       if (cart.length === 0) { alert("Aapka cart khaali hai!"); return; }
 
+      let grandTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      if (couponApplied) grandTotal = Math.round(grandTotal * (1 - couponDiscount));
+
       let summary = "Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye order confirm karna hai:\n\n";
-      let grandTotal = 0;
       cart.forEach((item, index) => {
         const itemTotal = item.price * item.qty;
-        grandTotal += itemTotal;
         summary += `${index + 1}. ${item.title} (Qty: ${item.qty}) - ₹${itemTotal}\n`;
       });
-      summary += `\nGrand Total: ₹${grandTotal}\nPayment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Pura Address Yahan Likhein]`;
+      if (couponApplied) summary += `\nCoupon Applied: LUXE10 (20% OFF)`;
+      if (grandTotal >= 599) summary += `\n🎁 Free Mystery Gift Unlocked (Order > ₹599)`;
 
-      // Save order to Firebase Cloud Database
+      summary += `\n--------------------------\n`;
+      summary += `Grand Total: ₹${grandTotal}\n`;
+      summary += `Payment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Pura Address Yahan Likhein]`;
+
       if (db) {
         try {
           await db.collection("orders").add({
             items: cart.map(i => ({ title: i.title, qty: i.qty, price: i.price })),
             total: grandTotal,
+            coupon: couponApplied ? "LUXE10" : "None",
             status: "Pending Verification",
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
-        } catch(e) { console.error("Order log error:", e); }
+        } catch(e) {}
       }
 
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(summary)}`, "_blank");
@@ -1167,7 +1309,7 @@
     function orderSingleProductWhatsApp(productId) {
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
-      const msg = `Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}* (₹${prod.price})\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Pura Address Yahan Likhein]`;
+      const msg = `Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}* (₹${prod.price})\n🎁 Free Mystery Gift Unlocked\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Pura Address Yahan Likhein]`;
       
       if (db) {
         db.collection("orders").add({
@@ -1188,7 +1330,7 @@
         <div class="bg-white p-4 rounded-xl gold-border shadow-sm">
           <div class="text-[#8c6928] text-xs">${'★'.repeat(r.rating)}</div>
           <p class="text-xs text-neutral-600 mt-2">"${r.comment}"</p>
-          <p class="text-[11px] font-bold text-neutral-900 mt-3">— ${r.name}, Verified Buyer</p>
+          <p class="text-[11px] font-bold text-neutral-900 mt-3">— ${r.name}, Verified Buyer ✓</p>
         </div>
       `).join('');
     }
@@ -1292,12 +1434,16 @@
     function loadAdminProducts() {
       const list = document.getElementById("adminProductsList");
       list.innerHTML = products.map(p => `
-        <div class="flex items-center justify-between bg-white p-2.5 rounded-lg border border-neutral-200 text-xs">
-          <div class="flex items-center gap-2">
+        <div class="flex items-center justify-between bg-white p-2.5 rounded-lg border border-neutral-200 text-xs gap-2">
+          <div class="flex items-center gap-2 flex-1">
             <img src="${p.images ? p.images[0] : p.image}" class="w-9 h-9 object-contain bg-neutral-50 rounded border" />
-            <div>
+            <div class="flex-1">
               <p class="font-bold text-neutral-900 line-clamp-1">${p.title}</p>
-              <p class="text-[10px] text-neutral-500">₹${p.price} | ${p.category}</p>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="text-[10px] text-neutral-500">₹${p.price}</span>
+                <span class="text-[10px] text-amber-800 font-bold">Views:</span>
+                <input type="number" id="admin-views-${p.id}" value="${p.views || 120}" class="w-16 bg-neutral-50 border border-neutral-300 rounded px-1.5 py-0.5 text-xs font-bold text-neutral-900" onchange="updateProductViews(${p.id}, this.value)" />
+              </div>
             </div>
           </div>
           <div class="flex items-center gap-1.5">
@@ -1306,6 +1452,19 @@
           </div>
         </div>
       `).join('');
+    }
+
+    async function updateProductViews(id, val) {
+      const newViews = parseInt(val) || 100;
+      const p = products.find(prod => prod.id === id);
+      if (p) p.views = newViews;
+
+      if (db) {
+        try {
+          await db.collection("product_views").doc(String(id)).set({ views: newViews }, { merge: true });
+        } catch(e) {}
+      }
+      renderAllSections();
     }
 
     function addNewProduct() {
@@ -1331,6 +1490,7 @@
         tag,
         rating: "5.0",
         inStock: true,
+        views: 121,
         images: [img || "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80"],
         description: "Premium handpicked trending item available with Cash on Delivery.",
         reviews: []
@@ -1383,7 +1543,7 @@
                 <span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded text-[10px]">${d.status || 'Pending'}</span>
               </div>
               <p class="text-neutral-600"><strong>Items:</strong> ${itemsTxt}</p>
-              <p class="text-[10px] text-neutral-400">Payment: Cash on Delivery</p>
+              <p class="text-[10px] text-neutral-400">Payment: Cash on Delivery | Coupon: ${d.coupon || 'None'}</p>
             </div>
           `;
         }).join('');
@@ -1392,6 +1552,7 @@
 
     // Initialize display & listeners
     renderAllSections();
+    listenToLiveViews();
     listenToLiveReviews();
     updateCartUI();
     updateWishlistUI();
