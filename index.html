@@ -9,6 +9,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Firebase App & Firestore (Free Real-time Cloud Database) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -39,10 +43,45 @@
     .gold-border {
       border: 1px solid #e7e5e0;
     }
-    .gold-glow:hover {
-      border-color: #bfa15f;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    
+    /* 3D Realistic Card & Banner Styles */
+    .banner-3d {
+      border-radius: 18px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid rgba(140, 105, 40, 0.22);
+      box-shadow: 
+        0 14px 30px -8px rgba(0, 0, 0, 0.12),
+        0 6px 14px -4px rgba(0, 0, 0, 0.06),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9);
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
     }
+    .banner-3d:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 20px 36px -8px rgba(0, 0, 0, 0.16),
+        0 10px 18px -4px rgba(140, 105, 40, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+      border-color: rgba(140, 105, 40, 0.45);
+    }
+    .banner-3d img {
+      transition: transform 0.5s ease;
+    }
+    .banner-3d:hover img {
+      transform: scale(1.015);
+    }
+
+    .product-card-3d {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .product-card-3d:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 26px -6px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(140, 105, 40, 0.1);
+      border-color: rgba(140, 105, 40, 0.4);
+    }
+
     .cart-drawer {
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -123,8 +162,8 @@
     </div>
   </section>
 
-  <!-- ==================== TOP MAIN HERO BANNER ==================== -->
-  <section id="heroTopSection" class="relative px-5 pt-12 pb-10 text-center max-w-4xl mx-auto my-4 rounded-3xl overflow-hidden border border-neutral-200 shadow-md bg-no-repeat bg-white" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.96)), url('./IMG_0394.png'); background-size: cover; background-position: center top;">
+  <!-- ==================== TOP MAIN HERO BANNER (3D ELEVATED) ==================== -->
+  <section id="heroTopSection" class="banner-3d relative px-5 pt-12 pb-10 text-center max-w-4xl mx-auto my-4 bg-no-repeat bg-white" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.96)), url('./IMG_0394.png'); background-size: cover; background-position: center top;">
     <span class="inline-block text-[10px] sm:text-[11px] font-bold tracking-[0.22em] text-[#8c6928] uppercase bg-amber-50 border border-amber-200/80 px-4 py-1 rounded-full shadow-sm">
       ✨ All-in-One Trending Lifestyle Store ✨
     </span>
@@ -137,22 +176,22 @@
 
     <!-- Quick Visual Category Links in Hero -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-2xl mx-auto">
-      <div onclick="filterCategory('Jewellery')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm">
+      <div onclick="filterCategory('Jewellery')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm hover:shadow-md">
         <div class="text-lg">💎</div>
         <p class="text-[11px] font-semibold text-neutral-900 mt-0.5">Jewellery</p>
         <p class="text-[9px] text-[#8c6928] font-semibold">Anti-Tarnish</p>
       </div>
-      <div onclick="filterCategory('Hair Accessories')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm">
+      <div onclick="filterCategory('Hair Accessories')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm hover:shadow-md">
         <div class="text-lg">🎀</div>
         <p class="text-[11px] font-semibold text-neutral-900 mt-0.5">Hair Clips</p>
         <p class="text-[9px] text-[#8c6928] font-semibold">Matte & Pastel</p>
       </div>
-      <div onclick="filterCategory('Kids Zone')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm">
+      <div onclick="filterCategory('Kids Zone')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm hover:shadow-md">
         <div class="text-lg">🧸</div>
         <p class="text-[11px] font-semibold text-neutral-900 mt-0.5">Kids Zone</p>
         <p class="text-[9px] text-[#8c6928] font-semibold">Cute Sippers</p>
       </div>
-      <div onclick="filterCategory('Trending Items')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm">
+      <div onclick="filterCategory('Trending Items')" class="bg-white/95 border border-neutral-200 hover:border-neutral-900 p-2.5 rounded-xl cursor-pointer transition-all shadow-sm hover:shadow-md">
         <div class="text-lg">🔥</div>
         <p class="text-[11px] font-semibold text-neutral-900 mt-0.5">Trending</p>
         <p class="text-[9px] text-[#8c6928] font-semibold">Viral Lifestyle</p>
@@ -165,7 +204,7 @@
 
     <!-- 1. JEWELLERY SECTION -->
     <section id="section-jewellery" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-neutral-200 shadow-sm mb-4 bg-neutral-100">
+      <div class="banner-3d mb-4 bg-neutral-100">
         <img src="./IMG_0388.jpeg" alt="Jewellery Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
       </div>
       <div class="flex items-center justify-between mb-3 px-1">
@@ -179,7 +218,7 @@
 
     <!-- 2. HAIR ACCESSORIES SECTION -->
     <section id="section-hair" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-neutral-200 shadow-sm mb-4 bg-neutral-100">
+      <div class="banner-3d mb-4 bg-neutral-100">
         <img src="./IMG_0387.jpeg" alt="Hair Accessories Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
       </div>
       <div class="flex items-center justify-between mb-3 px-1">
@@ -193,7 +232,7 @@
 
     <!-- 3. KIDS ZONE SECTION -->
     <section id="section-kids" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-neutral-200 shadow-sm mb-4 bg-neutral-100">
+      <div class="banner-3d mb-4 bg-neutral-100">
         <img src="./IMG_0389.jpeg" alt="Kids Zone Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
       </div>
       <div class="flex items-center justify-between mb-3 px-1">
@@ -207,7 +246,7 @@
 
     <!-- 4. TRENDING ITEMS SECTION -->
     <section id="section-trending" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-neutral-200 shadow-sm mb-4 bg-neutral-100">
+      <div class="banner-3d mb-4 bg-neutral-100">
         <img src="./IMG_0390.jpeg" alt="Trending Items Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
       </div>
       <div class="flex items-center justify-between mb-3 px-1">
@@ -247,7 +286,7 @@
     </div>
   </section>
 
-  <!-- Customer Reviews Section -->
+  <!-- Customer Reviews Section (Live & Realtime) -->
   <section class="max-w-5xl mx-auto px-4 mt-14">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
       <div>
@@ -259,22 +298,34 @@
       </button>
     </div>
 
-    <!-- Review Form -->
-    <div id="storeReviewForm" class="hidden bg-white p-4 rounded-xl gold-border mb-6 shadow-sm">
-      <h4 class="text-xs font-bold text-neutral-900 mb-2 uppercase">Share Your Experience</h4>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+    <!-- Review Form with 1-Number-1-Review Check -->
+    <div id="storeReviewForm" class="hidden bg-white p-5 rounded-xl gold-border mb-6 shadow-sm">
+      <h4 class="text-xs font-bold text-neutral-900 mb-1 uppercase">Share Your Genuine Experience</h4>
+      <p class="text-[10px] text-neutral-500 mb-3">Only 1 review is allowed per verified phone number to prevent spam.</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
         <input id="storeRevName" type="text" placeholder="Your Name" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
+        <input id="storeRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone Number" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
         <select id="storeRevRating" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-amber-700 font-semibold focus:outline-none focus:border-neutral-900">
           <option value="5">★★★★★ (5 Star)</option>
           <option value="4">★★★★☆ (4 Star)</option>
           <option value="3">★★★☆☆ (3 Star)</option>
         </select>
       </div>
-      <textarea id="storeRevText" rows="2" placeholder="Write your review here..." class="w-full bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900 mb-3"></textarea>
-      <button onclick="submitStoreReview()" class="gold-btn px-4 py-2 rounded-lg text-xs font-bold active:scale-95">Submit Review</button>
+      <textarea id="storeRevText" rows="2" placeholder="Write your feedback..." class="w-full bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900 mb-3"></textarea>
+      
+      <div class="flex items-center justify-between">
+        <button id="storeRevSubmitBtn" onclick="submitStoreReview()" class="gold-btn px-5 py-2 rounded-lg text-xs font-bold active:scale-95 flex items-center gap-2">
+          <span>Submit Review</span>
+        </button>
+        <span id="storeRevStatus" class="text-xs font-medium"></span>
+      </div>
     </div>
 
-    <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+    <!-- Container where reviews live-stream from Cloud Database -->
+    <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div class="col-span-full text-center py-6 text-xs text-neutral-400">Loading verified customer reviews...</div>
+    </div>
   </section>
 
   <!-- About Section -->
@@ -418,6 +469,27 @@
 
   <script>
     const WHATSAPP_NUMBER = "918369511325"; 
+
+    // ==================== FIREBASE REALTIME CLOUD DATABASE ====================
+    // Yahan apni Firebase credentials paste karein (Free Firebase Console se)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDummyKeyReplaceWithYourOwn",
+      authDomain: "your-project-id.firebaseapp.com",
+      projectId: "your-project-id",
+      storageBucket: "your-project-id.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef12345"
+    };
+
+    let db = null;
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.firestore();
+    } catch (e) {
+      console.warn("Firebase not configured yet, running in local fallback mode:", e);
+    }
 
     const products = [
       // 1. JEWELLERY
@@ -602,6 +674,7 @@
       }
     ];
 
+    // Initial starter reviews in case database is empty
     let storeReviews = [
       { name: "Simran R.", rating: 5, comment: "Ordered jewelry and water sipper together, both quality items! Very fast delivery." },
       { name: "Pooja Shr.", rating: 5, comment: "COD option was very smooth. Received packaging in Dombivli within 3 days. Loved everything!" },
@@ -661,7 +734,7 @@
       const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
 
       return `
-        <div class="bg-white rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between shadow-sm">
+        <div class="bg-white rounded-xl overflow-hidden gold-border product-card-3d flex flex-col justify-between">
           <div class="relative overflow-hidden group cursor-pointer bg-neutral-50" onclick="openProductModal(${item.id})">
             <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain p-2 transition-transform duration-500 group-hover:scale-105" loading="lazy" />
             
@@ -1053,8 +1126,13 @@
       form.classList.toggle("hidden");
     }
 
+    // ==================== REALTIME LIVE REVIEWS SYNC ====================
     function renderStoreReviews() {
       const container = document.getElementById("storeReviewsContainer");
+      if (storeReviews.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-6 text-xs text-neutral-400">Be the first to leave a review!</div>`;
+        return;
+      }
       container.innerHTML = storeReviews.map(r => `
         <div class="bg-white p-4 rounded-xl gold-border shadow-sm">
           <div class="text-[#8c6928] text-xs">${'★'.repeat(r.rating)}</div>
@@ -1064,22 +1142,109 @@
       `).join('');
     }
 
-    function submitStoreReview() {
-      const name = document.getElementById("storeRevName").value.trim();
-      const rating = parseInt(document.getElementById("storeRevRating").value);
-      const text = document.getElementById("storeRevText").value.trim();
-
-      if (!name || !text) {
-        alert("Naam aur feedback likhna zaroori hai!");
+    function listenToLiveReviews() {
+      if (!db) {
+        // Fallback to localStorage if Firebase not connected
+        const localSaved = localStorage.getItem("tm_store_reviews");
+        if (localSaved) {
+          try { storeReviews = JSON.parse(localSaved); } catch(e){}
+        }
+        renderStoreReviews();
         return;
       }
 
-      storeReviews.unshift({ name, rating, comment: text });
-      renderStoreReviews();
-      toggleStoreReviewForm();
-      document.getElementById("storeRevName").value = '';
-      document.getElementById("storeRevText").value = '';
-      alert("Aapka review website par add ho gaya hai! Thank you ✨");
+      // Firestore Realtime Listener (Auto-updates for everyone across India)
+      db.collection("store_reviews")
+        .orderBy("createdAt", "desc")
+        .onSnapshot((snapshot) => {
+          if (!snapshot.empty) {
+            storeReviews = snapshot.docs.map(doc => doc.data());
+          }
+          renderStoreReviews();
+        }, (error) => {
+          console.error("Reviews load error:", error);
+          renderStoreReviews();
+        });
+    }
+
+    // 1-Phone Number = 1-Review Check
+    async function submitStoreReview() {
+      const name = document.getElementById("storeRevName").value.trim();
+      const phone = document.getElementById("storeRevPhone").value.trim();
+      const rating = parseInt(document.getElementById("storeRevRating").value);
+      const text = document.getElementById("storeRevText").value.trim();
+      const status = document.getElementById("storeRevStatus");
+      const btn = document.getElementById("storeRevSubmitBtn");
+
+      if (!name || !phone || !text) {
+        alert("Kripya Naam, 10-digit Phone Number aur Review sabhi fields bharein!");
+        return;
+      }
+
+      // 10-digit phone verification regex
+      const phoneClean = phone.replace(/[^0-9]/g, '');
+      if (phoneClean.length !== 10) {
+        alert("Kripya ek valid 10-digit mobile number enter karein!");
+        return;
+      }
+
+      btn.disabled = true;
+      status.innerText = "Checking...";
+      status.className = "text-xs text-neutral-500 font-medium";
+
+      if (db) {
+        try {
+          // Check if this phone number already submitted a review
+          const existing = await db.collection("store_reviews").where("phone", "==", phoneClean).get();
+          if (!existing.empty) {
+            alert("⚠️ Is phone number se pehle hi ek review diya ja chuka hai. Ek user sirf ek review de sakta hai!");
+            status.innerText = "Duplicate Phone Number!";
+            status.className = "text-xs text-red-600 font-bold";
+            btn.disabled = false;
+            return;
+          }
+
+          // Save review permanently to cloud
+          await db.collection("store_reviews").add({
+            name: name,
+            phone: phoneClean,
+            rating: rating,
+            comment: text,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          status.innerText = "Review published live! ✨";
+          status.className = "text-xs text-green-600 font-bold";
+          alert("Aapka review live publish ho gaya hai aur sabhi customers ko dikhega! Thank you ✨");
+          
+          document.getElementById("storeRevName").value = '';
+          document.getElementById("storeRevPhone").value = '';
+          document.getElementById("storeRevText").value = '';
+          toggleStoreReviewForm();
+        } catch (err) {
+          console.error("Review save error:", err);
+          alert("Error saving review. Please check Firebase rules or internet.");
+        } finally {
+          btn.disabled = false;
+        }
+      } else {
+        // Local fallback if Firebase credentials not yet inserted
+        const submittedPhones = JSON.parse(localStorage.getItem("tm_submitted_phones") || "[]");
+        if (submittedPhones.includes(phoneClean)) {
+          alert("⚠️ Is phone number se pehle hi review submit ho chuka hai!");
+          btn.disabled = false;
+          return;
+        }
+        submittedPhones.push(phoneClean);
+        localStorage.setItem("tm_submitted_phones", JSON.stringify(submittedPhones));
+
+        storeReviews.unshift({ name, rating, comment: text, phone: phoneClean });
+        localStorage.setItem("tm_store_reviews", JSON.stringify(storeReviews));
+        renderStoreReviews();
+        toggleStoreReviewForm();
+        btn.disabled = false;
+        alert("Aapka review website par add ho gaya hai! (Connect Firebase for pan-India live sync).");
+      }
     }
 
     function orderSingleProductWhatsApp(productId) {
@@ -1198,9 +1363,9 @@
       window.open(url, "_blank");
     }
 
-    // Initialize display
+    // Initialize display & listeners
     renderAllSections();
-    renderStoreReviews();
+    listenToLiveReviews();
     updateCartUI();
   </script>
 </body>
