@@ -1,1193 +1,1051 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRENDZ MART LUXE | Trending Jewellery, Kids & Lifestyle Store</title>
-  
-  <!-- Tailwind CSS & Google Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #0b0b0d;
-      color: #eaeaea;
-      scroll-behavior: smooth;
-    }
-    .font-cinzel {
-      font-family: 'Cinzel', serif;
-    }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #fce09b, #dfb76c, #9f792b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gold-btn {
-      background: linear-gradient(135deg, #dfb76c, #f3d48d, #b88d3b);
-      color: #121214;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(223, 183, 108, 0.25);
-    }
-    .gold-border {
-      border: 1px solid rgba(223, 183, 108, 0.25);
-    }
-    .gold-glow:hover {
-      border-color: rgba(223, 183, 108, 0.6);
-      box-shadow: 0 6px 20px rgba(223, 183, 108, 0.15);
-    }
-    .cart-drawer {
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    .swipe-container {
-      touch-action: pan-y;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TRENDZ MART LUXE | Trending Jewellery, Kids & Lifestyle Store</title>
+<!-- Tailwind CSS & Google Fonts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--gold-primary: #b88e3e;
+--gold-deep: #8c6a28;
+}
+body {
+font-family: 'Plus Jakarta Sans', sans-serif;
+background-color: #fcfcfc;
+color: #1a1a1c;
+scroll-behavior: smooth;
+-webkit-font-smoothing: antialiased;
+}
+.font-cinzel {
+font-family: 'Cinzel', serif;
+}
+.gold-gradient-text {
+background: linear-gradient(135deg, #a67c2e 0%, #d4a958 50%, #946f24 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.btn-black {
+background: #111114;
+color: #ffffff;
+transition: all 0.25s ease;
+box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.btn-black:hover {
+background: #b88e3e;
+color: #ffffff;
+box-shadow: 0 6px 20px rgba(184, 142, 62, 0.25);
+}
+.card-luxury {
+background: #ffffff;
+border: 1px solid rgba(0, 0, 0, 0.06);
+box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.03), 0 2px 8px -2px rgba(0, 0, 0, 0.02);
+transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.card-luxury:hover {
+transform: translateY(-3px);
+box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(184, 142, 62, 0.08);
+border-color: rgba(184, 142, 62, 0.38);
+}
+.cart-drawer {
+transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+.swipe-container {
+touch-action: pan-y;
+-webkit-user-select: none;
+user-select: none;
+}
+</style>
 </head>
-<body class="min-h-screen">
-
-  <!-- Top Announcement Bar -->
-  <div class="bg-gradient-to-r from-[#8c6b2d] via-[#d8b168] to-[#8c6b2d] text-black text-center text-[11px] font-bold py-2 px-3 tracking-widest uppercase shadow-md">
-    ✨ Free Express Shipping & Cash on Delivery (COD) Available Across India ✨
-  </div>
-
-  <!-- Main Navigation Header -->
-  <header class="sticky top-0 z-40 bg-[#0e0e11]/95 backdrop-blur-md border-b border-neutral-800/80 px-4 py-3">
-    <div class="max-w-5xl mx-auto flex items-center justify-between">
-      
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full border border-amber-400/40 bg-black flex items-center justify-center overflow-hidden shadow-inner">
-          <img id="brandHeaderLogo" src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('fallbackLogoIcon').style.display='block';">
-          <svg id="fallbackLogoIcon" style="display:none;" class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-          </svg>
-        </div>
-        <div>
-          <h1 class="font-cinzel text-lg sm:text-xl font-bold tracking-[0.18em] gold-gradient-text">TRENDZ MART LUXE</h1>
-          <p class="text-[9px] tracking-widest text-neutral-400 uppercase">Jewellery • Kids Zone • Hair Accessories • Trending Finds</p>
-        </div>
-      </a>
-
-      <!-- Quick Nav & Cart -->
-      <div class="flex items-center gap-2">
-        <a id="navWhatsappBtn" href="#" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 transition-colors">
-          <span>WhatsApp Help</span>
-        </a>
-        
-        <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-[#16161a] border border-amber-400/30 text-amber-400 active:scale-95 transition-transform">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-          </svg>
-          <span id="cartCount" class="absolute -top-1 -right-1 bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-[10px] font-extrabold h-4 w-4 rounded-full flex items-center justify-center">0</span>
-        </button>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- Top Search & Quick Category Filters Bar -->
-  <section class="max-w-5xl mx-auto px-4 pt-4">
-    <div class="bg-[#121216] border border-neutral-800 rounded-2xl p-3 shadow-lg">
-      <div class="relative mb-3">
-        <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400 pointer-events-none">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-        </span>
-        <input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search jewellery, cute water sippers, hair claw clips, organizers..." class="w-full pl-9 pr-4 py-2 bg-black/60 border border-neutral-800 rounded-xl text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400 transition-colors" />
-      </div>
-
-      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-        <button onclick="filterCategory('All')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm" data-cat="All">All Deals</button>
-        <button onclick="filterCategory('Jewellery')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Jewellery">💎 Jewellery</button>
-        <button onclick="filterCategory('Hair Accessories')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Hair Accessories">🎀 Hair Accessories</button>
-        <button onclick="filterCategory('Kids Zone')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Kids Zone">🧸 Kids Zone</button>
-        <button onclick="filterCategory('Trending Items')" class="filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50" data-cat="Trending Items">🔥 Trending Items</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== TOP MAIN HERO BANNER ==================== -->
-  <section id="heroTopSection" class="relative px-5 pt-12 pb-10 text-center max-w-4xl mx-auto my-4 rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-no-repeat" style="background-image: linear-gradient(to bottom, rgba(11, 11, 14, 0.78), rgba(11, 11, 14, 0.94)), url('./IMG_0394.png'); background-size: cover; background-position: center top;">
-    <span class="inline-block text-[10px] sm:text-[11px] font-bold tracking-[0.22em] text-amber-300 uppercase bg-black/70 border border-amber-500/40 px-4 py-1 rounded-full backdrop-blur-md shadow-sm">
-      ✨ All-in-One Trending Lifestyle Store ✨
-    </span>
-    <h2 class="font-cinzel text-2xl sm:text-4xl font-bold mt-4 text-white leading-tight tracking-wider">
-      TRENDS YOU LOVE, PRICES YOU ADORE
-    </h2>
-    <p class="text-xs sm:text-sm text-neutral-300 mt-3 max-w-lg mx-auto leading-relaxed">
-      Explore premium anti-tarnish jewelry, viral Korean hair clips, cute kids water sippers & trending room organizers with Cash on Delivery.
-    </p>
-
-    <!-- Quick Visual Category Links in Hero -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-2xl mx-auto">
-      <div onclick="filterCategory('Jewellery')" class="bg-black/60 border border-neutral-800 hover:border-amber-400 p-2.5 rounded-xl cursor-pointer transition-all">
-        <div class="text-lg">💎</div>
-        <p class="text-[11px] font-semibold text-white mt-0.5">Jewellery</p>
-        <p class="text-[9px] text-amber-400">Anti-Tarnish</p>
-      </div>
-      <div onclick="filterCategory('Hair Accessories')" class="bg-black/60 border border-neutral-800 hover:border-amber-400 p-2.5 rounded-xl cursor-pointer transition-all">
-        <div class="text-lg">🎀</div>
-        <p class="text-[11px] font-semibold text-white mt-0.5">Hair Clips</p>
-        <p class="text-[9px] text-amber-400">Matte & Pastel</p>
-      </div>
-      <div onclick="filterCategory('Kids Zone')" class="bg-black/60 border border-neutral-800 hover:border-amber-400 p-2.5 rounded-xl cursor-pointer transition-all">
-        <div class="text-lg">🧸</div>
-        <p class="text-[11px] font-semibold text-white mt-0.5">Kids Zone</p>
-        <p class="text-[9px] text-amber-400">Cute Sippers</p>
-      </div>
-      <div onclick="filterCategory('Trending Items')" class="bg-black/60 border border-neutral-800 hover:border-amber-400 p-2.5 rounded-xl cursor-pointer transition-all">
-        <div class="text-lg">🔥</div>
-        <p class="text-[11px] font-semibold text-white mt-0.5">Trending</p>
-        <p class="text-[9px] text-amber-400">Viral Lifestyle</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== MAIN CATALOG SECTIONS ==================== -->
-  <main class="max-w-5xl mx-auto px-3 sm:px-6 mt-6 space-y-12">
-
-    <!-- 1. JEWELLERY SECTION -->
-    <section id="section-jewellery" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
-        <img src="./IMG_0388.jpeg" alt="Jewellery Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
-      </div>
-      <div class="flex items-center justify-between mb-3 px-1">
-        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">💎 Anti-Tarnish Jewellery</span>
-        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Water & Sweat Proof</span>
-      </div>
-      <div id="grid-jewellery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
-    </section>
-
-    <!-- 2. HAIR ACCESSORIES SECTION -->
-    <section id="section-hair" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
-        <img src="./IMG_0387.jpeg" alt="Hair Accessories Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
-      </div>
-      <div class="flex items-center justify-between mb-3 px-1">
-        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">🎀 Hair Accessories</span>
-        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Korean Matte & Pastel</span>
-      </div>
-      <div id="grid-hair" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
-    </section>
-
-    <!-- 3. KIDS ZONE SECTION -->
-    <section id="section-kids" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
-        <img src="./IMG_0389.jpeg" alt="Kids Zone Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
-      </div>
-      <div class="flex items-center justify-between mb-3 px-1">
-        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">🧸 Kids Zone</span>
-        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Cute Bottles & Kids Finds</span>
-      </div>
-      <div id="grid-kids" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
-    </section>
-
-    <!-- 4. TRENDING ITEMS SECTION -->
-    <section id="section-trending" class="catalog-section">
-      <div class="rounded-2xl overflow-hidden border border-amber-500/30 shadow-lg mb-4 bg-neutral-950">
-        <img src="./IMG_0390.jpeg" alt="Trending Items Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
-      </div>
-      <div class="flex items-center justify-between mb-3 px-1">
-        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">🔥 Viral Trending Items</span>
-        <span class="text-[10px] text-neutral-400 bg-black/60 border border-neutral-800 px-2 py-0.5 rounded">Instagram Top Picks</span>
-      </div>
-      <div id="grid-trending" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"></div>
-    </section>
-
-  </main>
-
-  <!-- Trust Badges -->
-  <section class="max-w-5xl mx-auto px-4 mt-16">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 bg-[#121216] rounded-2xl gold-border text-center">
-      <div class="p-2">
-        <div class="text-xl mb-1">💵</div>
-        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Cash on Delivery</h4>
-        <p class="text-[10px] text-neutral-400 mt-0.5">Pay at doorstep</p>
-      </div>
-      <div class="p-2">
-        <div class="text-xl mb-1">🚚</div>
-        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Pan India Express</h4>
-        <p class="text-[10px] text-neutral-400 mt-0.5">Quick Dispatch in 24h</p>
-      </div>
-      <div class="p-2">
-        <div class="text-xl mb-1">✨</div>
-        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Premium Quality</h4>
-        <p class="text-[10px] text-neutral-400 mt-0.5">Handpicked & durable</p>
-      </div>
-      <div class="p-2">
-        <div class="text-xl mb-1">🛍️</div>
-        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Trending Catalog</h4>
-        <p class="text-[10px] text-neutral-400 mt-0.5">Viral Instagram finds</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Customer Reviews Section -->
-  <section class="max-w-5xl mx-auto px-4 mt-14">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-      <div>
-        <h3 class="font-cinzel text-lg sm:text-xl font-bold text-amber-400">Loved by 2,000+ Happy Customers</h3>
-        <p class="text-xs text-neutral-400 mt-0.5">Real verified reviews from happy shoppers across India</p>
-      </div>
-      <button onclick="toggleStoreReviewForm()" class="px-4 py-2 rounded-xl text-xs font-semibold gold-btn active:scale-95 transition-all">
-        ✍️ Leave a Review
-      </button>
-    </div>
-
-    <!-- Review Form -->
-    <div id="storeReviewForm" class="hidden bg-[#141418] p-4 rounded-xl gold-border mb-6">
-      <h4 class="text-xs font-bold text-white mb-2 uppercase">Share Your Experience</h4>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-        <input id="storeRevName" type="text" placeholder="Your Name" class="bg-black/50 border border-neutral-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-400" />
-        <select id="storeRevRating" class="bg-black/50 border border-neutral-800 rounded-lg p-2 text-xs text-amber-400 focus:outline-none focus:border-amber-400">
-          <option value="5">★★★★★ (5 Star)</option>
-          <option value="4">★★★★☆ (4 Star)</option>
-          <option value="3">★★★☆☆ (3 Star)</option>
-        </select>
-      </div>
-      <textarea id="storeRevText" rows="2" placeholder="Write your review here..." class="w-full bg-black/50 border border-neutral-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-400 mb-3"></textarea>
-      <button onclick="submitStoreReview()" class="gold-btn px-4 py-2 rounded-lg text-xs font-bold active:scale-95">Submit Review</button>
-    </div>
-
-    <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
-  </section>
-
-  <!-- About Section -->
-  <section class="max-w-5xl mx-auto px-4 mt-14">
-    <div class="bg-[#121216] p-6 rounded-2xl gold-border grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-      <div>
-        <h3 class="font-cinzel text-lg font-bold text-amber-400">About TRENDZ MART LUXE</h3>
-        <p class="text-xs text-neutral-300 mt-2 leading-relaxed">
-          At TRENDZ MART LUXE, we bring you trending lifestyle essentials: premium anti-tarnish jewelry, cute kids zone bottles, aesthetic hair clips, and daily organizers. Quality you can trust with Cash on Delivery support across India.
-        </p>
-      </div>
-      <div class="bg-neutral-900/80 p-4 rounded-xl border border-neutral-800">
-        <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider">How To Order?</h4>
-        <ul class="text-xs text-neutral-400 mt-2 space-y-1.5 list-disc pl-4">
-          <li>Select your favorite items & view multi-angle photos.</li>
-          <li>Click <strong class="text-neutral-200">Complete Order on WhatsApp</strong>.</li>
-          <li>Send your delivery address and choose Cash on Delivery.</li>
-          <li>Get tracking updates straight on WhatsApp.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="mt-16 bg-[#09090b] border-t border-neutral-900 py-10 px-4 text-center">
-    <div class="w-14 h-14 rounded-full border border-amber-400/40 bg-black mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-inner">
-      <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'">
-    </div>
-    <h3 class="font-cinzel text-base font-bold gold-gradient-text">TRENDZ MART LUXE</h3>
-    <p class="text-[10px] text-neutral-500 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
-    <div class="flex justify-center gap-6 text-xs text-neutral-400 mt-4 flex-wrap">
-      <a href="#section-jewellery" class="hover:text-amber-300 transition-colors">Catalog</a>
-      <a id="footerWhatsappBtn" href="#" target="_blank" class="hover:text-amber-300 transition-colors">WhatsApp Support</a>
-      <a href="javascript:void(0)" onclick="openTermsModal()" class="hover:text-amber-300 transition-colors">Terms & Conditions</a>
-      <a href="javascript:void(0)" onclick="openTermsModal()" class="hover:text-amber-300 transition-colors">Return Policy</a>
-    </div>
-    <p class="text-[11px] text-neutral-600 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Terms Modal -->
-  <div id="termsModalOverlay" onclick="closeTermsModal()" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-
-  <div id="termsModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-xl bg-[#111115] border border-amber-400/30 rounded-2xl z-50 hidden p-5 sm:p-6 shadow-2xl transition-all duration-300 max-h-[85vh] overflow-y-auto">
-    <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
-      <div>
-        <h3 class="font-cinzel text-base sm:text-lg font-bold gold-gradient-text tracking-wide">Store Terms & Policies</h3>
-        <p class="text-[10px] text-neutral-400 mt-0.5">Please read before placing your order</p>
-      </div>
-      <button onclick="closeTermsModal()" class="text-neutral-400 hover:text-white bg-black/70 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">✕</button>
-    </div>
-
-    <div class="space-y-4 text-xs text-neutral-300 leading-relaxed pr-1">
-      <div>
-        <h4 class="text-amber-400 font-semibold uppercase text-[11px] mb-1">1. Cash on Delivery (COD) & Verification</h4>
-        <p class="text-neutral-400">Order place hone ke baad WhatsApp ya Call ke zariye dispatch verification kiya jata hai. Fake orders aur unwanted returns rokne ke liye verify hone ke baad hi order dispatch hoga.</p>
-      </div>
-
-      <div>
-        <h4 class="text-amber-400 font-semibold uppercase text-[11px] mb-1">2. Mandatory 360° Unboxing Video</h4>
-        <p class="text-neutral-400">Parcel receive hone ke baad parcel open karte waqt bina pause/cut ka 360-degree clear unboxing video banana compulsory hai. Kisi bhi wrong, missing ya damaged product claim ke liye video hona zaroori hai.</p>
-      </div>
-
-      <div>
-        <h4 class="text-amber-400 font-semibold uppercase text-[11px] mb-1">3. Return & Replacement Policy</h4>
-        <p class="text-neutral-400">Hamare products par replacement policy delivery ke 48 hours ke andar valid rehti hai, agar product transit me physically damaged ya galat deliver hua ho. Video proof ke sath hamare WhatsApp par inform karein.</p>
-      </div>
-
-      <div>
-        <h4 class="text-amber-400 font-semibold uppercase text-[11px] mb-1">4. Anti-Tarnish Quality & Care Guidance</h4>
-        <p class="text-neutral-400">Market me aam taur par regular tarnish products perfumes ya chemicals ke contact me aakar jaldi kharab ho jaate hain. Lekin hamari jewelry <strong>Premium High-Grade Anti-Tarnish & Water-Resistant Coating</strong> ke saath aati hai jo itni aasani se bilkul kharab nahi hoti. Fir bhi, iski original 18K gold shine aur luxurious polish ko lambe samay tak naye jaisa rakhne ke liye, perfume spray karne ke thodi der baad jewelry pehanna behtar rehta hai.</p>
-      </div>
-
-      <div>
-        <h4 class="text-amber-400 font-semibold uppercase text-[11px] mb-1">5. Pan India Delivery Timeline</h4>
-        <p class="text-neutral-400">Orders 24 se 48 ghante ke andar dispatch kar diye jaate hain. Delivery standard 3 se 7 business days me complete hoti hai. Tracking details aapko WhatsApp par bhej di jaati hain.</p>
-      </div>
-    </div>
-
-    <div class="mt-6 pt-3 border-t border-neutral-800 text-center">
-      <button onclick="closeTermsModal()" class="gold-btn px-6 py-2 rounded-xl text-xs font-semibold active:scale-95 transition-transform">I Understand</button>
-    </div>
-  </div>
-
-  <!-- Product Modal -->
-  <div id="productModalOverlay" onclick="closeProductModal()" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-
-  <div id="productModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-lg bg-[#111115] border border-amber-400/30 rounded-2xl z-50 hidden p-4 sm:p-6 shadow-2xl transition-all duration-300 max-h-[92vh] overflow-y-auto">
-    <button onclick="closeProductModal()" class="absolute top-3 right-3 text-neutral-400 hover:text-white bg-black/70 rounded-full w-8 h-8 flex items-center justify-center font-bold text-base z-10">✕</button>
-    <div id="modalContent"></div>
-  </div>
-
-  <!-- Zoom Lightbox -->
-  <div id="zoomModal" class="fixed inset-0 bg-black/95 z-[70] hidden flex items-center justify-center p-2 backdrop-blur-md select-none">
-    <button onclick="closeZoomModal()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg z-[80]">✕</button>
-    
-    <button onclick="prevZoomImg()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-amber-400/30 z-[80] shadow-lg">❮</button>
-    
-    <div id="zoomTouchArea" class="swipe-container relative max-w-full max-h-[85vh] flex items-center justify-center">
-      <img id="zoomModalImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-all duration-200 pointer-events-none" />
-    </div>
-
-    <button onclick="nextZoomImg()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-amber-400/30 z-[80] shadow-lg">❯</button>
-
-    <div class="absolute bottom-4 flex items-center gap-2 pointer-events-none">
-      <span id="zoomCounter" class="bg-black/80 border border-neutral-700 text-amber-300 text-xs px-3 py-1 rounded-full">1 / 1</span>
-      <span class="bg-black/80 border border-neutral-700 text-neutral-400 text-xs px-3 py-1 rounded-full">Swipe or tap ❮ ❯</span>
-    </div>
-  </div>
-
-  <!-- Cart Drawer -->
-  <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-
-  <div id="cartSidebar" class="cart-drawer fixed top-0 right-0 h-full w-[88%] max-w-sm bg-[#111114] border-l border-neutral-800 z-50 translate-x-full flex flex-col justify-between shadow-2xl">
-    <div class="p-4 border-b border-neutral-800 flex items-center justify-between">
-      <div>
-        <h3 class="font-cinzel font-bold text-amber-400 text-sm tracking-wider">YOUR SHOPPING BAG</h3>
-        <p class="text-[10px] text-neutral-400">Cash on Delivery Available</p>
-      </div>
-      <button onclick="toggleCart()" class="text-neutral-400 hover:text-white text-xl font-bold p-1">✕</button>
-    </div>
-
-    <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
-
-    <div class="p-4 border-t border-neutral-800 bg-[#0c0c0e]">
-      <div class="flex justify-between items-center mb-1 text-sm font-semibold">
-        <span class="text-neutral-400">Subtotal:</span>
-        <span id="cartTotal" class="text-amber-400 font-bold text-base">₹0</span>
-      </div>
-      <div class="flex justify-between items-center text-[11px] text-neutral-400 mb-3">
-        <span>Delivery Fee:</span>
-        <span class="text-green-400 font-semibold uppercase">Free</span>
-      </div>
-      
-      <button onclick="sendOrderViaWhatsApp()" class="w-full py-3.5 rounded-xl font-bold text-xs gold-btn active:scale-95 transition-transform flex items-center justify-center gap-2">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-        <span>Complete Order on WhatsApp</span>
-      </button>
-      <p class="text-[10px] text-center text-neutral-500 mt-2">No advance payment required. Pay on delivery.</p>
-    </div>
-  </div>
-
-  <script>
-    const WHATSAPP_NUMBER = "918369511325"; 
-
-    const products = [
-      // 1. JEWELLERY
-      {
-        id: 1,
-        title: "Emerald Green Heart Pendant Snake Chain Necklace",
-        category: "Jewellery",
-        price: 449,
-        originalPrice: 899,
-        tag: "Best Seller",
-        rating: "4.9",
-        specs: {
-          material: "Stainless Steel",
-          pendant: "Heart Shape",
-          chain: "Snake Chain",
-          length: "Approx. 20 inches",
-          clasp: "Lobster Clasp",
-          finish: "Polished Gold"
-        },
-        description: "A timeless symbol of love and care. Crafted from premium stainless steel for long-lasting shine and durability. Anti-tarnish, water resistant, lightweight, and perfect for daily wear.",
-        images: [
-          "./IMG_0252.png",
-          "./IMG_0253.png",
-          "./3bddeff2-a170-4f39-9e83-078bd3aa54e2.jpeg"
-        ],
-        reviews: [
-          { name: "Ananya P.", rating: 5, comment: "The emerald green heart looks so royal in real life! Loved the snake chain." },
-          { name: "Kavita M.", rating: 5, comment: "Wore it continuously for 4 days in water, no color loss. Total value for money at ₹449!" }
-        ]
-      },
-      {
-        id: 2,
-        title: "Snake Bone Minimalist Gold Choker",
-        category: "Jewellery",
-        price: 399,
-        originalPrice: 799,
-        tag: "Trending",
-        rating: "4.8",
-        specs: {
-          material: "Stainless Steel",
-          finish: "18K PVD Gold",
-          length: "16+2 inch adjustable"
-        },
-        description: "Sleek liquid-gold look. Flexible snake bone chain designed for comfortable layering.",
-        images: [
-          "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80",
-          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"
-        ],
-        reviews: [
-          { name: "Sneha R.", rating: 5, comment: "Very classy choker. Looks very rich!" }
-        ]
-      },
-      {
-        id: 3,
-        title: "Roman Numeral Luxury Cuff Kada Bangle",
-        category: "Jewellery",
-        price: 549,
-        originalPrice: 1199,
-        tag: "18K Plated",
-        rating: "5.0",
-        specs: {
-          material: "Titanium Steel",
-          type: "Oval Snap Bangle",
-          finish: "Mirror Polish Gold"
-        },
-        description: "Signature Roman numeral engraved oval cuff kada. Easy snap lock and lifetime luster.",
-        images: [
-          "./IMG_0368.jpeg"
-        ],
-        reviews: [
-          { name: "Pooja D.", rating: 5, comment: "Pure luxury feeling, perfectly fits my wrist." }
-        ]
-      },
-      {
-        id: 4,
-        title: "Chunky Water-Resistant Gold Hoop Earrings",
-        category: "Jewellery",
-        price: 349,
-        originalPrice: 699,
-        tag: "Anti-Tarnish",
-        rating: "4.9",
-        specs: {
-          material: "Hollow Stainless Steel",
-          clasp: "Click-top latch"
-        },
-        description: "Ultra-lightweight hollow chunky hoops. Guaranteed non-fading luster even with regular water contact.",
-        images: [
-          "./IMG_0367.jpeg"
-        ],
-        reviews: [
-          { name: "Tanya S.", rating: 5, comment: "Lightweight and doesn't hurt the ears at all." }
-        ]
-      },
-      {
-        id: 8,
-        title: "Crystal Solitaire Minimalist Gold Ring",
-        category: "Jewellery",
-        price: 299,
-        originalPrice: 599,
-        tag: "Adjustable",
-        rating: "4.8",
-        specs: {
-          material: "Stainless Steel",
-          size: "Adjustable Free Size",
-          finish: "18K Gold Plated"
-        },
-        description: "Gleaming solitaire stone ring designed with adjustable band. Waterproof and daily-wear friendly.",
-        images: [
-          "./IMG_0370.jpeg"
-        ],
-        reviews: [
-          { name: "Riya K.", rating: 5, comment: "Simple yet looks expensive. Doesn't turn green!" }
-        ]
-      },
-
-      // 2. HAIR ACCESSORIES
-      {
-        id: 7,
-        title: "Korean Matte Pastel Claw Hair Clips (Pack of 4)",
-        category: "Hair Accessories",
-        price: 249,
-        originalPrice: 599,
-        tag: "Top Offer",
-        rating: "4.9",
-        specs: {
-          pack: "Set of 4 Trendy Colors",
-          material: "Non-slip matte acrylic resin with strong spring"
-        },
-        description: "Heavy-duty strong grip matte claw clips designed for thick & thin hair. Does not slip or tug hair.",
-        images: [
-          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"
-        ],
-        reviews: [
-          { name: "Aashi P.", rating: 5, comment: "Colors and grip are just perfect!" }
-        ]
-      },
-
-      // 3. KIDS ZONE
-      {
-        id: 5,
-        title: "Cute Pastel Gradient Water Sipper (2 Litre) with Straw",
-        category: "Kids Zone",
-        price: 499,
-        originalPrice: 999,
-        tag: "Kids Favorite",
-        rating: "4.9",
-        specs: {
-          capacity: "2000 ML (2 Litre)",
-          features: "Motivational Time Markers, Straw & Handle",
-          material: "BPA Free Food Grade Tritan (Child Safe)"
-        },
-        description: "Cute dual-shade motivational water sipper with leak-proof pop-up straw, security lock, and easy carry strap for school and sports.",
-        images: [
-          "./IMG_0371.jpeg"
-        ],
-        reviews: [
-          { name: "Megha S.", rating: 5, comment: "Colors are so cute! Quality is solid." }
-        ]
-      },
-
-      // 4. TRENDING ITEMS
-      {
-        id: 6,
-        title: "360° Rotating Acrylic Luxury Makeup Organizer Box",
-        category: "Trending Items",
-        price: 699,
-        originalPrice: 1499,
-        tag: "Best Seller",
-        rating: "4.8",
-        specs: {
-          material: "Crystal Clear Acrylic",
-          feature: "360 Degree Smooth Rotation, Multi Compartments",
-          use: "Cosmetics, Skincare, Perfumes"
-        },
-        description: "Keep all your lipsticks, serums, and cosmetics neatly organized with 360-degree silent rotation.",
-        images: [
-          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"
-        ],
-        reviews: [
-          { name: "Farah K.", rating: 5, comment: "Spacious and looks super clean on vanity table." }
-        ]
-      }
-    ];
-
-    let storeReviews = [
-      { name: "Simran R.", rating: 5, comment: "Ordered jewelry and water sipper together, both quality items! Very fast delivery." },
-      { name: "Pooja Shr.", rating: 5, comment: "COD option was very smooth. Received packaging in Dombivli within 3 days. Loved everything!" },
-      { name: "Iqra Shai.", rating: 5, comment: "product ki quality bhot premium hai thnk u mumbra mai mujhe 2 din mai receive hogaya package woww." }
-    ];
-
-    let cart = [];
-    let currentFilter = 'All';
-    let searchQuery = '';
-
-    const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe collection ke bare me inquiry karni hai.");
-    document.getElementById("navWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
-    document.getElementById("footerWhatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}`;
-
-    function openTermsModal() {
-      const modal = document.getElementById("termsModal");
-      const overlay = document.getElementById("termsModalOverlay");
-      overlay.classList.remove("hidden");
-      modal.classList.remove("hidden");
-      history.pushState({ modal: 'terms' }, '');
-      setTimeout(() => overlay.classList.remove("opacity-0"), 10);
-    }
-
-    function closeTermsModal(triggeredByPopstate = false) {
-      const modal = document.getElementById("termsModal");
-      const overlay = document.getElementById("termsModalOverlay");
-      overlay.classList.add("opacity-0");
-      setTimeout(() => {
-        overlay.classList.add("hidden");
-        modal.classList.add("hidden");
-      }, 250);
-      if (!triggeredByPopstate && history.state && history.state.modal === 'terms') {
-        history.back();
-      }
-    }
-
-    function handleSearch(val) {
-      searchQuery = val.trim().toLowerCase();
-      renderAllSections();
-    }
-
-    function filterCategory(category) {
-      currentFilter = category;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.dataset.cat === category) {
-          btn.className = "filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-amber-500 text-black font-semibold shadow-sm";
-        } else {
-          btn.className = "filter-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-[#16161a]/90 text-neutral-300 border border-neutral-800 hover:border-amber-400/50";
-        }
-      });
-      renderAllSections();
-    }
-
-    function createProductCard(item) {
-      const mainImg = item.images && item.images.length > 0 ? item.images[0] : item.image;
-      const imgCount = item.images ? item.images.length : 1;
-      const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
-
-      return `
-        <div class="bg-[#121215] rounded-xl overflow-hidden gold-border gold-glow transition-all duration-300 flex flex-col justify-between">
-          <div class="relative overflow-hidden group cursor-pointer bg-neutral-900" onclick="openProductModal(${item.id})">
-            <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-            
-            <span class="absolute top-2 left-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-lg border border-white/20 tracking-wider animate-pulse">
-              ${discountPercent}% OFF
-            </span>
-
-            <span class="absolute top-2 right-2 bg-black/75 text-[9px] text-neutral-300 px-2 py-0.5 rounded-full backdrop-blur border border-neutral-700 flex items-center gap-1">
-              📸 ${imgCount} Photos
-            </span>
-            <span class="absolute bottom-2 right-2 bg-black/80 text-[10px] text-amber-400 px-1.5 py-0.5 rounded font-semibold flex items-center gap-0.5">
-              ★ ${item.rating}
-            </span>
-          </div>
-          
-          <div class="p-3 flex-1 flex flex-col justify-between">
-            <div onclick="openProductModal(${item.id})" class="cursor-pointer">
-              <span class="text-[9px] text-amber-400/80 uppercase font-semibold tracking-wider">${item.category}</span>
-              <h3 class="text-xs font-medium text-neutral-100 line-clamp-1 hover:text-amber-400 transition-colors mt-0.5">${item.title}</h3>
-              
-              <div class="flex items-baseline gap-1.5 mt-1.5 flex-wrap">
-                <span class="text-sm font-bold text-amber-400">₹${item.price}</span>
-                <span class="text-[10px] text-neutral-500 line-through">₹${item.originalPrice}</span>
-                <span class="text-[9px] font-extrabold text-emerald-400 bg-emerald-950/70 border border-emerald-700/60 px-1.5 py-0.2 rounded">Save ${discountPercent}%</span>
-              </div>
-              <p class="text-[10px] text-green-400 mt-1 font-medium">✔ Free COD Delivery</p>
-            </div>
-
-            <div class="mt-3 grid grid-cols-2 gap-1.5">
-              <button onclick="openProductModal(${item.id})" class="py-2 rounded-lg text-[11px] font-medium border border-neutral-700 text-neutral-300 hover:border-amber-400 hover:text-white transition-all">
-                View (${imgCount})
-              </button>
-              <button onclick="addToCart(${item.id})" class="py-2 rounded-lg text-[11px] font-semibold gold-btn active:scale-95 transition-transform flex items-center justify-center gap-1">
-                <span>+ Bag</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderAllSections() {
-      const sectionConfigs = [
-        {
-          id: 'section-jewellery',
-          gridId: 'grid-jewellery',
-          category: 'Jewellery'
-        },
-        {
-          id: 'section-hair',
-          gridId: 'grid-hair',
-          category: 'Hair Accessories'
-        },
-        {
-          id: 'section-kids',
-          gridId: 'grid-kids',
-          category: 'Kids Zone'
-        },
-        {
-          id: 'section-trending',
-          gridId: 'grid-trending',
-          category: 'Trending Items'
-        }
-      ];
-
-      sectionConfigs.forEach(sec => {
-        const secElement = document.getElementById(sec.id);
-        const gridElement = document.getElementById(sec.gridId);
-
-        let items = products.filter(p => p.category === sec.category);
-
-        if (currentFilter !== 'All' && currentFilter !== sec.category) {
-          items = [];
-        }
-
-        if (searchQuery && items.length > 0) {
-          items = items.filter(p => 
-            p.title.toLowerCase().includes(searchQuery) ||
-            p.category.toLowerCase().includes(searchQuery) ||
-            (p.description && p.description.toLowerCase().includes(searchQuery))
-          );
-        }
-
-        if (items.length === 0) {
-          secElement.style.display = 'none';
-          gridElement.innerHTML = '';
-        } else {
-          secElement.style.display = 'block';
-          items.sort((a, b) => {
-            const discA = ((a.originalPrice - a.price) / a.originalPrice);
-            const discB = ((b.originalPrice - b.price) / b.originalPrice);
-            return discB - discA;
-          });
-          gridElement.innerHTML = items.map(p => createProductCard(p)).join('');
-        }
-      });
-    }
-
-    let activeModalImages = [];
-    let currentImageIndex = 0;
-    let activeProductId = null;
-
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    function bindSwipe(element, onNext, onPrev) {
-      if (!element) return;
-      element.addEventListener('touchstart', (e) => {
-        const touch = e.touches[0];
-        if (touch.clientX < 25 || touch.clientX > window.innerWidth - 25) {
-          touchStartX = 0;
-          return;
-        }
-        touchStartX = touch.clientX;
-        touchStartY = touch.clientY;
-      }, { passive: true });
-
-      element.addEventListener('touchend', (e) => {
-        if (!touchStartX) return;
-        const touch = e.changedTouches[0];
-        const diffX = touchStartX - touch.clientX;
-        const diffY = touchStartY - touch.clientY;
-
-        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-          if (diffX > 0) {
-            onNext();
-          } else {
-            onPrev();
-          }
-        }
-        touchStartX = 0;
-      }, { passive: true });
-    }
-
-    function openProductModal(productId) {
-      activeProductId = productId;
-      const prod = products.find(p => p.id === productId);
-      if (!prod) return;
-
-      activeModalImages = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
-      currentImageIndex = 0;
-
-      const discountPercent = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
-      const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging / Details"];
-
-      let specsHtml = '';
-      if (prod.specs) {
-        specsHtml = `
-          <div class="bg-[#181820] p-3 rounded-xl border border-neutral-800 text-[11px] space-y-1 mt-3">
-            <h4 class="text-amber-400 font-bold uppercase text-[10px] mb-1.5 tracking-wider">Product Specifications:</h4>
-            ${Object.entries(prod.specs).map(([key, val]) => `
-              <div class="flex justify-between border-b border-neutral-800/60 pb-1">
-                <span class="text-neutral-400 capitalize">${key}:</span>
-                <span class="text-neutral-200 font-medium">${val}</span>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      }
-
-      const modalContent = document.getElementById("modalContent");
-      modalContent.innerHTML = `
-        <div class="space-y-4 select-none">
-          <div id="modalSwipeArea" class="swipe-container relative w-full h-80 sm:h-96 rounded-xl overflow-hidden bg-black/90 border border-neutral-800 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
-            <img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-contain pointer-events-none transition-opacity duration-200" />
-            
-            ${activeModalImages.length > 1 ? `
-              <button onclick="event.stopPropagation(); prevModalImg();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-amber-400 hover:text-white w-9 h-9 rounded-full flex items-center justify-center text-base font-bold border border-amber-400/30 z-20 shadow-md">❮</button>
-              <button onclick="event.stopPropagation(); nextModalImg();" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-amber-400 hover:text-white w-9 h-9 rounded-full flex items-center justify-center text-base font-bold border border-amber-400/30 z-20 shadow-md">❯</button>
-            ` : ''}
-
-            <span id="activeImgLabel" class="absolute bottom-2 left-2 bg-black/85 text-[10px] text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/30 font-medium">
-              ${labels[0] || 'Image 1'}
-            </span>
-
-            <span class="absolute top-2 left-2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-[11px] font-extrabold px-3 py-0.5 rounded-full border border-white/20">
-              🔥 SPECIAL DEAL: ${discountPercent}% OFF
-            </span>
-
-            <span class="absolute top-2 right-2 bg-black/75 border border-neutral-700 text-neutral-300 text-[9px] px-2 py-0.5 rounded-full flex items-center gap-1">
-              🔍 Tap to Zoom
-            </span>
-          </div>
-
-          <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-            ${activeModalImages.map((img, i) => `
-              <button onclick="setModalImg(${i})" class="thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 bg-neutral-900 ${i === 0 ? 'border-amber-400' : 'border-neutral-800'} transition-all" id="thumb-${i}">
-                <img src="${img}" class="w-16 h-16 object-contain" />
-                <span class="absolute bottom-0 inset-x-0 bg-black/85 text-[8px] text-center text-neutral-300 py-0.5">${labels[i] ? labels[i].split('.')[1].trim() : `Photo ${i+1}`}</span>
-              </button>
-            `).join('')}
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] uppercase tracking-wider text-amber-400 bg-amber-950/40 border border-amber-800 px-2 py-0.5 rounded-md font-semibold">${prod.tag}</span>
-              <span class="text-xs text-amber-400 font-semibold">★ ${prod.rating} Rating</span>
-            </div>
-            
-            <h2 class="text-base sm:text-lg font-bold text-white mt-2">${prod.title}</h2>
-            
-            <div class="flex items-baseline gap-2 mt-2 flex-wrap">
-              <span class="text-2xl font-bold text-amber-400">₹${prod.price}</span>
-              <span class="text-xs text-neutral-500 line-through">₹${prod.originalPrice}</span>
-              <span class="text-xs font-extrabold text-white bg-emerald-600 px-2 py-0.5 rounded-md">${discountPercent}% OFF</span>
-              <span class="text-[11px] text-green-400 font-semibold ml-2">✔ Free Cash on Delivery</span>
-            </div>
-
-            <p class="text-xs text-neutral-300 mt-2.5 leading-relaxed bg-[#17171d] p-3 rounded-lg border border-neutral-800/80">
-              ${prod.description}
-            </p>
-
-            ${specsHtml}
-          </div>
-
-          <div class="grid grid-cols-2 gap-2 pt-2">
-            <button onclick="addToCart(${prod.id}); closeProductModal();" class="w-full py-3 rounded-xl font-bold text-xs gold-btn active:scale-95 transition-transform">
-              Add to Bag (₹${prod.price})
-            </button>
-            <button onclick="orderSingleProductWhatsApp(${prod.id})" class="w-full py-3 rounded-xl font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white active:scale-95 transition-transform flex items-center justify-center gap-1.5">
-              <span>Order on WhatsApp</span>
-            </button>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-neutral-800">
-            <div class="flex items-center justify-between mb-3">
-              <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Customer Reviews (${prod.reviews ? prod.reviews.length : 0})</h4>
-            </div>
-
-            <div class="bg-[#17171c] p-3 rounded-xl border border-neutral-800/80 mb-3 space-y-2">
-              <span class="text-[11px] font-semibold text-neutral-300">Rate this product:</span>
-              <div class="grid grid-cols-2 gap-2">
-                <input id="prodRevName" type="text" placeholder="Your Name" class="bg-black/60 border border-neutral-800 rounded p-1.5 text-xs text-white" />
-                <select id="prodRevRating" class="bg-black/60 border border-neutral-800 rounded p-1.5 text-xs text-amber-400">
-                  <option value="5">★★★★★ (5)</option>
-                  <option value="4">★★★★☆ (4)</option>
-                  <option value="3">★★★☆☆ (3)</option>
-                </select>
-              </div>
-              <input id="prodRevComment" type="text" placeholder="Write your feedback..." class="w-full bg-black/60 border border-neutral-800 rounded p-1.5 text-xs text-white" />
-              <button onclick="submitProductReview(${prod.id})" class="gold-btn px-3 py-1.5 rounded-lg text-[10px] font-bold">Post Review</button>
-            </div>
-
-            <div class="space-y-2" id="prodModalReviewsList">
-              ${(prod.reviews || []).map(r => `
-                <div class="bg-black/40 p-2.5 rounded-lg border border-neutral-800 text-[11px]">
-                  <div class="flex justify-between items-center">
-                    <span class="font-bold text-white">${r.name}</span>
-                    <span class="text-amber-400 text-[10px]">${'★'.repeat(r.rating)}</span>
-                  </div>
-                  <p class="text-neutral-400 mt-1">${r.comment}</p>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-
-      bindSwipe(document.getElementById("modalSwipeArea"), nextModalImg, prevModalImg);
-
-      const modal = document.getElementById("productModal");
-      const overlay = document.getElementById("productModalOverlay");
-      overlay.classList.remove("hidden");
-      modal.classList.remove("hidden");
-      
-      history.pushState({ modal: 'product' }, '');
-
-      setTimeout(() => {
-        overlay.classList.remove("opacity-0");
-      }, 10);
-    }
-
-    function closeProductModal(triggeredByPopstate = false) {
-      const modal = document.getElementById("productModal");
-      const overlay = document.getElementById("productModalOverlay");
-      overlay.classList.add("opacity-0");
-      setTimeout(() => {
-        overlay.classList.add("hidden");
-        modal.classList.add("hidden");
-      }, 250);
-
-      if (!triggeredByPopstate && history.state && history.state.modal === 'product') {
-        history.back();
-      }
-    }
-
-    function setModalImg(index) {
-      currentImageIndex = index;
-      const mainImg = document.getElementById("modalMainImg");
-      const label = document.getElementById("activeImgLabel");
-      const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging / Details"];
-
-      if (mainImg) mainImg.src = activeModalImages[index];
-      if (label) label.innerText = labels[index] || `Image ${index + 1}`;
-
-      activeModalImages.forEach((_, i) => {
-        const thumb = document.getElementById(`thumb-${i}`);
-        if (thumb) {
-          thumb.className = i === index 
-            ? "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 bg-neutral-900 border-amber-400 transition-all"
-            : "thumbnail-btn flex-shrink-0 relative rounded-lg overflow-hidden border-2 bg-neutral-900 border-neutral-800 transition-all";
-        }
-      });
-    }
-
-    function prevModalImg() {
-      if (activeModalImages.length <= 1) return;
-      setModalImg(currentImageIndex > 0 ? currentImageIndex - 1 : activeModalImages.length - 1);
-    }
-
-    function nextModalImg() {
-      if (activeModalImages.length <= 1) return;
-      setModalImg(currentImageIndex < activeModalImages.length - 1 ? currentImageIndex + 1 : 0);
-    }
-
-    function openZoomModal() {
-      const zoomModal = document.getElementById("zoomModal");
-      zoomModal.classList.remove("hidden");
-      history.pushState({ modal: 'zoom' }, '');
-      updateZoomImgView();
-    }
-
-    function updateZoomImgView() {
-      const zoomModalImg = document.getElementById("zoomModalImg");
-      const zoomCounter = document.getElementById("zoomCounter");
-      if (zoomModalImg) zoomModalImg.src = activeModalImages[currentImageIndex];
-      if (zoomCounter) zoomCounter.innerText = `${currentImageIndex + 1} / ${activeModalImages.length}`;
-      setModalImg(currentImageIndex);
-    }
-
-    function prevZoomImg() {
-      if (activeModalImages.length <= 1) return;
-      currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : activeModalImages.length - 1;
-      updateZoomImgView();
-    }
-
-    function nextZoomImg() {
-      if (activeModalImages.length <= 1) return;
-      currentImageIndex < activeModalImages.length - 1 ? currentImageIndex + 1 : 0;
-      updateZoomImgView();
-    }
-
-    function closeZoomModal(triggeredByPopstate = false) {
-      document.getElementById("zoomModal").classList.add("hidden");
-      if (!triggeredByPopstate && history.state && history.state.modal === 'zoom') {
-        history.back();
-      }
-    }
-
-    bindSwipe(document.getElementById("zoomTouchArea"), nextZoomImg, prevZoomImg);
-
-    window.addEventListener('popstate', (e) => {
-      const zoomModal = document.getElementById("zoomModal");
-      const prodModal = document.getElementById("productModal");
-      const termsModal = document.getElementById("termsModal");
-      const cartSidebar = document.getElementById("cartSidebar");
-
-      if (zoomModal && !zoomModal.classList.contains("hidden")) {
-        closeZoomModal(true);
-      } else if (prodModal && !prodModal.classList.contains("hidden")) {
-        closeProductModal(true);
-      } else if (termsModal && !termsModal.classList.contains("hidden")) {
-        closeTermsModal(true);
-      } else if (cartSidebar && !cartSidebar.classList.contains("translate-x-full")) {
-        toggleCart(true);
-      }
-    });
-
-    function submitProductReview(productId) {
-      const name = document.getElementById("prodRevName").value.trim();
-      const rating = parseInt(document.getElementById("prodRevRating").value);
-      const comment = document.getElementById("prodRevComment").value.trim();
-
-      if (!name || !comment) {
-        alert("Kripya apna naam aur review feedback dono likhein!");
-        return;
-      }
-
-      const prod = products.find(p => p.id === productId);
-      if (prod) {
-        if (!prod.reviews) prod.reviews = [];
-        prod.reviews.unshift({ name, rating, comment });
-        openProductModal(productId);
-      }
-    }
-
-    function toggleStoreReviewForm() {
-      const form = document.getElementById("storeReviewForm");
-      form.classList.toggle("hidden");
-    }
-
-    function renderStoreReviews() {
-      const container = document.getElementById("storeReviewsContainer");
-      container.innerHTML = storeReviews.map(r => `
-        <div class="bg-[#131317] p-4 rounded-xl gold-border">
-          <div class="text-amber-400 text-xs">${'★'.repeat(r.rating)}</div>
-          <p class="text-xs text-neutral-300 mt-2">"${r.comment}"</p>
-          <p class="text-[11px] font-semibold text-white mt-3">— ${r.name}, Verified Buyer</p>
-        </div>
-      `).join('');
-    }
-
-    function submitStoreReview() {
-      const name = document.getElementById("storeRevName").value.trim();
-      const rating = parseInt(document.getElementById("storeRevRating").value);
-      const text = document.getElementById("storeRevText").value.trim();
-
-      if (!name || !text) {
-        alert("Naam aur feedback likhna zaroori hai!");
-        return;
-      }
-
-      storeReviews.unshift({ name, rating, comment: text });
-      renderStoreReviews();
-      toggleStoreReviewForm();
-      document.getElementById("storeRevName").value = '';
-      document.getElementById("storeRevText").value = '';
-      alert("Aapka review website par add ho gaya hai! Thank you ✨");
-    }
-
-    function orderSingleProductWhatsApp(productId) {
-      const prod = products.find(p => p.id === productId);
-      if (!prod) return;
-
-      const msg = `Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}*\nCategory: ${prod.category}\nPrice: ₹${prod.price} (MRP: ₹${prod.originalPrice})\nPayment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Full Address Yahan Likhein]`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
-    }
-
-    function toggleCart(triggeredByPopstate = false) {
-      const sidebar = document.getElementById("cartSidebar");
-      const overlay = document.getElementById("cartOverlay");
-      const isClosed = sidebar.classList.contains("translate-x-full");
-
-      if (isClosed) {
-        sidebar.classList.remove("translate-x-full");
-        overlay.classList.remove("hidden");
-        history.pushState({ modal: 'cart' }, '');
-        setTimeout(() => overlay.classList.remove("opacity-0"), 10);
-      } else {
-        sidebar.classList.add("translate-x-full");
-        overlay.classList.add("opacity-0");
-        setTimeout(() => overlay.classList.add("hidden"), 350);
-        if (!triggeredByPopstate && history.state && history.state.modal === 'cart') {
-          history.back();
-        }
-      }
-    }
-
-    function addToCart(productId) {
-      const existing = cart.find(p => p.id === productId);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        const prod = products.find(p => p.id === productId);
-        cart.push({ ...prod, qty: 1 });
-      }
-      updateCartUI();
-      toggleCart();
-    }
-
-    function updateQty(id, delta) {
-      const item = cart.find(p => p.id === id);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) {
-        cart = cart.filter(p => p.id !== id);
-      }
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const cartCount = document.getElementById("cartCount");
-      const cartList = document.getElementById("cartItemsList");
-      const cartTotal = document.getElementById("cartTotal");
-
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-      cartCount.innerText = totalItems;
-      cartTotal.innerText = `₹${totalPrice}`;
-
-      if (cart.length === 0) {
-        cartList.innerHTML = `
-          <div class="text-center py-16">
-            <div class="text-3xl mb-2 text-neutral-600">🛍️</div>
-            <p class="text-xs text-neutral-400">Your bag is currently empty.</p>
-            <p class="text-[10px] text-neutral-500 mt-1">Explore our deals and add items to your bag!</p>
-          </div>
-        `;
-        return;
-      }
-
-      cartList.innerHTML = cart.map(item => {
-        const img = item.images && item.images.length > 0 ? item.images[0] : item.image;
-        return `
-          <div class="flex items-center gap-3 bg-[#17171c] p-2.5 rounded-xl border border-neutral-800/80">
-            <img src="${img}" class="w-12 h-12 rounded-lg object-cover" />
-            <div class="flex-1">
-              <h4 class="text-xs font-medium text-white line-clamp-1">${item.title}</h4>
-              <p class="text-xs text-amber-400 font-bold mt-0.5">₹${item.price}</p>
-            </div>
-            <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-2 py-1 rounded-lg">
-              <button onclick="updateQty(${item.id}, -1)" class="text-xs text-neutral-400 hover:text-white font-bold px-1">−</button>
-              <span class="text-xs font-semibold text-white">${item.qty}</span>
-              <button onclick="updateQty(${item.id}, 1)" class="text-xs text-neutral-400 hover:text-white font-bold px-1">+</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function sendOrderViaWhatsApp() {
-      if (cart.length === 0) {
-        alert("Aapka cart khaali hai!");
-        return;
-      }
-
-      let summary = "Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye order confirm karna hai:\n\n";
-      let grandTotal = 0;
-
-      cart.forEach((item, index) => {
-        const itemTotal = item.price * item.qty;
-        grandTotal += itemTotal;
-        summary += `${index + 1}. ${item.title}\n   Category: ${item.category}\n   Qty: ${item.qty} | Price: ₹${itemTotal}\n`;
-      });
-
-      summary += `\n--------------------------\n`;
-      summary += `Grand Total: ₹${grandTotal}\n`;
-      summary += `Payment Mode: Cash on Delivery (COD)\n`;
-      summary += `Delivery: Free Shipping\n\n`;
-      summary += `Mera Address:\n[Apna Naam aur Pura Address Yahan Likhein]`;
-
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(summary)}`;
-      window.open(url, "_blank");
-    }
-
-    // Initialize display
-    renderAllSections();
-    renderStoreReviews();
-    updateCartUI();
-  </script>
+<body class="min-h-screen flex flex-col bg-[#FCFCFC] selection:bg-[#F3E7CF] selection:text-[#5B4210]">
+<!-- Top Announcement Bar -->
+<div class="bg-[#111114] text-[#EFEBE4] text-center text-[10px] sm:text-[11px] font-medium py-2.5 px-4 tracking-[0.2em] uppercase border-b border-amber-900/30 flex items-center justify-center gap-2">
+<span class="text-[#D4A958]">✦</span>
+<span>Complimentary Express Shipping & Cash on Delivery Across India</span>
+<span class="text-[#D4A958]">✦</span>
+</div>
+<!-- Main Navigation Header -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-4 sm:px-8 py-3.5 transition-all">
+<div class="max-w-6xl mx-auto flex items-center justify-between">
+<a href="#" class="flex items-center gap-3 group">
+<div class="w-10 h-10 rounded-full border border-[#D9C4A0] bg-[#FAF8F5] flex items-center justify-center overflow-hidden shadow-sm group-hover:border-[#B88E3E] transition-colors">
+<img id="brandHeaderLogo" src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('fallbackLogoIcon').style.display='block';">
+<svg id="fallbackLogoIcon" style="display:none;" class="w-5 h-5 text-[#B88E3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+</svg>
+</div>
+<div>
+<h1 class="font-cinzel text-lg sm:text-xl font-bold tracking-[0.22em] text-[#111113]">TRENDZ MART <span class="gold-gradient-text">LUXE</span></h1>
+<p class="text-[9px] tracking-[0.25em] text-neutral-400 uppercase font-medium">Fine Jewellery • Hair Accessories • Kids • Lifestyle</p>
+</div>
+</a>
+<!-- Quick Nav & Cart -->
+<div class="flex items-center gap-3">
+<a id="navWhatsappBtn" href="#" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#8C6A28] bg-[#FBF8F2] border border-[#E4D1B0] hover:bg-[#F4EBDB] transition-colors">
+<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+<span>Concierge Desk</span>
+</a>
+<button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-[#111114] text-white hover:bg-[#B88E3E] active:scale-95 transition-all shadow-md">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+</svg>
+<span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-[#B88E3E] text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center border border-white">0</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Top Search & Quick Category Filters Bar -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 pt-5 w-full">
+<div class="bg-white border border-neutral-200/90 rounded-2xl p-3 sm:p-4 shadow-sm">
+<div class="relative mb-3.5">
+<span class="absolute inset-y-0 left-3.5 flex items-center text-neutral-400 pointer-events-none">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+</svg>
+</span>
+<input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search anti-tarnish jewelry, Korean hair claws, cute water sippers, viral organizers..." class="w-full pl-10 pr-4 py-2.5 bg-[#F9F9FB] border border-neutral-200 rounded-xl text-xs sm:text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-[#B88E3E] focus:bg-white transition-all shadow-inner" />
+</div>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+<button onclick="filterCategory('All')" class="filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-[#111114] text-white font-semibold shadow-sm transition-all" data-cat="All">All Curations</button>
+<button onclick="filterCategory('Jewellery')" class="filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-white text-neutral-700 border border-neutral-200 hover:border-[#B88E3E] hover:text-[#8C6A28] font-medium transition-all" data-cat="Jewellery">✦ Anti-Tarnish Jewellery</button>
+<button onclick="filterCategory('Hair Accessories')" class="filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-white text-neutral-700 border border-neutral-200 hover:border-[#B88E3E] hover:text-[#8C6A28] font-medium transition-all" data-cat="Hair Accessories">✦ Hair Accessories</button>
+<button onclick="filterCategory('Kids Zone')" class="filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-white text-neutral-700 border border-neutral-200 hover:border-[#B88E3E] hover:text-[#8C6A28] font-medium transition-all" data-cat="Kids Zone">✦ Kids Zone</button>
+<button onclick="filterCategory('Trending Items')" class="filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-white text-neutral-700 border border-neutral-200 hover:border-[#B88E3E] hover:text-[#8C6A28] font-medium transition-all" data-cat="Trending Items">✦ Trending Finds</button>
+</div>
+</div>
+</section>
+<!-- ==================== TOP MAIN HERO BANNER ==================== -->
+<section id="heroTopSection" class="relative max-w-6xl mx-auto my-6 px-4 sm:px-6 w-full">
+<div class="relative rounded-3xl overflow-hidden border border-[#E9E4DC] shadow-lg bg-gradient-to-b from-[#F7F4EE] via-[#FCFAF6] to-[#FFFFFF] p-6 sm:p-14 text-center">
+<div class="absolute inset-0 bg-[radial-gradient(#D6C29E_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
+<div class="relative z-10 max-w-3xl mx-auto">
+<span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-[0.24em] text-[#8C6A28] uppercase bg-white/90 border border-[#DECFB3] px-4 py-1.5 rounded-full shadow-sm">
+<span>✧</span> ALL-IN-ONE TRENDING LIFESTYLE STORE <span>✧</span>
+</span>
+<h2 class="font-cinzel text-2xl sm:text-4xl md:text-5xl font-bold mt-5 text-[#111114] leading-[1.2] tracking-wider">
+TRENDS YOU LOVE,
+<span class="gold-gradient-text">PRICES YOU ADORE</span>
+</h2>
+<p class="text-xs sm:text-sm text-neutral-600 mt-4 max-w-xl mx-auto leading-relaxed font-normal">
+Explore premium anti-tarnish jewelry, viral Korean hair clips, cute kids water sippers & trending room organizers with Cash on Delivery across India.
+</p>
+<!-- Quick Visual Category Links in Hero -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 max-w-2xl mx-auto">
+<div onclick="filterCategory('Jewellery')" class="bg-white/90 hover:bg-white border border-[#EAE5DC] hover:border-[#B88E3E] p-3 rounded-2xl cursor-pointer transition-all shadow-sm hover:shadow-md text-left">
+<div class="text-base sm:text-lg mb-1">💎</div>
+<p class="text-xs font-bold text-[#111114]">Jewellery</p>
+<p class="text-[10px] text-[#8C6A28] font-medium tracking-wide">18K Anti-Tarnish</p>
+</div>
+<div onclick="filterCategory('Hair Accessories')" class="bg-white/90 hover:bg-white border border-[#EAE5DC] hover:border-[#B88E3E] p-3 rounded-2xl cursor-pointer transition-all shadow-sm hover:shadow-md text-left">
+<div class="text-base sm:text-lg mb-1">🎀</div>
+<p class="text-xs font-bold text-[#111114]">Hair Clips</p>
+<p class="text-[10px] text-[#8C6A28] font-medium tracking-wide">Matte & Pastel</p>
+</div>
+<div onclick="filterCategory('Kids Zone')" class="bg-white/90 hover:bg-white border border-[#EAE5DC] hover:border-[#B88E3E] p-3 rounded-2xl cursor-pointer transition-all shadow-sm hover:shadow-md text-left">
+<div class="text-base sm:text-lg mb-1">🧸</div>
+<p class="text-xs font-bold text-[#111114]">Kids Zone</p>
+<p class="text-[10px] text-[#8C6A28] font-medium tracking-wide">Cute Sippers</p>
+</div>
+<div onclick="filterCategory('Trending Items')" class="bg-white/90 hover:bg-white border border-[#EAE5DC] hover:border-[#B88E3E] p-3 rounded-2xl cursor-pointer transition-all shadow-sm hover:shadow-md text-left">
+<div class="text-base sm:text-lg mb-1">🔥</div>
+<p class="text-xs font-bold text-[#111114]">Trending</p>
+<p class="text-[10px] text-[#8C6A28] font-medium tracking-wide">Viral Lifestyle</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== MAIN CATALOG SECTIONS ==================== -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 mt-2 space-y-14 flex-1 w-full">
+<!-- 1. JEWELLERY SECTION -->
+<section id="section-jewellery" class="catalog-section">
+<div class="rounded-2xl overflow-hidden border border-[#ECE7DD] shadow-sm mb-4 bg-[#F8F7F4]">
+<img src="./IMG_0388.jpeg" alt="Jewellery Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+</div>
+<div class="flex items-center justify-between mb-4 px-1 border-b border-neutral-200/80 pb-3">
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#8C6A28] font-bold">💎 Curated Edit</span>
+<h3 class="font-cinzel text-lg sm:text-xl font-bold text-[#111114]">Anti-Tarnish Jewellery</h3>
+</div>
+<span class="text-[10px] text-neutral-600 bg-white border border-[#DFD8CC] px-2.5 py-1 rounded-full font-medium shadow-xs">Water & Sweat Proof</span>
+</div>
+<div id="grid-jewellery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-5"></div>
+</section>
+<!-- 2. HAIR ACCESSORIES SECTION -->
+<section id="section-hair" class="catalog-section">
+<div class="rounded-2xl overflow-hidden border border-[#ECE7DD] shadow-sm mb-4 bg-[#F8F7F4]">
+<img src="./IMG_0387.jpeg" alt="Hair Accessories Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+</div>
+<div class="flex items-center justify-between mb-4 px-1 border-b border-neutral-200/80 pb-3">
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#8C6A28] font-bold">🎀 Hair Accessories</span>
+<h3 class="font-cinzel text-lg sm:text-xl font-bold text-[#111114]">Aesthetic Hair Clips</h3>
+</div>
+<span class="text-[10px] text-neutral-600 bg-white border border-[#DFD8CC] px-2.5 py-1 rounded-full font-medium shadow-xs">Korean Matte & Pastel</span>
+</div>
+<div id="grid-hair" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-5"></div>
+</section>
+<!-- 3. KIDS ZONE SECTION -->
+<section id="section-kids" class="catalog-section">
+<div class="rounded-2xl overflow-hidden border border-[#ECE7DD] shadow-sm mb-4 bg-[#F8F7F4]">
+<img src="./IMG_0389.jpeg" alt="Kids Zone Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+</div>
+<div class="flex items-center justify-between mb-4 px-1 border-b border-neutral-200/80 pb-3">
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#8C6A28] font-bold">🧸 Little Luxuries</span>
+<h3 class="font-cinzel text-lg sm:text-xl font-bold text-[#111114]">Kids Zone & Sipper Bottles</h3>
+</div>
+<span class="text-[10px] text-neutral-600 bg-white border border-[#DFD8CC] px-2.5 py-1 rounded-full font-medium shadow-xs">Cute Bottles & Kids Finds</span>
+</div>
+<div id="grid-kids" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-5"></div>
+</section>
+<!-- 4. TRENDING ITEMS SECTION -->
+<section id="section-trending" class="catalog-section">
+<div class="rounded-2xl overflow-hidden border border-[#ECE7DD] shadow-sm mb-4 bg-[#F8F7F4]">
+<img src="./IMG_0390.jpeg" alt="Trending Items Hero Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+</div>
+<div class="flex items-center justify-between mb-4 px-1 border-b border-neutral-200/80 pb-3">
+<div>
+<span class="text-xs uppercase tracking-[0.2em] text-[#8C6A28] font-bold">🔥 Viral Trending Items</span>
+<h3 class="font-cinzel text-lg sm:text-xl font-bold text-[#111114]">Instagram Top Picks</h3>
+</div>
+<span class="text-[10px] text-neutral-600 bg-white border border-[#DFD8CC] px-2.5 py-1 rounded-full font-medium shadow-xs">Vanity & Organization</span>
+</div>
+<div id="grid-trending" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-5"></div>
+</section>
+</main>
+<!-- Trust Badges -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 mt-16 w-full">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 px-6 bg-white rounded-3xl border border-[#ECE7DD] shadow-sm text-center">
+<div class="p-2 border-r last:border-r-0 border-neutral-100">
+<div class="w-10 h-10 mx-auto rounded-full bg-[#FAF6EE] text-[#8C6A28] flex items-center justify-center text-lg mb-2">💵</div>
+<h4 class="text-xs font-bold text-[#111114] uppercase tracking-wider">Cash on Delivery</h4>
+<p class="text-[11px] text-neutral-500 mt-1">Pay at doorstep</p>
+</div>
+<div class="p-2 border-r last:border-r-0 border-neutral-100">
+<div class="w-10 h-10 mx-auto rounded-full bg-[#FAF6EE] text-[#8C6A28] flex items-center justify-center text-lg mb-2">🚚</div>
+<h4 class="text-xs font-bold text-[#111114] uppercase tracking-wider">Pan India Express</h4>
+<p class="text-[11px] text-neutral-500 mt-1">Quick Dispatch in 24h</p>
+</div>
+<div class="p-2 border-r last:border-r-0 border-neutral-100">
+<div class="w-10 h-10 mx-auto rounded-full bg-[#FAF6EE] text-[#8C6A28] flex items-center justify-center text-lg mb-2">✨</div>
+<h4 class="text-xs font-bold text-[#111114] uppercase tracking-wider">Premium Quality</h4>
+<p class="text-[11px] text-neutral-500 mt-1">Handpicked & durable</p>
+</div>
+<div class="p-2">
+<div class="w-10 h-10 mx-auto rounded-full bg-[#FAF6EE] text-[#8C6A28] flex items-center justify-center text-lg mb-2">🛍️</div>
+<h4 class="text-xs font-bold text-[#111114] uppercase tracking-wider">Trending Catalog</h4>
+<p class="text-[11px] text-neutral-500 mt-1">Viral Instagram finds</p>
+</div>
+</div>
+</section>
+<!-- Customer Reviews Section -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 mt-16 w-full">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-neutral-200/80 pb-4">
+<div>
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#8C6A28]">Client Love</span>
+<h3 class="font-cinzel text-xl sm:text-2xl font-bold text-[#111114]">Loved by 2,000+ Happy Customers</h3>
+<p class="text-xs text-neutral-500 mt-0.5">Real verified reviews from happy shoppers across India</p>
+</div>
+<button onclick="toggleStoreReviewForm()" class="btn-black px-4 py-2.5 rounded-full text-xs font-semibold active:scale-95 transition-all">
+✍️ Leave a Review
+</button>
+</div>
+<!-- Review Form -->
+<div id="storeReviewForm" class="hidden bg-white p-5 rounded-2xl border border-[#DFD8CC] shadow-md mb-6">
+<h4 class="text-xs font-bold text-[#111114] mb-3 uppercase tracking-wider">Share Your Experience</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+<input id="storeRevName" type="text" placeholder="Your Name" class="bg-[#FAF9F7] border border-neutral-300 rounded-xl p-2.5 text-xs text-neutral-900 focus:outline-none focus:border-[#B88E3E]" />
+<select id="storeRevRating" class="bg-[#FAF9F7] border border-neutral-300 rounded-xl p-2.5 text-xs text-[#8C6A28] font-bold focus:outline-none focus:border-[#B88E3E]">
+<option value="5">★★★★★ (5 Star)</option>
+<option value="4">★★★★☆ (4 Star)</option>
+<option value="3">★★★☆☆ (3 Star)</option>
+</select>
+</div>
+<textarea id="storeRevText" rows="2" placeholder="Write your review here..." class="w-full bg-[#FAF9F7] border border-neutral-300 rounded-xl p-2.5 text-xs text-neutral-900 focus:outline-none focus:border-[#B88E3E] mb-3"></textarea>
+<button onclick="submitStoreReview()" class="btn-black px-5 py-2.5 rounded-xl text-xs font-bold active:scale-95">Submit Review</button>
+</div>
+<div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+</section>
+<!-- About Section -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 mt-14 w-full">
+<div class="bg-gradient-to-br from-[#FAF7F0] to-[#FFFFFF] p-6 sm:p-8 rounded-3xl border border-[#E8E1D5] shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div>
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-[#8C6A28]">Our Commitment</span>
+<h3 class="font-cinzel text-xl font-bold text-[#111114] mt-1">About TRENDZ MART LUXE</h3>
+<p class="text-xs text-neutral-600 mt-3 leading-relaxed">
+At TRENDZ MART LUXE, we bring you trending lifestyle essentials: premium anti-tarnish jewelry, cute kids zone bottles, aesthetic hair clips, and daily organizers. Quality you can trust with Cash on Delivery support across India.
+</p>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-[#E6E0D5] shadow-xs">
+<h4 class="text-xs font-bold text-[#8C6A28] uppercase tracking-wider">How To Order?</h4>
+<ul class="text-xs text-neutral-600 mt-3 space-y-2 list-disc pl-4 font-normal">
+<li>Select your favorite items & view multi-angle photos.</li>
+<li>Click <strong class="text-neutral-900">Complete Order on WhatsApp</strong>.</li>
+<li>Send your delivery address and choose Cash on Delivery.</li>
+<li>Get tracking updates straight on WhatsApp.</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="mt-20 bg-[#111114] text-[#EFECE6] border-t border-neutral-800 py-12 px-4 text-center">
+<div class="w-12 h-12 rounded-full border border-[#D9C4A0]/40 bg-black mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-inner">
+<img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'">
+</div>
+<h3 class="font-cinzel text-base font-bold tracking-widest text-white">TRENDZ MART <span class="gold-gradient-text">LUXE</span></h3>
+<p class="text-[10px] text-neutral-400 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
+<div class="flex justify-center gap-6 text-xs text-neutral-400 mt-5 flex-wrap">
+<a href="#section-jewellery" class="hover:text-[#D4A958] transition-colors">Catalog</a>
+<a id="footerWhatsappBtn" href="#" target="_blank" class="hover:text-[#D4A958] transition-colors">WhatsApp Support</a>
+<a href="javascript:void(0)" onclick="openTermsModal()" class="hover:text-[#D4A958] transition-colors">Terms & Conditions</a>
+<a href="javascript:void(0)" onclick="openTermsModal()" class="hover:text-[#D4A958] transition-colors">Return Policy</a>
+</div>
+<p class="text-[11px] text-neutral-500 mt-8">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
+</footer>
+<!-- Terms Modal -->
+<div id="termsModalOverlay" onclick="closeTermsModal()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+<div id="termsModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-xl bg-white border border-[#DFD8CC] rounded-3xl z-50 hidden p-6 sm:p-7 shadow-2xl transition-all duration-300 max-h-[85vh] overflow-y-auto">
+<div class="flex items-center justify-between border-b border-neutral-100 pb-3 mb-4">
+<div>
+<h3 class="font-cinzel text-base sm:text-lg font-bold text-[#111114] tracking-wide">Store Terms & Policies</h3>
+<p class="text-[10px] text-neutral-500 mt-0.5">Please read before placing your order</p>
+</div>
+<button onclick="closeTermsModal()" class="text-neutral-400 hover:text-black bg-neutral-100 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm transition-colors">✕</button>
+</div>
+<div class="space-y-4 text-xs text-neutral-700 leading-relaxed pr-1">
+<div class="bg-[#FAF8F5] p-3.5 rounded-2xl border border-[#EFE9DC]">
+<h4 class="text-[#8C6A28] font-bold uppercase text-[11px] mb-1">1. Cash on Delivery (COD) & Verification</h4>
+<p class="text-neutral-600">Order place hone ke baad WhatsApp ya Call ke zariye dispatch verification kiya jata hai. Fake orders aur unwanted returns rokne ke liye verify hone ke baad hi order dispatch hoga.</p>
+</div>
+<div class="bg-[#FAF8F5] p-3.5 rounded-2xl border border-[#EFE9DC]">
+<h4 class="text-[#8C6A28] font-bold uppercase text-[11px] mb-1">2. Mandatory 360° Unboxing Video</h4>
+<p class="text-neutral-600">Parcel receive hone ke baad parcel open karte waqt bina pause/cut ka 360-degree clear unboxing video banana compulsory hai. Kisi bhi wrong, missing ya damaged product claim ke liye video hona zaroori hai.</p>
+</div>
+<div class="bg-[#FAF8F5] p-3.5 rounded-2xl border border-[#EFE9DC]">
+<h4 class="text-[#8C6A28] font-bold uppercase text-[11px] mb-1">3. Return & Replacement Policy</h4>
+<p class="text-neutral-600">Hamare products par replacement policy delivery ke 48 hours ke andar valid rehti hai, agar product transit me physically damaged ya galat deliver hua ho. Video proof ke sath hamare WhatsApp par inform karein.</p>
+</div>
+<div class="bg-[#FAF8F5] p-3.5 rounded-2xl border border-[#EFE9DC]">
+<h4 class="text-[#8C6A28] font-bold uppercase text-[11px] mb-1">4. Anti-Tarnish Quality & Care Guidance</h4>
+<p class="text-neutral-600">Market me aam taur par regular tarnish products perfumes ya chemicals ke contact me aakar jaldi kharab ho jaate hain. Lekin hamari jewelry <strong>Premium High-Grade Anti-Tarnish & Water-Resistant Coating</strong> ke saath aati hai jo itni aasani se bilkul kharab nahi hoti. Fir bhi, iski original 18K gold shine aur luxurious polish ko lambe samay tak naye jaisa rakhne ke liye, perfume spray karne ke thodi der baad jewelry pehanna behtar rehta hai.</p>
+</div>
+<div class="bg-[#FAF8F5] p-3.5 rounded-2xl border border-[#EFE9DC]">
+<h4 class="text-[#8C6A28] font-bold uppercase text-[11px] mb-1">5. Pan India Delivery Timeline</h4>
+<p class="text-neutral-600">Orders 24 se 48 ghante ke andar dispatch kar diye jaate hain. Delivery standard 3 se 7 business days me complete hoti hai. Tracking details aapko WhatsApp par bhej di jaati hain.</p>
+</div>
+</div>
+<div class="mt-6 pt-3 border-t border-neutral-100 text-center">
+<button onclick="closeTermsModal()" class="btn-black px-8 py-2.5 rounded-xl text-xs font-semibold active:scale-95 transition-transform">I Understand</button>
+</div>
+</div>
+<!-- Product Modal -->
+<div id="productModalOverlay" onclick="closeProductModal()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+<div id="productModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-lg bg-white border border-[#E4DCCF] rounded-3xl z-50 hidden p-4 sm:p-6 shadow-2xl transition-all duration-300 max-h-[92vh] overflow-y-auto">
+<button onclick="closeProductModal()" class="absolute top-3.5 right-3.5 text-neutral-500 hover:text-black bg-neutral-100 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10 transition-colors">✕</button>
+<div id="modalContent"></div>
+</div>
+<!-- Zoom Lightbox -->
+<div id="zoomModal" class="fixed inset-0 bg-[#0E0E10]/95 z-[70] hidden flex items-center justify-center p-2 backdrop-blur-md select-none">
+<button onclick="closeZoomModal()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/25 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg z-[80] transition-colors">✕</button>
+<button onclick="prevZoomImg()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-[#D4A958] hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-neutral-700 z-[80] shadow-lg transition-transform active:scale-90">❮</button>
+<div id="zoomTouchArea" class="swipe-container relative max-w-full max-h-[85vh] flex items-center justify-center">
+<img id="zoomModalImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-200 pointer-events-none" />
+</div>
+<button onclick="nextZoomImg()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-[#D4A958] hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-neutral-700 z-[80] shadow-lg transition-transform active:scale-90">❯</button>
+<div class="absolute bottom-4 flex items-center gap-2 pointer-events-none">
+<span id="zoomCounter" class="bg-black/80 border border-neutral-700 text-[#D4A958] text-xs px-3.5 py-1 rounded-full font-medium">1 / 1</span>
+<span class="bg-black/80 border border-neutral-700 text-neutral-300 text-xs px-3.5 py-1 rounded-full">Swipe or tap arrows</span>
+</div>
+</div>
+<!-- Cart Drawer -->
+<div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"></div>
+<div id="cartSidebar" class="cart-drawer fixed top-0 right-0 h-full w-[88%] max-w-sm bg-[#FFFFFF] border-l border-neutral-200 z-50 translate-x-full flex flex-col justify-between shadow-2xl">
+<div class="p-4 border-b border-neutral-100 flex items-center justify-between bg-[#FAF9F7]">
+<div>
+<h3 class="font-cinzel font-bold text-[#111114] text-sm tracking-wider">YOUR SHOPPING BAG</h3>
+<p class="text-[10px] text-[#8C6A28] font-medium">Cash on Delivery Available</p>
+</div>
+<button onclick="toggleCart()" class="text-neutral-400 hover:text-black text-lg font-bold p-1 transition-colors">✕</button>
+</div>
+<div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
+<div class="p-4 border-t border-neutral-200 bg-[#FAF9F7]">
+<div class="flex justify-between items-center mb-1 text-sm font-semibold">
+<span class="text-neutral-600">Subtotal:</span>
+<span id="cartTotal" class="text-[#111114] font-bold text-base">₹0</span>
+</div>
+<div class="flex justify-between items-center text-[11px] text-neutral-500 mb-3">
+<span>Delivery Fee:</span>
+<span class="text-[#2B7A4B] font-bold uppercase">Free</span>
+</div>
+<button onclick="sendOrderViaWhatsApp()" class="w-full py-3.5 rounded-xl font-bold text-xs btn-black active:scale-95 transition-transform flex items-center justify-center gap-2">
+<svg class="w-4 h-4 fill-current text-[#D4A958]" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+<span>Complete Order on WhatsApp</span>
+</button>
+<p class="text-[10px] text-center text-neutral-500 mt-2 font-medium">No advance payment required. Pay on delivery.</p>
+</div>
+</div>
+<script>
+const WHATSAPP_NUMBER = "918369511325";
+const products = [
+// 1. JEWELLERY
+{
+id: 1,
+title: "Emerald Green Heart Pendant Snake Chain Necklace",
+category: "Jewellery",
+price: 449,
+originalPrice: 899,
+tag: "Best Seller",
+rating: "4.9",
+specs: {
+material: "Stainless Steel",
+pendant: "Heart Shape",
+chain: "Snake Chain",
+length: "Approx. 20 inches",
+clasp: "Lobster Clasp",
+finish: "Polished Gold"
+},
+description: "A timeless symbol of love and care. Crafted from premium stainless steel for long-lasting shine and durability. Anti-tarnish, water resistant, lightweight, and perfect for daily wear.",
+images: [
+"./IMG_0252.png",
+"./IMG_0253.png",
+"./3bddeff2-a170-4f39-9e83-078bd3aa54e2.jpeg"
+],
+reviews: [
+{ name: "Ananya P.", rating: 5, comment: "The emerald green heart looks so royal in real life! Loved the snake chain." },
+{ name: "Kavita M.", rating: 5, comment: "Wore it continuously for 4 days in water, no color loss. Total value for money at ₹449!" }
+]
+},
+{
+id: 2,
+title: "Snake Bone Minimalist Gold Choker",
+category: "Jewellery",
+price: 399,
+originalPrice: 799,
+tag: "Trending",
+rating: "4.8",
+specs: {
+material: "Stainless Steel",
+finish: "18K PVD Gold",
+length: "16+2 inch adjustable"
+},
+description: "Sleek liquid-gold look. Flexible snake bone chain designed for comfortable layering.",
+images: [
+"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80",
+"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"
+],
+reviews: [
+{ name: "Sneha R.", rating: 5, comment: "Very classy choker. Looks very rich!" }
+]
+},
+{
+id: 3,
+title: "Roman Numeral Luxury Cuff Kada Bangle",
+category: "Jewellery",
+price: 549,
+originalPrice: 1199,
+tag: "18K Plated",
+rating: "5.0",
+specs: {
+material: "Titanium Steel",
+type: "Oval Snap Bangle",
+finish: "Mirror Polish Gold"
+},
+description: "Signature Roman numeral engraved oval cuff kada. Easy snap lock and lifetime luster.",
+images: [
+"./IMG_0368.jpeg"
+],
+reviews: [
+{ name: "Pooja D.", rating: 5, comment: "Pure luxury feeling, perfectly fits my wrist." }
+]
+},
+{
+id: 4,
+title: "Chunky Water-Resistant Gold Hoop Earrings",
+category: "Jewellery",
+price: 349,
+originalPrice: 699,
+tag: "Anti-Tarnish",
+rating: "4.9",
+specs: {
+material: "Hollow Stainless Steel",
+clasp: "Click-top latch"
+},
+description: "Ultra-lightweight hollow chunky hoops. Guaranteed non-fading luster even with regular water contact.",
+images: [
+"./IMG_0367.jpeg"
+],
+reviews: [
+{ name: "Tanya S.", rating: 5, comment: "Lightweight and doesn't hurt the ears at all." }
+]
+},
+{
+id: 8,
+title: "Crystal Solitaire Minimalist Gold Ring",
+category: "Jewellery",
+price: 299,
+originalPrice: 599,
+tag: "Adjustable",
+rating: "4.8",
+specs: {
+material: "Stainless Steel",
+size: "Adjustable Free Size",
+finish: "18K Gold Plated"
+},
+description: "Gleaming solitaire stone ring designed with adjustable band. Waterproof and daily-wear friendly.",
+images: [
+"./IMG_0370.jpeg"
+],
+reviews: [
+{ name: "Riya K.", rating: 5, comment: "Simple yet looks expensive. Doesn't turn green!" }
+]
+},
+// 2. HAIR ACCESSORIES
+{
+id: 7,
+title: "Korean Matte Pastel Claw Hair Clips (Pack of 4)",
+category: "Hair Accessories",
+price: 249,
+originalPrice: 599,
+tag: "Top Offer",
+rating: "4.9",
+specs: {
+pack: "Set of 4 Trendy Colors",
+material: "Non-slip matte acrylic resin with strong spring"
+},
+description: "Heavy-duty strong grip matte claw clips designed for thick & thin hair. Does not slip or tug hair.",
+images: [
+"https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"
+],
+reviews: [
+{ name: "Aashi P.", rating: 5, comment: "Colors and grip are just perfect!" }
+]
+},
+// 3. KIDS ZONE
+{
+id: 5,
+title: "Cute Pastel Gradient Water Sipper (2 Litre) with Straw",
+category: "Kids Zone",
+price: 499,
+originalPrice: 999,
+tag: "Kids Favorite",
+rating: "4.9",
+specs: {
+capacity: "2000 ML (2 Litre)",
+features: "Motivational Time Markers, Straw & Handle",
+material: "BPA Free Food Grade Tritan (Child Safe)"
+},
+description: "Cute dual-shade motivational water sipper with leak-proof pop-up straw, security lock, and easy carry strap for school and sports.",
+images: [
+"./IMG_0371.jpeg"
+],
+reviews: [
+{ name: "Megha S.", rating: 5, comment: "Colors are so cute! Quality is solid." }
+]
+},
+// 4. TRENDING ITEMS
+{
+id: 6,
+title: "360° Rotating Acrylic Luxury Makeup Organizer Box",
+category: "Trending Items",
+price: 699,
+originalPrice: 1499,
+tag: "Best Seller",
+rating: "4.8",
+specs: {
+material: "Crystal Clear Acrylic",
+feature: "360 Degree Smooth Rotation, Multi Compartments",
+use: "Cosmetics, Skincare, Perfumes"
+},
+description: "Keep all your lipsticks, serums, and cosmetics neatly organized with 360-degree silent rotation.",
+images: [
+"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"
+],
+reviews: [
+{ name: "Farah K.", rating: 5, comment: "Spacious and looks super clean on vanity table." }
+]
+}
+];
+let storeReviews = [
+{ name: "Simran R.", rating: 5, comment: "Ordered jewelry and water sipper together, both quality items! Very fast delivery." },
+{ name: "Pooja Shr.", rating: 5, comment: "COD option was very smooth. Received packaging in Dombivli within 3 days. Loved everything!" },
+{ name: "Iqra Shai.", rating: 5, comment: "product ki quality bhot premium hai thnk u mumbra mai mujhe 2 din mai receive hogaya package woww." }
+];
+let cart = [];
+let currentFilter = 'All';
+let searchQuery = '';
+const defaultMsg = encodeURIComponent("Hello TRENDZ MART LUXE! Mujhe collection ke bare me inquiry karni hai.");
+document.getElementById("navWhatsappBtn").href = ⁠https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}⁠;
+document.getElementById("footerWhatsappBtn").href = ⁠https://wa.me/${WHATSAPP_NUMBER}?text=${defaultMsg}⁠;
+function openTermsModal() {
+const modal = document.getElementById("termsModal");
+const overlay = document.getElementById("termsModalOverlay");
+overlay.classList.remove("hidden");
+modal.classList.remove("hidden");
+history.pushState({ modal: 'terms' }, '');
+setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+}
+function closeTermsModal(triggeredByPopstate = false) {
+const modal = document.getElementById("termsModal");
+const overlay = document.getElementById("termsModalOverlay");
+overlay.classList.add("opacity-0");
+setTimeout(() => {
+overlay.classList.add("hidden");
+modal.classList.add("hidden");
+}, 250);
+if (!triggeredByPopstate && history.state && history.state.modal === 'terms') {
+history.back();
+}
+}
+function handleSearch(val) {
+searchQuery = val.trim().toLowerCase();
+renderAllSections();
+}
+function filterCategory(category) {
+currentFilter = category;
+document.querySelectorAll('.filter-btn').forEach(btn => {
+if (btn.dataset.cat === category) {
+btn.className = "filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-[#111114] text-white font-semibold shadow-sm transition-all";
+} else {
+btn.className = "filter-btn flex-shrink-0 px-4 py-2 rounded-full bg-white text-neutral-700 border border-neutral-200 hover:border-[#B88E3E] hover:text-[#8C6A28] font-medium transition-all";
+}
+});
+renderAllSections();
+}
+function createProductCard(item) {
+const mainImg = item.images && item.images.length > 0 ? item.images[0] : item.image;
+const imgCount = item.images ? item.images.length : 1;
+const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
+return `
+<div class="card-luxury rounded-2xl overflow-hidden flex flex-col justify-between group">
+<div class="relative overflow-hidden cursor-pointer bg-[#F8F7F5] aspect-[4/5] flex items-center justify-center p-3" onclick="openProductModal(${item.id})">
+<img src="${mainImg}" alt="${item.title}" class="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+<span class="absolute top-2.5 left-2.5 bg-[#111114] text-white text-[9px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase shadow-xs">
+${discountPercent}% OFF
+</span>
+<span class="absolute top-2.5 right-2.5 bg-white/90 text-[9px] text-neutral-700 px-2 py-0.5 rounded-full border border-neutral-200/80 backdrop-blur-xs font-medium flex items-center gap-1 shadow-2xs">
+📸 ${imgCount}
+</span>
+<span class="absolute bottom-2.5 right-2.5 bg-white/95 text-[10px] text-[#8C6A28] px-2 py-0.5 rounded-full font-bold shadow-2xs border border-[#EAE3D5] flex items-center gap-0.5">
+★ ${item.rating}
+</span>
+</div>
+<div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
+<div onclick="openProductModal(${item.id})" class="cursor-pointer">
+<span class="text-[9px] text-[#8C6A28] uppercase font-bold tracking-[0.16em]">￼
+<h3 class="text-xs font-semibold text-[#111114] line-clamp-1 group-hover:text-[#8C6A28] transition-colors mt-0.5">{item.title}</h3>
+<div class="flex items-baseline gap-2 mt-2 flex-wrap">
+<span class="text-base font-bold text-[#111114]">₹￼
+￼{item.originalPrice}</span>
+<span class="text-[9px] font-bold text-[#8C6A28] bg-[#FBF7EE] border border-[#ECDDC3] px-1.5 py-0.5 rounded">Save ${discountPercent}%</span>
+</div>
+<p class="text-[10px] text-[#2B7A4B] mt-1.5 font-medium flex items-center gap-1">
+<span>✔</span> Free Cash on Delivery
+</p>
+</div>
+<div class="mt-4 grid grid-cols-2 gap-2">
+<button onclick="openProductModal(${item.id})" class="py-2 rounded-xl text-[11px] font-semibold border border-neutral-200 text-neutral-700 hover:border-[#111114] hover:text-[#111114] transition-all bg-[#FAF9F7]">
+Details
+</button>
+<button onclick="addToCart(${item.id})" class="py-2 rounded-xl text-[11px] font-semibold btn-black active:scale-95 transition-all flex items-center justify-center gap-1">
+<span>+ Bag</span>
+</button>
+</div>
+</div>
+</div>
+`;
+}
+function renderAllSections() {
+const sectionConfigs = [
+{
+id: 'section-jewellery',
+gridId: 'grid-jewellery',
+category: 'Jewellery'
+},
+{
+id: 'section-hair',
+gridId: 'grid-hair',
+category: 'Hair Accessories'
+},
+{
+id: 'section-kids',
+gridId: 'grid-kids',
+category: 'Kids Zone'
+},
+{
+id: 'section-trending',
+gridId: 'grid-trending',
+category: 'Trending Items'
+}
+];
+sectionConfigs.forEach(sec => {
+const secElement = document.getElementById(sec.id);
+const gridElement = document.getElementById(sec.gridId);
+let items = products.filter(p => p.category === sec.category);
+if (currentFilter !== 'All' && currentFilter !== sec.category) {
+items = [];
+}
+if (searchQuery && items.length > 0) {
+items = items.filter(p =>
+p.title.toLowerCase().includes(searchQuery) ||
+p.category.toLowerCase().includes(searchQuery) ||
+(p.description && p.description.toLowerCase().includes(searchQuery))
+);
+}
+if (items.length === 0) {
+secElement.style.display = 'none';
+gridElement.innerHTML = '';
+} else {
+secElement.style.display = 'block';
+items.sort((a, b) => {
+const discA = ((a.originalPrice - a.price) / a.originalPrice);
+const discB = ((b.originalPrice - b.price) / b.originalPrice);
+return discB - discA;
+});
+gridElement.innerHTML = items.map(p => createProductCard(p)).join('');
+}
+});
+}
+let activeModalImages = [];
+let currentImageIndex = 0;
+let activeProductId = null;
+let touchStartX = 0;
+let touchStartY = 0;
+function bindSwipe(element, onNext, onPrev) {
+if (!element) return;
+element.addEventListener('touchstart', (e) => {
+const touch = e.touches[0];
+if (touch.clientX < 25 || touch.clientX > window.innerWidth - 25) {
+touchStartX = 0;
+return;
+}
+touchStartX = touch.clientX;
+touchStartY = touch.clientY;
+}, { passive: true });
+element.addEventListener('touchend', (e) => {
+if (!touchStartX) return;
+const touch = e.changedTouches[0];
+const diffX = touchStartX - touch.clientX;
+const diffY = touchStartY - touch.clientY;
+if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+if (diffX > 0) {
+onNext();
+} else {
+onPrev();
+}
+}
+touchStartX = 0;
+}, { passive: true });
+}
+function openProductModal(productId) {
+activeProductId = productId;
+const prod = products.find(p => p.id === productId);
+if (!prod) return;
+activeModalImages = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
+currentImageIndex = 0;
+const discountPercent = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
+const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging / Details"];
+let specsHtml = '';
+if (prod.specs) {
+specsHtml = ⁠<div class="bg-[#FAF8F5] p-3.5 rounded-2xl border border-[#EBE4D8] text-[11px] space-y-1.5 mt-3.5"> <h4 class="text-[#8C6A28] font-bold uppercase text-[10px] tracking-wider">Product Specifications:</h4> ${Object.entries(prod.specs).map(([key, val]) =>⁠
+<div class="flex justify-between border-b border-neutral-200/60 pb-1.5 text-neutral-600">
+<span class="capitalize font-medium">￼
+￼{val}</span>
+</div>
+⁠).join('')} </div> ⁠;
+}
+const modalContent = document.getElementById("modalContent");
+modalContent.innerHTML = `
+<div class="space-y-4 select-none">
+<div id="modalSwipeArea" class="swipe-container relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden bg-[#F6F5F2] border border-[#E5E0D5] flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
+<img id="modalMainImg" src="${activeModalImages[0]}" alt="${prod.title}" class="w-full h-full object-contain pointer-events-none transition-opacity duration-200 p-2" />
+${activeModalImages.length > 1 ? ⁠<button onclick="event.stopPropagation(); prevModalImg();" class="absolute left-2.5 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-neutral-900 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-300 z-20 shadow-md transition-all active:scale-90">❮</button> <button onclick="event.stopPropagation(); nextModalImg();" class="absolute right-2.5 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-neutral-900 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border border-neutral-300 z-20 shadow-md transition-all active:scale-90">❯</button>⁠ : ''}
+<span id="activeImgLabel" class="absolute bottom-2.5 left-2.5 bg-white/90 text-[10px] text-[#8C6A28] px-3 py-1 rounded-full border border-[#DCCFB8] font-semibold shadow-xs">
+${labels[0] || 'Image 1'}
+</span>
+<span class="absolute top-2.5 left-2.5 bg-[#111114] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wider uppercase shadow-xs">
+${discountPercent}% OFF SPECIAL
+</span>
+<span class="absolute top-2.5 right-2.5 bg-white/90 border border-neutral-300 text-neutral-600 text-[9px] px-2.5 py-1 rounded-full font-medium flex items-center gap-1 shadow-2xs">
+🔍 Tap to Zoom
+</span>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+${activeModalImages.map((img, i) => ⁠<button onclick="setModalImg(${i})" class="thumbnail-btn flex-shrink-0 relative rounded-xl overflow-hidden border-2 bg-[#F9F8F6] p-1 ${i === 0 ? 'border-[#B88E3E]' : 'border-neutral-200'} transition-all" id="thumb-${i}"> <img src="${img}" class="w-14 h-14 object-contain" /> <span class="absolute bottom-0 inset-x-0 bg-white/90 text-[8px] text-center text-neutral-700 font-semibold py-0.5">${labels[i] ? labels[i].split('.')[1].trim() :⁠Photo ${i+1}⁠}</span> </button> ⁠).join('')}
+</div>
+<div>
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase tracking-wider text-[#8C6A28] bg-[#FAF5EB] border border-[#E9DCBE] px-2.5 py-0.5 rounded-full font-bold">${prod.tag}</span>
+<span class="text-xs text-[#8C6A28] font-bold">★ ${prod.rating} Customer Rating</span>
+</div>
+<h2 class="text-lg sm:text-xl font-bold text-[#111114] mt-2 font-cinzel">${prod.title}</h2>
+<div class="flex items-baseline gap-2.5 mt-2 flex-wrap">
+<span class="text-2xl font-extrabold text-[#111114]">₹￼
+￼{prod.originalPrice}</span>
+<span class="text-xs font-bold text-[#8C6A28] bg-[#FAF5EB] border border-[#E7D6B4] px-2 py-0.5 rounded">${discountPercent}% OFF</span>
+<span class="text-[11px] text-[#2B7A4B] font-semibold ml-2">✔ Free Cash on Delivery</span>
+</div>
+<p class="text-xs text-neutral-600 mt-3 leading-relaxed bg-[#FAF9F7] p-3.5 rounded-xl border border-neutral-200">
+${prod.description}
+</p>
+${specsHtml}
+</div>
+<div class="grid grid-cols-2 gap-2.5 pt-2">
+<button onclick="addToCart(${prod.id}); closeProductModal();" class="w-full py-3 rounded-xl font-bold text-xs btn-black active:scale-95 transition-all">
+Add to Bag (₹${prod.price})
+</button>
+<button onclick="orderSingleProductWhatsApp(${prod.id})" class="w-full py-3 rounded-xl font-bold text-xs bg-[#25D366] hover:bg-[#20bd5a] text-white active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-sm">
+<span>Order on WhatsApp</span>
+</button>
+</div>
+<div class="mt-6 pt-5 border-t border-neutral-200">
+<div class="flex items-center justify-between mb-3">
+<h4 class="text-xs font-bold text-[#111114] uppercase tracking-wider">Client Reviews (${prod.reviews ? prod.reviews.length : 0})</h4>
+</div>
+<div class="bg-[#FAF9F7] p-3.5 rounded-2xl border border-neutral-200 mb-4 space-y-2.5">
+<span class="text-[11px] font-bold text-neutral-700">Add your verified review:</span>
+<div class="grid grid-cols-2 gap-2">
+<input id="prodRevName" type="text" placeholder="Your Name" class="bg-white border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900" />
+<select id="prodRevRating" class="bg-white border border-neutral-300 rounded-lg p-2 text-xs text-[#8C6A28] font-bold">
+<option value="5">★★★★★ (5)</option>
+<option value="4">★★★★☆ (4)</option>
+<option value="3">★★★☆☆ (3)</option>
+</select>
+</div>
+<input id="prodRevComment" type="text" placeholder="Share your experience with this item..." class="w-full bg-white border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900" />
+<button onclick="submitProductReview(${prod.id})" class="btn-black px-4 py-2 rounded-lg text-[10px] font-bold">Post Review</button>
+</div>
+<div class="space-y-2.5" id="prodModalReviewsList">
+${(prod.reviews || []).map(r => ⁠<div class="bg-[#FAF9F7] p-3 rounded-xl border border-neutral-200/80 text-[11px]"> <div class="flex justify-between items-center"> <span class="font-bold text-[#111114]">${r.name}</span> <span class="text-[#8C6A28] text-[10px]">${'★'.repeat(r.rating)}</span> </div> <p class="text-neutral-600 mt-1">${r.comment}</p> </div>⁠).join('')}
+</div>
+</div>
+</div>
+`;
+bindSwipe(document.getElementById("modalSwipeArea"), nextModalImg, prevModalImg);
+const modal = document.getElementById("productModal");
+const overlay = document.getElementById("productModalOverlay");
+overlay.classList.remove("hidden");
+modal.classList.remove("hidden");
+history.pushState({ modal: 'product' }, '');
+setTimeout(() => {
+overlay.classList.remove("opacity-0");
+}, 10);
+}
+function closeProductModal(triggeredByPopstate = false) {
+const modal = document.getElementById("productModal");
+const overlay = document.getElementById("productModalOverlay");
+overlay.classList.add("opacity-0");
+setTimeout(() => {
+overlay.classList.add("hidden");
+modal.classList.add("hidden");
+}, 250);
+if (!triggeredByPopstate && history.state && history.state.modal === 'product') {
+history.back();
+}
+}
+function setModalImg(index) {
+currentImageIndex = index;
+const mainImg = document.getElementById("modalMainImg");
+const label = document.getElementById("activeImgLabel");
+const labels = ["1. Real Look", "2. Model Styling Look", "3. Product Details Sheet", "4. Packaging / Details"];
+if (mainImg) mainImg.src = activeModalImages[index];
+if (label) label.innerText = labels[index] || ⁠Image ${index + 1}⁠;
+activeModalImages.forEach((_, i) => {
+const thumb = document.getElementById(⁠thumb-${i}⁠);
+if (thumb) {
+thumb.className = i === index
+? "thumbnail-btn flex-shrink-0 relative rounded-xl overflow-hidden border-2 bg-[#F9F8F6] p-1 border-[#B88E3E] transition-all"
+: "thumbnail-btn flex-shrink-0 relative rounded-xl overflow-hidden border-2 bg-[#F9F8F6] p-1 border-neutral-200 transition-all";
+}
+});
+}
+function prevModalImg() {
+if (activeModalImages.length <= 1) return;
+setModalImg(currentImageIndex > 0 ? currentImageIndex - 1 : activeModalImages.length - 1);
+}
+function nextModalImg() {
+if (activeModalImages.length <= 1) return;
+setModalImg(currentImageIndex < activeModalImages.length - 1 ? currentImageIndex + 1 : 0);
+}
+function openZoomModal() {
+const zoomModal = document.getElementById("zoomModal");
+zoomModal.classList.remove("hidden");
+history.pushState({ modal: 'zoom' }, '');
+updateZoomImgView();
+}
+function updateZoomImgView() {
+const zoomModalImg = document.getElementById("zoomModalImg");
+const zoomCounter = document.getElementById("zoomCounter");
+if (zoomModalImg) zoomModalImg.src = activeModalImages[currentImageIndex];
+if (zoomCounter) zoomCounter.innerText = ⁠${currentImageIndex + 1} / ${activeModalImages.length}⁠;
+setModalImg(currentImageIndex);
+}
+function prevZoomImg() {
+if (activeModalImages.length <= 1) return;
+currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : activeModalImages.length - 1;
+updateZoomImgView();
+}
+function nextZoomImg() {
+if (activeModalImages.length <= 1) return;
+currentImageIndex < activeModalImages.length - 1 ? currentImageIndex + 1 : 0;
+updateZoomImgView();
+}
+function closeZoomModal(triggeredByPopstate = false) {
+document.getElementById("zoomModal").classList.add("hidden");
+if (!triggeredByPopstate && history.state && history.state.modal === 'zoom') {
+history.back();
+}
+}
+bindSwipe(document.getElementById("zoomTouchArea"), nextZoomImg, prevZoomImg);
+window.addEventListener('popstate', (e) => {
+const zoomModal = document.getElementById("zoomModal");
+const prodModal = document.getElementById("productModal");
+const termsModal = document.getElementById("termsModal");
+const cartSidebar = document.getElementById("cartSidebar");
+if (zoomModal && !zoomModal.classList.contains("hidden")) {
+closeZoomModal(true);
+} else if (prodModal && !prodModal.classList.contains("hidden")) {
+closeProductModal(true);
+} else if (termsModal && !termsModal.classList.contains("hidden")) {
+closeTermsModal(true);
+} else if (cartSidebar && !cartSidebar.classList.contains("translate-x-full")) {
+toggleCart(true);
+}
+});
+function submitProductReview(productId) {
+const name = document.getElementById("prodRevName").value.trim();
+const rating = parseInt(document.getElementById("prodRevRating").value);
+const comment = document.getElementById("prodRevComment").value.trim();
+if (!name || !comment) {
+alert("Kripya apna naam aur review feedback dono likhein!");
+return;
+}
+const prod = products.find(p => p.id === productId);
+if (prod) {
+if (!prod.reviews) prod.reviews = [];
+prod.reviews.unshift({ name, rating, comment });
+openProductModal(productId);
+}
+}
+function toggleStoreReviewForm() {
+const form = document.getElementById("storeReviewForm");
+form.classList.toggle("hidden");
+}
+function renderStoreReviews() {
+const container = document.getElementById("storeReviewsContainer");
+container.innerHTML = storeReviews.map(r => ⁠<div class="bg-white p-5 rounded-2xl border border-[#ECE7DD] shadow-xs hover:border-[#D9C4A0] transition-colors"> <div class="text-[#8C6A28] text-xs font-bold">${'★'.repeat(r.rating)}</div> <p class="text-xs text-neutral-600 mt-2.5 leading-relaxed">"${r.comment}"</p> <p class="text-[11px] font-bold text-[#111114] mt-3.5">— ${r.name} <span class="text-[#2B7A4B] font-medium text-[10px] ml-1">✔ Verified Customer</span></p> </div>⁠).join('');
+}
+function submitStoreReview() {
+const name = document.getElementById("storeRevName").value.trim();
+const rating = parseInt(document.getElementById("storeRevRating").value);
+const text = document.getElementById("storeRevText").value.trim();
+if (!name || !text) {
+alert("Naam aur feedback likhna zaroori hai!");
+return;
+}
+storeReviews.unshift({ name, rating, comment: text });
+renderStoreReviews();
+toggleStoreReviewForm();
+document.getElementById("storeRevName").value = '';
+document.getElementById("storeRevText").value = '';
+alert("Aapka review website par add ho gaya hai! Thank you ✨");
+}
+function orderSingleProductWhatsApp(productId) {
+const prod = products.find(p => p.id === productId);
+if (!prod) return;
+const msg = ⁠Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye product order karna hai:\n\n*${prod.title}*\nCategory: ${prod.category}\nPrice: ₹${prod.price} (MRP: ₹${prod.originalPrice})\nPayment Mode: Cash on Delivery (COD)\n\nMera Address:\n[Apna Naam aur Full Address Yahan Likhein]⁠;
+window.open(⁠https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}⁠, "_blank");
+}
+function toggleCart(triggeredByPopstate = false) {
+const sidebar = document.getElementById("cartSidebar");
+const overlay = document.getElementById("cartOverlay");
+const isClosed = sidebar.classList.contains("translate-x-full");
+if (isClosed) {
+sidebar.classList.remove("translate-x-full");
+overlay.classList.remove("hidden");
+history.pushState({ modal: 'cart' }, '');
+setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+} else {
+sidebar.classList.add("translate-x-full");
+overlay.classList.add("opacity-0");
+setTimeout(() => overlay.classList.add("hidden"), 350);
+if (!triggeredByPopstate && history.state && history.state.modal === 'cart') {
+history.back();
+}
+}
+}
+function addToCart(productId) {
+const existing = cart.find(p => p.id === productId);
+if (existing) {
+existing.qty += 1;
+} else {
+const prod = products.find(p => p.id === productId);
+cart.push({ ...prod, qty: 1 });
+}
+updateCartUI();
+toggleCart();
+}
+function updateQty(id, delta) {
+const item = cart.find(p => p.id === id);
+if (!item) return;
+item.qty += delta;
+if (item.qty <= 0) {
+cart = cart.filter(p => p.id !== id);
+}
+updateCartUI();
+}
+function updateCartUI() {
+const cartCount = document.getElementById("cartCount");
+const cartList = document.getElementById("cartItemsList");
+const cartTotal = document.getElementById("cartTotal");
+const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+cartCount.innerText = totalItems;
+cartTotal.innerText = ⁠₹${totalPrice}⁠;
+if (cart.length === 0) {
+cartList.innerHTML = ⁠<div class="text-center py-20"> <div class="w-12 h-12 mx-auto rounded-full bg-[#FAF7F2] text-[#B88E3E] flex items-center justify-center text-xl mb-3">🛍️</div> <p class="text-xs text-neutral-800 font-semibold">Your shopping bag is currently empty.</p> <p class="text-[11px] text-neutral-500 mt-1 max-w-xs mx-auto">Explore our luxury anti-tarnish jewelry & aesthetic curations to add items.</p> </div>⁠;
+return;
+}
+cartList.innerHTML = cart.map(item => {
+const img = item.images && item.images.length > 0 ? item.images[0] : item.image;
+return ⁠<div class="flex items-center gap-3 bg-[#FAF9F7] p-3 rounded-2xl border border-neutral-200/90"> <img src="${img}" class="w-12 h-12 rounded-xl object-contain bg-white p-1 border border-neutral-200" /> <div class="flex-1"> <h4 class="text-xs font-semibold text-[#111114] line-clamp-1">${item.title}</h4> <p class="text-xs text-[#8C6A28] font-bold mt-0.5">₹${item.price}</p> </div> <div class="flex items-center gap-2 bg-white border border-neutral-300 px-2 py-1 rounded-lg"> <button onclick="updateQty(${item.id}, -1)" class="text-xs text-neutral-500 hover:text-black font-bold px-1">−</button> <span class="text-xs font-bold text-[#111114]">${item.qty}</span> <button onclick="updateQty(${item.id}, 1)" class="text-xs text-neutral-500 hover:text-black font-bold px-1">+</button> </div> </div>⁠;
+}).join('');
+}
+function sendOrderViaWhatsApp() {
+if (cart.length === 0) {
+alert("Aapka cart khaali hai!");
+return;
+}
+let summary = "Hello TRENDZ MART LUXE! 🛍️✨\n\nMujhe ye order confirm karna hai:\n\n";
+let grandTotal = 0;
+cart.forEach((item, index) => {
+const itemTotal = item.price * item.qty;
+grandTotal += itemTotal;
+summary += ⁠${index + 1}. ${item.title}\n   Category: ${item.category}\n   Qty: ${item.qty} | Price: ₹${itemTotal}\n⁠;
+});
+summary += ⁠\n--------------------------\n⁠;
+summary += ⁠Grand Total: ₹${grandTotal}\n⁠;
+summary += ⁠Payment Mode: Cash on Delivery (COD)\n⁠;
+summary += ⁠Delivery: Free Express Shipping\n\n⁠;
+summary += ⁠Mera Address:\n[Apna Naam aur Pura Address Yahan Likhein]⁠;
+const url = ⁠https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(summary)}⁠;
+window.open(url, "_blank");
+}
+// Initialize display on window load
+renderAllSections();
+renderStoreReviews();
+updateCartUI();
+</script>
 </body>
 </html>
