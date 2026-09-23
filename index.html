@@ -92,14 +92,20 @@
       user-select: none;
     }
     
-    /* LED Marquee Scrolling Effect */
-    .led-marquee {
-      display: inline-block;
-      white-space: nowrap;
-      animation: marquee 18s linear infinite;
+    /* Continuous Seamless LED Marquee */
+    .marquee-wrapper {
+      display: flex;
+      overflow: hidden;
+      user-select: none;
     }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
+    .marquee-track {
+      display: flex;
+      flex-shrink: 0;
+      white-space: nowrap;
+      animation: marqueeContinuous 16s linear infinite;
+    }
+    @keyframes marqueeContinuous {
+      0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
 
@@ -134,6 +140,29 @@
       border: 1px solid #8c6928;
       cursor: pointer;
     }
+
+    /* Moveable Help Button */
+    #draggableHelpBtn {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      width: 58px;
+      height: 58px;
+      z-index: 60;
+      touch-action: none;
+      user-select: none;
+      cursor: grab;
+    }
+    #draggableHelpBtn:active {
+      cursor: grabbing;
+    }
+
+    /* WhatsApp Style Chat Pop-up */
+    .whatsapp-chat-bg {
+      background-color: #efeae2;
+      background-image: radial-gradient(#d3c6ba 1px, transparent 1px);
+      background-size: 14px 14px;
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -143,10 +172,15 @@
     ⭐ 4.9/5 RATED • 2,000+ REVIEWS
   </div>
 
-  <!-- Top LED Scrolling Announcement Bar -->
-  <div class="bg-[#111111] text-[#f2ebd9] text-xs font-semibold py-2 overflow-hidden shadow-sm whitespace-nowrap">
-    <div class="led-marquee">
-      ✨ Use Code <span class="text-amber-400 font-bold">LUXE10</span> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above <span id="announcementGiftLimit">₹599</span> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨
+  <!-- Top LED Scrolling Announcement Bar (Continuous with Big Dots) -->
+  <div class="bg-[#111111] text-[#f2ebd9] text-xs font-semibold py-2 overflow-hidden shadow-sm">
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <span class="inline-block px-4">✨ Use Code <span class="text-amber-400 font-bold">LUXE10</span> for Extra 20% OFF &nbsp;|&nbsp; 🎁 Free Mystery Gift Above <span id="announcementGiftLimit">₹599</span> &nbsp;|&nbsp; 💵 Cash on Delivery Available Across India <span class="text-amber-400 font-extrabold mx-4">● ● ●</span></span>
+      </div>
+      <div class="marquee-track">
+        <span class="inline-block px-4">✨ Use Code <span class="text-amber-400 font-bold">LUXE10</span> for Extra 20% OFF &nbsp;|&nbsp; 🎁 Free Mystery Gift Above <span id="announcementGiftLimit2">₹599</span> &nbsp;|&nbsp; 💵 Cash on Delivery Available Across India <span class="text-amber-400 font-extrabold mx-4">● ● ●</span></span>
+      </div>
     </div>
   </div>
 
@@ -179,11 +213,11 @@
           <span>📦 Track Order</span>
         </a>
 
-        <a id="navWhatsappBtn" href="#" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-neutral-300 text-neutral-800 hover:bg-neutral-100 transition-colors">
-          <span>WhatsApp Help</span>
-        </a>
+        <button onclick="toggleCustomerChat()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-neutral-300 text-neutral-800 hover:bg-neutral-100 transition-colors">
+          <span>🎧 Support Chat</span>
+        </button>
 
-        <!-- Compact Wishlist Button -->
+        <!-- Wishlist Button -->
         <button onclick="toggleWishlist()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
           <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -191,7 +225,7 @@
           <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
         </button>
         
-        <!-- Compact Cart Button -->
+        <!-- Cart Button -->
         <button onclick="toggleCart()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -203,7 +237,7 @@
     </div>
   </header>
 
-  <!-- Top Search & Quick Category Filters Bar -->
+  <!-- Top Search & Category Filters -->
   <section class="max-w-5xl mx-auto px-4 pt-4">
     <div class="bg-white border border-neutral-200 rounded-2xl p-3 shadow-sm">
       <div class="relative mb-3">
@@ -219,16 +253,21 @@
     </div>
   </section>
 
-  <!-- Secondary LED Marquee Ticker for Gift Offer -->
+  <!-- Secondary LED Marquee Ticker (Same Fast Scrolling & Dots) -->
   <div class="max-w-5xl mx-auto px-4 mt-3">
-    <div class="bg-amber-50 border border-amber-200 rounded-xl py-2 overflow-hidden shadow-sm whitespace-nowrap text-xs text-amber-900 font-bold">
-      <div class="led-marquee">
-        🎁 SPECIAL GIFT ANNOUNCEMENT: Add items worth <span id="marqueeLimitText">₹599</span> or more to your bag and claim your Free Mystery Gift automatically at checkout! 🛍️✨
+    <div class="bg-amber-50 border border-amber-200 rounded-xl py-2 overflow-hidden shadow-sm text-xs text-amber-900 font-bold">
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          <span class="inline-block px-4">🎁 SPECIAL GIFT OFFER: Add items worth <span id="marqueeLimitText">₹599</span> or more & get Free Mystery Gift automatically at checkout! 🛍️✨ <span class="text-amber-600 font-extrabold mx-4">● ● ●</span></span>
+        </div>
+        <div class="marquee-track">
+          <span class="inline-block px-4">🎁 SPECIAL GIFT OFFER: Add items worth <span id="marqueeLimitText2">₹599</span> or more & get Free Mystery Gift automatically at checkout! 🛍️✨ <span class="text-amber-600 font-extrabold mx-4">● ● ●</span></span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== TOP MAIN HERO BANNER (3D ELEVATED) ==================== -->
+  <!-- Hero Banner -->
   <section id="heroBannerSection" class="banner-3d relative px-5 pt-12 pb-10 text-center max-w-4xl mx-auto my-4 bg-no-repeat bg-white" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.96)), url('./IMG_0394.png'); background-size: cover; background-position: center top;">
     <span class="inline-block text-[10px] sm:text-[11px] font-bold tracking-[0.22em] text-[#8c6928] uppercase bg-amber-50 border border-amber-200/80 px-4 py-1 rounded-full shadow-sm">
       ✨ All-in-One Trending Lifestyle Store ✨
@@ -240,14 +279,13 @@
       Explore premium anti-tarnish jewelry, viral Korean hair clips, cute kids water sippers & trending room organizers with Cash on Delivery.
     </p>
 
-    <!-- Quick Visual Category Links in Hero -->
     <div id="heroCategoryQuickLinks" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-2xl mx-auto"></div>
   </section>
 
-  <!-- ==================== MAIN CATALOG SECTIONS ==================== -->
+  <!-- Main Catalog -->
   <main id="mainCatalogContainer" class="max-w-5xl mx-auto px-3 sm:px-6 mt-6 space-y-12"></main>
 
-  <!-- Trust & Security Badges Section -->
+  <!-- Badges -->
   <section class="max-w-5xl mx-auto px-4 mt-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 bg-white rounded-2xl gold-border text-center shadow-sm">
       <div class="p-2">
@@ -273,7 +311,7 @@
     </div>
   </section>
 
-  <!-- Customer Reviews Section (Permanent & Realtime) -->
+  <!-- Customer Reviews -->
   <section class="max-w-5xl mx-auto px-4 mt-14">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
       <div>
@@ -285,21 +323,20 @@
       </button>
     </div>
 
-    <!-- Review Form with 1-Number-1-Review Restriction -->
     <div id="storeReviewForm" class="hidden bg-white p-5 rounded-xl gold-border mb-6 shadow-sm">
       <h4 class="text-xs font-bold text-neutral-900 mb-1 uppercase">Share Your Genuine Experience</h4>
       <p class="text-[10px] text-neutral-500 mb-3">Spam rokne ke liye ek phone number se sirf ek hi review allow hai.</p>
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
-        <input id="storeRevName" type="text" placeholder="Your Name" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
-        <input id="storeRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone Number" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
-        <select id="storeRevRating" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-amber-700 font-semibold focus:outline-none focus:border-neutral-900">
+        <input id="storeRevName" type="text" placeholder="Your Name" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none" />
+        <input id="storeRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone Number" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none" />
+        <select id="storeRevRating" class="bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-amber-700 font-semibold focus:outline-none">
           <option value="5">★★★★★ (5 Star)</option>
           <option value="4">★★★★☆ (4 Star)</option>
           <option value="3">★★★☆☆ (3 Star)</option>
         </select>
       </div>
-      <textarea id="storeRevText" rows="2" placeholder="Write your review here..." class="w-full bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900 mb-3"></textarea>
+      <textarea id="storeRevText" rows="2" placeholder="Write your review here..." class="w-full bg-neutral-50 border border-neutral-300 rounded-lg p-2 text-xs text-neutral-900 focus:outline-none mb-3"></textarea>
       
       <div class="flex items-center justify-between">
         <button id="storeRevSubmitBtn" onclick="submitStoreReview()" class="gold-btn px-5 py-2 rounded-lg text-xs font-bold active:scale-95 flex items-center gap-2">
@@ -309,7 +346,6 @@
       </div>
     </div>
 
-    <!-- Container where reviews live-stream from Cloud Database -->
     <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
       <div class="col-span-full text-center py-6 text-xs text-neutral-400">Loading verified customer reviews...</div>
     </div>
@@ -336,7 +372,7 @@
     </div>
   </section>
 
-  <!-- Footer with Secret Admin Trigger -->
+  <!-- Footer -->
   <footer class="mt-16 bg-white border-t border-neutral-200 py-10 px-4 text-center">
     <div onclick="triggerSecretAdmin()" class="w-14 h-14 rounded-full border border-neutral-300 bg-neutral-100 mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-sm cursor-pointer hover:border-amber-600 transition-colors">
       <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'">
@@ -353,10 +389,92 @@
     <p class="text-[11px] text-neutral-500 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
 
-  <!-- ==================== LIVE PURCHASE NOTIFICATION POPUP CONTAINER ==================== -->
+  <!-- ==================== MOVEABLE CUSTOMER CARE BUTTON ==================== -->
+  <div id="draggableHelpBtn" class="flex items-center justify-center">
+    <button id="helpBtnInner" onclick="handleHelpBtnClick(event)" class="w-14 h-14 rounded-full bg-gradient-to-tr from-neutral-900 to-amber-700 text-white shadow-2xl flex items-center justify-center border-2 border-amber-300 hover:scale-105 active:scale-95 transition-transform relative group">
+      <!-- Headphone / Support SVG Icon -->
+      <svg class="w-7 h-7 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 18v-6a9 9 0 0118 0v6M3 18a3 3 0 003 3h1a1 1 0 001-1v-4a1 1 0 00-1-1H4a1 1 0 01-1-1v-2a8 8 0 1116 0v2a1 1 0 01-1 1h-3a1 1 0 00-1 1v4a1 1 0 001 1h1a3 3 0 003-3" />
+      </svg>
+      <!-- Green Active Online Indicator Dot -->
+      <span class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full shadow"></span>
+      <span class="absolute -top-7 right-0 bg-neutral-900 text-amber-300 text-[9px] font-bold px-2 py-0.5 rounded shadow pointer-events-none whitespace-nowrap">Help 24/7</span>
+    </button>
+  </div>
+
+  <!-- ==================== POPUP CUSTOMER CARE CHAT (WHATSAPP STYLE) ==================== -->
+  <div id="chatModalOverlay" onclick="toggleCustomerChat()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[65] hidden opacity-0 transition-opacity duration-300"></div>
+
+  <div id="customerChatModal" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-[92%] sm:w-[380px] h-[520px] max-h-[88vh] bg-white rounded-2xl shadow-2xl border border-neutral-300 z-[70] hidden flex-col overflow-hidden transition-all duration-300">
+    <!-- WhatsApp Green Top Header -->
+    <div class="bg-[#075E54] text-white p-3.5 flex items-center justify-between shadow-md">
+      <div class="flex items-center gap-2.5">
+        <div class="relative w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border border-white/40">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border border-white rounded-full"></span>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs tracking-wide">TRENDZ MART Support</h4>
+          <p class="text-[10px] text-green-200 flex items-center gap-1 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-300 animate-ping"></span> Online • Auto Instant Reply
+          </p>
+        </div>
+      </div>
+      <button onclick="toggleCustomerChat()" class="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm">✕</button>
+    </div>
+
+    <!-- WhatsApp Chat Message Logs Area -->
+    <div id="chatMessagesArea" class="flex-1 p-3.5 overflow-y-auto space-y-3 whatsapp-chat-bg text-xs">
+      <div class="text-center my-1">
+        <span class="bg-amber-100 text-neutral-600 text-[10px] px-3 py-1 rounded-full shadow-sm">🔒 End-to-End Customer Assistance</span>
+      </div>
+      <!-- Welcome Message from Agent -->
+      <div class="flex items-start gap-2 max-w-[85%]">
+        <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-neutral-800 leading-relaxed border border-neutral-200">
+          <p class="font-bold text-[#075E54] text-[11px] mb-0.5">TRENDZ MART Care</p>
+          <p>Namaste! 🙏 Welcome to TRENDZ MART LUXE. Aapki kya madad kar sakte hain? Neeche diye gaye sawal par click karein for instant auto-reply:</p>
+          <span class="text-[9px] text-neutral-400 block text-right mt-1">Just now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Question Buttons (FAQs) -->
+    <div class="bg-neutral-100 p-2 border-t border-neutral-200 space-y-1.5">
+      <p class="text-[10px] font-bold text-neutral-600 px-1 uppercase tracking-wider">Quick Help Questions:</p>
+      <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+        <button onclick="sendQuickFaq(1)" class="whitespace-nowrap bg-white border border-neutral-300 hover:border-emerald-600 px-2.5 py-1.5 rounded-full text-[11px] text-neutral-800 font-medium active:scale-95 shadow-sm">
+          📦 Order kaise karein? (COD?)
+        </button>
+        <button onclick="sendQuickFaq(2)" class="whitespace-nowrap bg-white border border-neutral-300 hover:border-emerald-600 px-2.5 py-1.5 rounded-full text-[11px] text-neutral-800 font-medium active:scale-95 shadow-sm">
+          🚚 Delivery kitne din mein hogi?
+        </button>
+        <button onclick="sendQuickFaq(3)" class="whitespace-nowrap bg-white border border-neutral-300 hover:border-emerald-600 px-2.5 py-1.5 rounded-full text-[11px] text-neutral-800 font-medium active:scale-95 shadow-sm">
+          🎁 Free Mystery Gift kaise milega?
+        </button>
+        <button onclick="sendQuickFaq(4)" class="whitespace-nowrap bg-white border border-neutral-300 hover:border-emerald-600 px-2.5 py-1.5 rounded-full text-[11px] text-neutral-800 font-medium active:scale-95 shadow-sm">
+          🔄 Return / Replacement Policy?
+        </button>
+        <button onclick="sendQuickFaq(5)" class="whitespace-nowrap bg-white border border-neutral-300 hover:border-emerald-600 px-2.5 py-1.5 rounded-full text-[11px] text-neutral-800 font-medium active:scale-95 shadow-sm">
+          📍 Dombivli / Local Delivery?
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Typing / WhatsApp Redirection Input Bar -->
+    <div class="p-2.5 bg-white border-t border-neutral-200 flex items-center gap-2">
+      <input id="userManualChatInput" type="text" placeholder="Type your question..." class="flex-1 bg-neutral-100 border border-neutral-300 rounded-full px-3.5 py-2 text-xs text-neutral-900 focus:outline-none focus:border-emerald-600" onkeydown="if(event.key==='Enter') sendUserCustomChat()" />
+      <button onclick="sendUserCustomChat()" class="w-9 h-9 rounded-full bg-[#128C7E] hover:bg-[#075E54] text-white flex items-center justify-center active:scale-95 transition-all shadow flex-shrink-0">
+        <svg class="w-4 h-4 fill-current rotate-45 ml-[-2px]" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Live Purchase Notification -->
   <div id="purchasePopupContainer" class="fixed bottom-4 left-4 z-50 pointer-events-none"></div>
 
-  <!-- ==================== SECRET ADMIN PANEL MODAL ==================== -->
+  <!-- Admin Modal -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
 
   <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl bg-white border border-amber-500/50 rounded-2xl z-50 hidden p-5 sm:p-6 shadow-2xl transition-all duration-300 max-h-[90vh] overflow-y-auto">
@@ -381,7 +499,6 @@
 
     <!-- Dashboard Screen -->
     <div id="adminDashboardScreen" class="hidden space-y-6">
-      <!-- Tabs -->
       <div class="flex gap-2 border-b border-neutral-200 pb-2 overflow-x-auto no-scrollbar">
         <button onclick="switchAdminTab('products')" id="adminTabProducts" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-900 text-white whitespace-nowrap">📦 Products & Views</button>
         <button onclick="switchAdminTab('settings')" id="adminTabSettings" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-100 text-neutral-700 whitespace-nowrap">⚙️ Banner & Gift Limit</button>
@@ -470,7 +587,7 @@
       </div>
       <div>
         <h4 class="text-neutral-900 font-bold uppercase text-[11px] mb-1">2. Mandatory 360° Unboxing Video</h4>
-        <p class="text-neutral-600">Parcel receive hone ke baad unboxing video banana compulsory hai.</p>
+        <p class="text-neutral-600">Parcel receive hone ke baad bina cut/pause unboxing video banana compulsory hai agar koi damages report karna ho.</p>
       </div>
     </div>
 
@@ -488,17 +605,13 @@
   </div>
 
   <!-- Zoom Lightbox -->
-  <div id="zoomModal" class="fixed inset-0 bg-black/95 z-[70] hidden flex items-center justify-center p-2 backdrop-blur-md select-none">
+  <div id="zoomModal" class="fixed inset-0 bg-black/95 z-[75] hidden flex items-center justify-center p-2 backdrop-blur-md select-none">
     <button onclick="closeZoomModal()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg z-[80]">✕</button>
-    
     <button onclick="prevZoomImg()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-neutral-700 z-[80] shadow-lg">❮</button>
-    
     <div id="zoomTouchArea" class="swipe-container relative max-w-full max-h-[85vh] flex items-center justify-center">
       <img id="zoomModalImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-all duration-200 pointer-events-none" />
     </div>
-
     <button onclick="nextZoomImg()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-neutral-700 z-[80] shadow-lg">❯</button>
-
     <div class="absolute bottom-4 flex items-center gap-2 pointer-events-none">
       <span id="zoomCounter" class="bg-black/80 border border-neutral-700 text-amber-300 text-xs px-3 py-1 rounded-full">1 / 1</span>
     </div>
@@ -1187,6 +1300,7 @@
     function updateWishlistUI() {
       document.getElementById("wishlistCount").innerText = wishlist.length;
       const list = document.getElementById("wishlistItemsList");
+      if (!list) return;
       if (wishlist.length === 0) {
         list.innerHTML = `<div class="text-center py-16"><div class="text-3xl mb-2 text-neutral-400">❤️</div><p class="text-xs text-neutral-600 font-medium">Your wishlist is empty.</p></div>`;
         return;
@@ -1261,16 +1375,19 @@
       }
 
       const giftNotice = document.getElementById("cartFreeGiftNotice");
-      if (totalPrice >= storeSettings.freeGiftLimit) {
-        giftNotice.classList.remove("hidden");
-      } else {
-        giftNotice.classList.add("hidden");
+      if (giftNotice) {
+        if (totalPrice >= storeSettings.freeGiftLimit) {
+          giftNotice.classList.remove("hidden");
+        } else {
+          giftNotice.classList.add("hidden");
+        }
       }
 
       document.getElementById("cartCount").innerText = totalItems;
       document.getElementById("cartTotal").innerText = `₹${totalPrice}`;
 
       const cartList = document.getElementById("cartItemsList");
+      if (!cartList) return;
       if (cart.length === 0) {
         cartList.innerHTML = `<div class="text-center py-16"><div class="text-3xl mb-2 text-neutral-400">🛍️</div><p class="text-xs text-neutral-600 font-medium">Your bag is currently empty.</p></div>`;
         return;
@@ -1564,7 +1681,9 @@
       if (isNaN(limit) || limit <= 0) { alert("Valid amount enter karein!"); return; }
       storeSettings.freeGiftLimit = limit;
       document.getElementById("announcementGiftLimit").innerText = `₹${limit}`;
+      document.getElementById("announcementGiftLimit2").innerText = `₹${limit}`;
       document.getElementById("marqueeLimitText").innerText = `₹${limit}`;
+      document.getElementById("marqueeLimitText2").innerText = `₹${limit}`;
       alert(`Free gift minimum limit updated to ₹${limit} successfully!`);
       updateCartUI();
     }
@@ -1624,6 +1743,191 @@
           `;
         }).join('');
       });
+    }
+
+    /* ================= DRAGGABLE MOVEABLE HELP BUTTON LOGIC ================= */
+    const dragBtn = document.getElementById("draggableHelpBtn");
+    let isDragging = false;
+    let hasDragged = false;
+    let dragStartX = 0, dragStartY = 0;
+    let initialLeft = 0, initialTop = 0;
+
+    function handlePointerDown(e) {
+      isDragging = true;
+      hasDragged = false;
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      dragStartX = clientX;
+      dragStartY = clientY;
+
+      const rect = dragBtn.getBoundingClientRect();
+      initialLeft = rect.left;
+      initialTop = rect.top;
+      
+      dragBtn.style.transition = "none";
+      dragBtn.style.bottom = "auto";
+      dragBtn.style.right = "auto";
+      dragBtn.style.left = `${initialLeft}px`;
+      dragBtn.style.top = `${initialTop}px`;
+    }
+
+    function handlePointerMove(e) {
+      if (!isDragging) return;
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      const dx = clientX - dragStartX;
+      const dy = clientY - dragStartY;
+
+      if (Math.hypot(dx, dy) > 6) {
+        hasDragged = true;
+      }
+
+      let newX = initialLeft + dx;
+      let newY = initialTop + dy;
+
+      const maxX = window.innerWidth - dragBtn.offsetWidth - 10;
+      const maxY = window.innerHeight - dragBtn.offsetHeight - 10;
+      newX = Math.max(10, Math.min(newX, maxX));
+      newY = Math.max(10, Math.min(newY, maxY));
+
+      dragBtn.style.left = `${newX}px`;
+      dragBtn.style.top = `${newY}px`;
+    }
+
+    function handlePointerUp() {
+      if (!isDragging) return;
+      isDragging = false;
+      dragBtn.style.transition = "all 0.2s ease";
+    }
+
+    dragBtn.addEventListener("mousedown", handlePointerDown);
+    window.addEventListener("mousemove", handlePointerMove);
+    window.addEventListener("mouseup", handlePointerUp);
+
+    dragBtn.addEventListener("touchstart", handlePointerDown, { passive: true });
+    window.addEventListener("touchmove", handlePointerMove, { passive: false });
+    window.addEventListener("touchend", handlePointerUp);
+
+    function handleHelpBtnClick(e) {
+      if (hasDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      toggleCustomerChat();
+    }
+
+    /* ================= WHATSAPP CHAT POPUP & AUTO-REPLY LOGIC ================= */
+    const faqData = {
+      1: {
+        q: "Order kaise karein? Cash on Delivery (COD) milega?",
+        a: "Ji haan! Humare store par 100% Cash on Delivery (COD) available hai. Aapko jo item pasand aaye use '+ Bag' mein add karein aur 'Complete Order on WhatsApp' par click karein. Wahan apna naam aur address send karein, hum turant pack karke nikalte hain!"
+      },
+      2: {
+        q: "Delivery kitne din mein hogi?",
+        a: "Orders 24 hours ke andar dispatch ho jate hain! Dombivli/Mumbai/Thane mein 1 se 2 din mein mil jata hai, aur baki all-India parcels 3-5 business days mein express courier se deliver hote hain."
+      },
+      3: {
+        q: "Free Mystery Gift kaise milega?",
+        a: `Agar aapka bag total ₹${storeSettings.freeGiftLimit} ya usse upar ka hota hai, toh Free Mystery Gift automatically unlock ho jata hai aur hum aapke parcel ke sath ek special gift free pack karte hain! 🎁✨`
+      },
+      4: {
+        q: "Return / Replacement Policy kya hai?",
+        a: "Aapki safety humari priority hai! Delivery milne ke baad parcel ka continuous 360° unboxing video banayein. Agar koi transit damage ya wrong item ho, toh hum 48 hours ke andar free replacement dete hain."
+      },
+      5: {
+        q: "Dombivli / Mumbai mein express delivery milegi?",
+        a: "Bilkul! Local area (Dombivli, Kalyan, Thane, Mumbai) mein fastest express dispatch hota hai. Direct help ke liye hum WhatsApp par bhi available hain!"
+      }
+    };
+
+    function toggleCustomerChat() {
+      const modal = document.getElementById("customerChatModal");
+      const overlay = document.getElementById("chatModalOverlay");
+      if (modal.classList.contains("hidden")) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        overlay.classList.remove("hidden");
+        setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+      } else {
+        overlay.classList.add("opacity-0");
+        setTimeout(() => {
+          overlay.classList.add("hidden");
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+        }, 200);
+      }
+    }
+
+    function appendUserMessage(text) {
+      const area = document.getElementById("chatMessagesArea");
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const userBubble = document.createElement("div");
+      userBubble.className = "flex items-start justify-end gap-2";
+      userBubble.innerHTML = `
+        <div class="bg-[#dcf8c6] p-3 rounded-2xl rounded-tr-none shadow-sm text-neutral-900 leading-relaxed max-w-[85%] border border-emerald-100">
+          <p>${text}</p>
+          <span class="text-[9px] text-neutral-500 block text-right mt-1">${timeStr} ✓✓</span>
+        </div>
+      `;
+      area.appendChild(userBubble);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    function appendBotReply(replyText) {
+      const area = document.getElementById("chatMessagesArea");
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      // Typing dots indicator
+      const typingEl = document.createElement("div");
+      typingEl.className = "flex items-center gap-1 bg-white p-2.5 rounded-xl text-neutral-400 w-24 text-[10px]";
+      typingEl.innerHTML = `<span class="animate-pulse">Typing</span><span class="animate-bounce">...</span>`;
+      area.appendChild(typingEl);
+      area.scrollTop = area.scrollHeight;
+
+      setTimeout(() => {
+        typingEl.remove();
+        const botBubble = document.createElement("div");
+        botBubble.className = "flex items-start gap-2 max-w-[88%]";
+        botBubble.innerHTML = `
+          <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-neutral-800 leading-relaxed border border-neutral-200">
+            <p class="font-bold text-[#075E54] text-[11px] mb-0.5">TRENDZ MART Care</p>
+            <p>${replyText}</p>
+            <div class="mt-2 pt-1 border-t border-neutral-100 flex items-center justify-between">
+              <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello TRENDZ MART LUXE! Mujhe assistance chahiye.')}" target="_blank" class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                💬 Chat on WhatsApp
+              </a>
+              <span class="text-[9px] text-neutral-400">${timeStr}</span>
+            </div>
+          </div>
+        `;
+        area.appendChild(botBubble);
+        area.scrollTop = area.scrollHeight;
+      }, 600);
+    }
+
+    function sendQuickFaq(id) {
+      const item = faqData[id];
+      if (!item) return;
+      appendUserMessage(item.q);
+      appendBotReply(item.a);
+    }
+
+    function sendUserCustomChat() {
+      const input = document.getElementById("userManualChatInput");
+      const text = input.value.trim();
+      if (!text) return;
+      appendUserMessage(text);
+      input.value = "";
+
+      const lower = text.toLowerCase();
+      if (lower.includes("price") || lower.includes("rate") || lower.includes("kitna")) {
+        appendBotReply("Humare sabhi products discounted prices aur 20% EXTRA code (LUXE10) ke sath catalog mein listed hain!");
+      } else if (lower.includes("cod") || lower.includes("cash") || lower.includes("payment")) {
+        appendBotReply("Ji haan! Cash on Delivery (COD) Pan-India available hai. Bina kisi advance pay kiye aap order place kar sakte hain.");
+      } else {
+        appendBotReply("Aapke is sawal ke liye humari WhatsApp team turant reply karegi. Aap neeche diye gaye button se direct WhatsApp par chat kar sakte hain!");
+      }
     }
 
     renderDynamicCategories();
