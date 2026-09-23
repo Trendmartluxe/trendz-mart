@@ -7,7 +7,7 @@
   
   <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Firebase App & Firestore Cloud Database -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -24,7 +24,7 @@
       font-family: 'Cinzel', serif;
     }
     .gold-gradient-text {
-      background: linear-gradient(135deg, #111111, #4a3b1a, #8c6928);
+      background: linear-gradient(135deg, #2b2b2b 0%, #634d1c 50%, #9c7832 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -109,20 +109,20 @@
     </span>
   </div>
 
-  <!-- Main Navigation Header -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-4 py-3">
+  <!-- Main Navigation Header (Enlarged Logo & Single Line Luxury Title) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-3 sm:px-4 py-3">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
       
       <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full border border-neutral-300 bg-neutral-100 flex items-center justify-center overflow-hidden shadow-sm">
-          <img id="brandHeaderLogo" src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('fallbackLogoIcon').style.display='block';">
-          <svg id="fallbackLogoIcon" style="display:none;" class="w-6 h-6 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-lg flex-shrink-0">
+          <img id="brandHeaderLogo" src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover scale-110" onerror="this.style.display='none'; document.getElementById('fallbackLogoIcon').style.display='block';">
+          <svg id="fallbackLogoIcon" style="display:none;" class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
         </div>
         <div>
-          <h1 class="font-cinzel text-lg sm:text-xl font-bold tracking-[0.18em] text-neutral-950">TRENDZ MART LUXE</h1>
-          <p class="text-[9px] tracking-widest text-neutral-500 uppercase font-medium">Jewellery • Kids Zone • Hair Accessories • Trending Finds</p>
+          <h1 class="font-cinzel text-xs sm:text-base font-extrabold tracking-[0.12em] gold-gradient-text uppercase whitespace-nowrap">TRENDZ MART LUXE</h1>
+          <p class="text-[8px] sm:text-[9px] tracking-[0.18em] text-neutral-500 uppercase font-semibold mt-0.5">Jewellery • Kids • Hair • Trending</p>
         </div>
       </a>
 
@@ -361,9 +361,8 @@
     </div>
   </section>
 
-  <!-- Footer with Secret Admin Trigger (Clean & Professional) -->
+  <!-- Footer with Secret Admin Trigger -->
   <footer class="mt-16 bg-white border-t border-neutral-200 py-10 px-4 text-center">
-    <!-- Tap this logo 3-5 times to open Secret Owner Admin Panel -->
     <div onclick="triggerSecretAdmin()" class="w-14 h-14 rounded-full border border-neutral-300 bg-neutral-100 mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-sm cursor-pointer hover:border-amber-600 transition-colors">
       <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'">
     </div>
