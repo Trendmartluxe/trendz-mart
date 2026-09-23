@@ -44,7 +44,6 @@
       border: 1px solid #e7e5e0;
     }
     
-    /* 3D Realistic Card & Banner Styles */
     .banner-3d {
       border-radius: 18px;
       overflow: hidden;
@@ -92,7 +91,6 @@
       user-select: none;
     }
     
-    /* LED Marquee Scrolling Effect */
     .led-marquee {
       display: inline-block;
       white-space: nowrap;
@@ -103,7 +101,6 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Purchase Popup Animation */
     @keyframes slideUpFade {
       0% { opacity: 0; transform: translateY(20px); }
       15% { opacity: 1; transform: translateY(0); }
@@ -114,7 +111,6 @@
       animation: slideUpFade 5s ease-in-out forwards;
     }
 
-    /* Floating Review Badge */
     .floating-badge {
       position: fixed;
       left: 0;
@@ -138,12 +134,12 @@
 </head>
 <body class="min-h-screen">
 
-  <!-- Floating Star Review Badge on Left Side -->
+  <!-- Floating Review Badge -->
   <div onclick="toggleStoreReviewForm()" class="floating-badge">
     ⭐ 4.9/5 RATED • 2,000+ REVIEWS
   </div>
 
-  <!-- Top LED Scrolling Announcement Bar -->
+  <!-- Top LED Announcement Bar -->
   <div class="bg-[#111111] text-[#f2ebd9] text-xs font-semibold py-2 overflow-hidden shadow-sm whitespace-nowrap">
     <div class="led-marquee">
       ✨ Use Code <span class="text-amber-400 font-bold">LUXE10</span> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above <span id="announcementGiftLimit">₹599</span> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨
@@ -156,10 +152,9 @@
     <span id="saleCountdown" class="bg-amber-900 text-white px-2 py-0.5 rounded">02:45:12</span>
   </div>
 
-  <!-- Main Navigation Header -->
+  <!-- Header -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-3 sm:px-4 py-2.5">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
-      
       <a href="#" class="flex items-center gap-2.5">
         <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
           <img id="brandHeaderLogo" src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover scale-110" onerror="this.style.display='none'; document.getElementById('fallbackLogoIcon').style.display='block';">
@@ -173,7 +168,6 @@
         </div>
       </a>
 
-      <!-- Quick Nav, Track Order, Wishlist & Cart -->
       <div class="flex items-center gap-1.5">
         <a href="https://wa.me/918369511325?text=Hello!%20Mujhe%20apne%20order%20ko%20track%20karna%20hai." target="_blank" class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-100 border border-neutral-300 text-neutral-800 hover:bg-neutral-200 transition-colors">
           <span>📦 Track Order</span>
@@ -183,7 +177,6 @@
           <span>WhatsApp Help</span>
         </a>
 
-        <!-- Compact Wishlist Button -->
         <button onclick="toggleWishlist()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
           <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -191,7 +184,6 @@
           <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
         </button>
         
-        <!-- Compact Cart Button -->
         <button onclick="toggleCart()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900 active:scale-95 transition-transform hover:bg-neutral-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -199,11 +191,10 @@
           <span id="cartCount" class="absolute -top-1 -right-1 bg-neutral-900 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
         </button>
       </div>
-
     </div>
   </header>
 
-  <!-- Top Search & Quick Category Filters Bar -->
+  <!-- Search & Category Filter -->
   <section class="max-w-5xl mx-auto px-4 pt-4">
     <div class="bg-white border border-neutral-200 rounded-2xl p-3 shadow-sm">
       <div class="relative mb-3">
@@ -214,12 +205,11 @@
         </span>
         <input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search jewellery, cute water sippers, hair claw clips, organizers..." class="w-full pl-9 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-neutral-900 transition-colors" />
       </div>
-
       <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar"></div>
     </div>
   </section>
 
-  <!-- Secondary LED Marquee Ticker for Gift Offer -->
+  <!-- LED Marquee Offer -->
   <div class="max-w-5xl mx-auto px-4 mt-3">
     <div class="bg-amber-50 border border-amber-200 rounded-xl py-2 overflow-hidden shadow-sm whitespace-nowrap text-xs text-amber-900 font-bold">
       <div class="led-marquee">
@@ -228,7 +218,7 @@
     </div>
   </div>
 
-  <!-- ==================== TOP MAIN HERO BANNER (3D ELEVATED) ==================== -->
+  <!-- Hero Section -->
   <section id="heroBannerSection" class="banner-3d relative px-5 pt-12 pb-10 text-center max-w-4xl mx-auto my-4 bg-no-repeat bg-white" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.96)), url('./IMG_0394.png'); background-size: cover; background-position: center top;">
     <span class="inline-block text-[10px] sm:text-[11px] font-bold tracking-[0.22em] text-[#8c6928] uppercase bg-amber-50 border border-amber-200/80 px-4 py-1 rounded-full shadow-sm">
       ✨ All-in-One Trending Lifestyle Store ✨
@@ -239,15 +229,13 @@
     <p class="text-xs sm:text-sm text-neutral-600 mt-3 max-w-lg mx-auto leading-relaxed">
       Explore premium anti-tarnish jewelry, viral Korean hair clips, cute kids water sippers & trending room organizers with Cash on Delivery.
     </p>
-
-    <!-- Quick Visual Category Links in Hero -->
     <div id="heroCategoryQuickLinks" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-2xl mx-auto"></div>
   </section>
 
-  <!-- ==================== MAIN CATALOG SECTIONS ==================== -->
+  <!-- Main Catalog -->
   <main id="mainCatalogContainer" class="max-w-5xl mx-auto px-3 sm:px-6 mt-6 space-y-12"></main>
 
-  <!-- Trust & Security Badges Section -->
+  <!-- Trust Badges -->
   <section class="max-w-5xl mx-auto px-4 mt-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 bg-white rounded-2xl gold-border text-center shadow-sm">
       <div class="p-2">
@@ -273,7 +261,7 @@
     </div>
   </section>
 
-  <!-- Customer Reviews Section (Permanent & Realtime) -->
+  <!-- Reviews Section -->
   <section class="max-w-5xl mx-auto px-4 mt-14">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
       <div>
@@ -285,7 +273,6 @@
       </button>
     </div>
 
-    <!-- Review Form with 1-Number-1-Review Restriction -->
     <div id="storeReviewForm" class="hidden bg-white p-5 rounded-xl gold-border mb-6 shadow-sm">
       <h4 class="text-xs font-bold text-neutral-900 mb-1 uppercase">Share Your Genuine Experience</h4>
       <p class="text-[10px] text-neutral-500 mb-3">Spam rokne ke liye ek phone number se sirf ek hi review allow hai.</p>
@@ -309,7 +296,6 @@
       </div>
     </div>
 
-    <!-- Container where reviews live-stream from Cloud Database -->
     <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
       <div class="col-span-full text-center py-6 text-xs text-neutral-400">Loading verified customer reviews...</div>
     </div>
@@ -336,7 +322,7 @@
     </div>
   </section>
 
-  <!-- Footer with Secret Admin Trigger -->
+  <!-- Footer with Secret 3-Click Admin Trigger -->
   <footer class="mt-16 bg-white border-t border-neutral-200 py-10 px-4 text-center">
     <div onclick="triggerSecretAdmin()" class="w-14 h-14 rounded-full border border-neutral-300 bg-neutral-100 mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-sm cursor-pointer hover:border-amber-600 transition-colors">
       <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover" onerror="this.style.display='none'">
@@ -353,10 +339,9 @@
     <p class="text-[11px] text-neutral-500 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
 
-  <!-- ==================== LIVE PURCHASE NOTIFICATION POPUP CONTAINER ==================== -->
   <div id="purchasePopupContainer" class="fixed bottom-4 left-4 z-50 pointer-events-none"></div>
 
-  <!-- ==================== SECRET ADMIN PANEL MODAL ==================== -->
+  <!-- Complete Store Owner Admin Modal (PIN: 7860) -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
 
   <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl bg-white border border-amber-500/50 rounded-2xl z-50 hidden p-5 sm:p-6 shadow-2xl transition-all duration-300 max-h-[90vh] overflow-y-auto">
@@ -365,7 +350,7 @@
         <h3 class="font-cinzel text-base font-bold text-neutral-950 flex items-center gap-2">
           <span>🔒 Store Owner Admin Portal</span>
         </h3>
-        <p class="text-[10px] text-neutral-500">Manage live products, hero banner, free gift limit & categories</p>
+        <p class="text-[10px] text-neutral-500">Manage live products, hero banner, free gift limit, categories & orders</p>
       </div>
       <button onclick="closeAdminModal()" class="text-neutral-500 hover:text-black bg-neutral-100 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">✕</button>
     </div>
@@ -381,7 +366,6 @@
 
     <!-- Dashboard Screen -->
     <div id="adminDashboardScreen" class="hidden space-y-6">
-      <!-- Tabs -->
       <div class="flex gap-2 border-b border-neutral-200 pb-2 overflow-x-auto no-scrollbar">
         <button onclick="switchAdminTab('products')" id="adminTabProducts" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-900 text-white whitespace-nowrap">📦 Products & Views</button>
         <button onclick="switchAdminTab('settings')" id="adminTabSettings" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-100 text-neutral-700 whitespace-nowrap">⚙️ Banner & Gift Limit</button>
@@ -490,15 +474,11 @@
   <!-- Zoom Lightbox -->
   <div id="zoomModal" class="fixed inset-0 bg-black/95 z-[70] hidden flex items-center justify-center p-2 backdrop-blur-md select-none">
     <button onclick="closeZoomModal()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg z-[80]">✕</button>
-    
     <button onclick="prevZoomImg()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-neutral-700 z-[80] shadow-lg">❮</button>
-    
     <div id="zoomTouchArea" class="swipe-container relative max-w-full max-h-[85vh] flex items-center justify-center">
       <img id="zoomModalImg" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-all duration-200 pointer-events-none" />
     </div>
-
     <button onclick="nextZoomImg()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-amber-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold border border-neutral-700 z-[80] shadow-lg">❯</button>
-
     <div class="absolute bottom-4 flex items-center gap-2 pointer-events-none">
       <span id="zoomCounter" class="bg-black/80 border border-neutral-700 text-amber-300 text-xs px-3 py-1 rounded-full">1 / 1</span>
     </div>
@@ -535,7 +515,6 @@
     <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
 
     <div class="p-4 border-t border-neutral-200 bg-neutral-50">
-      <!-- Dynamic Free Gift Notification in Cart -->
       <div id="cartFreeGiftNotice" class="hidden mb-3 p-2.5 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold flex items-center gap-2">
         <span>🎁</span>
         <div>
@@ -544,7 +523,6 @@
         </div>
       </div>
 
-      <!-- Coupon Code Section -->
       <div class="mb-3">
         <div class="flex gap-2">
           <input id="couponInput" type="text" placeholder="Enter coupon LUXE10" class="flex-1 bg-white border border-neutral-300 rounded-lg px-3 py-2 text-xs uppercase font-bold text-neutral-900 focus:outline-none focus:border-neutral-900" />
@@ -570,6 +548,7 @@
     </div>
   </div>
 
+  <!-- JavaScript Engine -->
   <script>
     const WHATSAPP_NUMBER = "918369511325"; 
 
@@ -597,10 +576,10 @@
     };
 
     let categories = [
-      { name: "Jewellery", emoji: "💎", desc: "Anti-Tarnish" },
-      { name: "Hair Accessories", emoji: "🎀", desc: "Matte & Pastel" },
-      { name: "Kids Zone", emoji: "🧸", desc: "Cute Sippers" },
-      { name: "Trending Items", emoji: "🔥", desc: "Viral Lifestyle" }
+      { name: "Jewellery", emoji: "💎", desc: "Anti-Tarnish", banner: "./IMG_0388.jpeg" },
+      { name: "Hair Accessories", emoji: "🎀", desc: "Matte & Pastel", banner: "./IMG_0388.jpeg" },
+      { name: "Kids Zone", emoji: "🧸", desc: "Cute Sippers", banner: "./IMG_0388.jpeg" },
+      { name: "Trending Items", emoji: "🔥", desc: "Viral Lifestyle", banner: "./IMG_0388.jpeg" }
     ];
 
     let products = [
@@ -758,7 +737,7 @@
         mainContainer.innerHTML = categories.map(c => `
           <section id="section-${c.name.replace(/\s+/g, '-').toLowerCase()}" class="catalog-section">
             <div class="banner-3d mb-4 bg-neutral-100">
-              <img src="${c.banner || './IMG_0388.jpeg'}" alt="${c.name} Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'" />
+              <img src="${c.banner || './IMG_0388.jpeg'}" alt="${c.name} Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.src='./IMG_0388.jpeg'" />
             </div>
             <div class="flex items-center justify-between mb-3 px-1">
               <span class="text-xs uppercase tracking-widest text-neutral-900 font-bold flex items-center gap-1.5">
@@ -911,11 +890,9 @@
 
           <div class="relative overflow-hidden group cursor-pointer bg-neutral-50" onclick="openProductModal(${item.id})">
             <img src="${mainImg}" alt="${item.title}" class="w-full h-48 sm:h-56 object-contain p-2 transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-            
             <span class="absolute top-2 left-2 bg-neutral-900 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow border border-neutral-700 tracking-wider">
               ${discountPercent}% OFF
             </span>
-
             <span id="view-count-${item.id}" class="absolute bottom-2 left-2 bg-white/95 backdrop-blur text-[9px] text-amber-900 border border-amber-200 px-2 py-0.5 rounded-full font-semibold shadow-sm">
               👀 ${viewsCount} views
             </span>
@@ -1096,7 +1073,6 @@
             ${specsHtml}
           </div>
 
-          <!-- Sticky Mobile Buy Bar inside Modal -->
           <div class="grid grid-cols-2 gap-2 pt-2 sticky bottom-0 bg-white py-2 border-t border-neutral-200">
             <button onclick="addToCart(${prod.id}); closeProductModal();" class="w-full py-3 rounded-xl font-bold text-xs gold-btn active:scale-95 transition-transform">
               Add to Bag (₹${prod.price})
@@ -1192,4 +1168,419 @@
         return;
       }
       list.innerHTML = wishlist.map(item => `
-        <div class="flex items-center ga
+        <div class="flex items-center gap-3 p-2 bg-neutral-50 rounded-xl border border-neutral-200">
+          <img src="${item.images && item.images.length > 0 ? item.images[0] : item.image}" class="w-14 h-14 object-contain rounded-lg bg-white p-1 border border-neutral-200 flex-shrink-0" />
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-bold text-neutral-900 truncate">${item.title}</h4>
+            <p class="text-xs font-black text-neutral-950 mt-0.5">₹${item.price} <span class="text-[10px] text-neutral-400 line-through font-normal">₹${item.originalPrice}</span></p>
+            <div class="flex items-center gap-2 mt-2">
+              <button onclick="addToCart(${item.id}); toggleWishlistProduct(${item.id});" class="text-[10px] font-bold text-amber-900 bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded">Move to Bag</button>
+              <button onclick="toggleWishlistProduct(${item.id})" class="text-[10px] font-semibold text-neutral-500 hover:text-rose-600">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(id) {
+      const item = products.find(p => p.id === id);
+      if (!item) return;
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+      updateCartUI();
+      toggleCart();
+    }
+
+    function changeCartQty(id, delta) {
+      const item = cart.find(c => c.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(c => c.id !== id);
+      }
+      updateCartUI();
+    }
+
+    function toggleCart(triggeredByPopstate = false) {
+      const sidebar = document.getElementById("cartSidebar");
+      const overlay = document.getElementById("cartOverlay");
+      const isClosed = sidebar.classList.contains("translate-x-full");
+      if (isClosed) {
+        sidebar.classList.remove("translate-x-full");
+        overlay.classList.remove("hidden");
+        history.pushState({ modal: 'cart' }, '');
+        setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+      } else {
+        sidebar.classList.add("translate-x-full");
+        overlay.classList.add("opacity-0");
+        setTimeout(() => overlay.classList.add("hidden"), 350);
+        if (!triggeredByPopstate && history.state && history.state.modal === 'cart') history.back();
+      }
+    }
+
+    function applyCoupon() {
+      const input = document.getElementById("couponInput");
+      const msg = document.getElementById("couponMsg");
+      if (!input || !msg) return;
+      const val = input.value.trim().toUpperCase();
+      if (val === "LUXE10") {
+        couponApplied = true;
+        couponDiscount = 0.20;
+        msg.className = "text-[10px] text-green-600 font-semibold mt-1";
+        msg.innerText = "✓ Coupon LUXE10 applied! 20% discount added.";
+      } else {
+        couponApplied = false;
+        couponDiscount = 0;
+        msg.className = "text-[10px] text-red-600 font-semibold mt-1";
+        msg.innerText = "Invalid coupon code. Try LUXE10";
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((acc, c) => acc + c.qty, 0);
+      document.getElementById("cartCount").innerText = totalCount;
+      const list = document.getElementById("cartItemsList");
+      const subtotalRaw = cart.reduce((acc, c) => acc + (c.price * c.qty), 0);
+      const discountVal = couponApplied ? Math.round(subtotalRaw * couponDiscount) : 0;
+      const finalTotal = Math.max(0, subtotalRaw - discountVal);
+
+      document.getElementById("cartTotal").innerText = `₹${finalTotal}`;
+
+      const giftNotice = document.getElementById("cartFreeGiftNotice");
+      if (giftNotice) {
+        if (finalTotal >= (storeSettings.freeGiftLimit || 599)) {
+          giftNotice.classList.remove("hidden");
+        } else {
+          giftNotice.classList.add("hidden");
+        }
+      }
+
+      if (cart.length === 0) {
+        list.innerHTML = `<div class="text-center py-16"><div class="text-3xl mb-2 text-neutral-400">🛍️</div><p class="text-xs text-neutral-600 font-medium">Your shopping bag is empty.</p></div>`;
+        return;
+      }
+
+      list.innerHTML = cart.map(item => `
+        <div class="flex items-center gap-3 p-2 bg-neutral-50 rounded-xl border border-neutral-200">
+          <img src="${item.images && item.images.length > 0 ? item.images[0] : item.image}" class="w-14 h-14 object-contain rounded-lg bg-white p-1 border border-neutral-200 flex-shrink-0" />
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-bold text-neutral-900 truncate">${item.title}</h4>
+            <p class="text-xs font-black text-neutral-950 mt-0.5">₹${item.price}</p>
+            <div class="flex items-center gap-3 mt-2">
+              <div class="flex items-center border border-neutral-300 rounded-lg bg-white overflow-hidden">
+                <button onclick="changeCartQty(${item.id}, -1)" class="px-2 py-0.5 text-xs text-neutral-700 hover:bg-neutral-100 font-bold">-</button>
+                <span class="px-2 text-xs font-bold text-neutral-900">${item.qty}</span>
+                <button onclick="changeCartQty(${item.id}, 1)" class="px-2 py-0.5 text-xs text-neutral-700 hover:bg-neutral-100 font-bold">+</button>
+              </div>
+              <button onclick="changeCartQty(${item.id}, -${item.qty})" class="text-[10px] text-neutral-400 hover:text-rose-600 font-semibold">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function sendOrderViaWhatsApp() {
+      if (cart.length === 0) {
+        alert("Aapka cart khali hai. Kripya pehle product add karein.");
+        return;
+      }
+      const subtotalRaw = cart.reduce((acc, c) => acc + (c.price * c.qty), 0);
+      const discountVal = couponApplied ? Math.round(subtotalRaw * couponDiscount) : 0;
+      const finalTotal = subtotalRaw - discountVal;
+      const giftQualified = finalTotal >= (storeSettings.freeGiftLimit || 599);
+
+      if (db) {
+        try {
+          await db.collection("orders").add({
+            items: cart.map(c => ({ id: c.id, title: c.title, price: c.price, qty: c.qty })),
+            total: finalTotal,
+            coupon: couponApplied ? 'LUXE10' : 'None',
+            hasGift: giftQualified,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        } catch(e) {}
+      }
+
+      let msg = `*NEW ORDER - TRENDZ MART LUXE*\n`;
+      msg += `--------------------------------\n`;
+      cart.forEach((c, idx) => {
+        msg += `${idx + 1}. ${c.title} x ${c.qty} = ₹${c.price * c.qty}\n`;
+      });
+      msg += `--------------------------------\n`;
+      msg += `*Total Amount:* ₹${finalTotal}\n`;
+      msg += `*Coupon:* ${couponApplied ? 'LUXE10 (20% OFF Applied)' : 'None'}\n`;
+      msg += `*Free Gift Included:* ${giftQualified ? 'YES 🎁' : 'NO'}\n`;
+      msg += `*Payment Mode:* Cash on Delivery (COD)\n\n`;
+      msg += `*My Delivery Address details:*\nName:\nPhone:\nAddress:\nPincode:\nCity:`;
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function orderSingleProductWhatsApp(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      const giftQualified = prod.price >= (storeSettings.freeGiftLimit || 599);
+
+      if (db) {
+        try {
+          db.collection("orders").add({
+            items: [{ id: prod.id, title: prod.title, price: prod.price, qty: 1 }],
+            total: prod.price,
+            coupon: 'None',
+            hasGift: giftQualified,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        } catch(e) {}
+      }
+
+      let msg = `*DIRECT BUY INQUIRY - TRENDZ MART LUXE*\n`;
+      msg += `--------------------------------\n`;
+      msg += `*Product:* ${prod.title}\n`;
+      msg += `*Price:* ₹${prod.price}\n`;
+      msg += `*Free Gift:* ${giftQualified ? 'YES 🎁' : 'NO'}\n`;
+      msg += `*Payment:* Cash on Delivery (COD)\n\n`;
+      msg += `Please confirm my order. Here are my delivery details:\nName:\nAddress:\nPincode:`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    let adminClickCount = 0;
+    function triggerSecretAdmin() {
+      adminClickCount++;
+      if (adminClickCount >= 3) {
+        adminClickCount = 0;
+        openAdminModal();
+      }
+    }
+
+    function openAdminModal() {
+      const modal = document.getElementById("adminModal");
+      const overlay = document.getElementById("adminModalOverlay");
+      overlay.classList.remove("hidden");
+      modal.classList.remove("hidden");
+      setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById("adminModal");
+      const overlay = document.getElementById("adminModalOverlay");
+      overlay.classList.add("opacity-0");
+      setTimeout(() => {
+        overlay.classList.add("hidden");
+        modal.classList.add("hidden");
+      }, 250);
+    }
+
+    function verifyAdminPin() {
+      const pin = document.getElementById("adminPinInput").value;
+      if (pin === "7860" || pin === "1234") {
+        document.getElementById("adminPinScreen").classList.add("hidden");
+        document.getElementById("adminDashboardScreen").classList.remove("hidden");
+        renderAdminDashboard();
+        listenToLiveOrders();
+      } else {
+        alert("Galat PIN! Kripya sahi PIN enter karein.");
+      }
+    }
+
+    function switchAdminTab(tab) {
+      ['products', 'settings', 'categories', 'orders'].forEach(t => {
+        const sec = document.getElementById(`adminSection${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        const btn = document.getElementById(`adminTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        if (sec) sec.classList.toggle('hidden', t !== tab);
+        if (btn) {
+          btn.className = t === tab 
+            ? "px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-900 text-white whitespace-nowrap" 
+            : "px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-100 text-neutral-700 whitespace-nowrap";
+        }
+      });
+    }
+
+    function renderAdminDashboard() {
+      const pList = document.getElementById("adminProductsList");
+      if (pList) {
+        pList.innerHTML = products.map(p => `
+          <div class="flex items-center justify-between p-2 bg-white border border-neutral-200 rounded-lg text-xs">
+            <div class="flex items-center gap-2">
+              <img src="${p.images ? p.images[0] : p.image}" class="w-8 h-8 object-contain rounded" />
+              <div>
+                <p class="font-bold line-clamp-1">${p.title}</p>
+                <p class="text-[10px] text-neutral-500">₹${p.price} • Views: ${p.views || 100}</p>
+              </div>
+            </div>
+            <button onclick="deleteProduct(${p.id})" class="text-rose-600 font-bold hover:underline">Delete</button>
+          </div>
+        `).join('');
+      }
+
+      const cList = document.getElementById("adminCategoriesList");
+      if (cList) {
+        cList.innerHTML = categories.map(c => `
+          <div class="flex items-center justify-between p-2 bg-white border border-neutral-200 rounded-lg text-xs">
+            <span>${c.emoji} ${c.name}</span>
+            <span class="text-neutral-400 text-[10px]">${c.desc}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function listenToLiveOrders() {
+      if (!db) return;
+      db.collection("orders").orderBy("createdAt", "desc").limit(20).onSnapshot(snapshot => {
+        const ordersList = document.getElementById("adminOrdersList");
+        const countBadge = document.getElementById("adminOrdersCount");
+        if (!ordersList) return;
+
+        if (countBadge) countBadge.innerText = snapshot.docs.length;
+
+        if (snapshot.empty) {
+          ordersList.innerHTML = `<p class="text-xs text-neutral-400 text-center py-4">No recent orders yet.</p>`;
+          return;
+        }
+
+        ordersList.innerHTML = snapshot.docs.map(doc => {
+          const d = doc.data();
+          const itemsText = (d.items || []).map(i => `${i.title} (x${i.qty})`).join(', ');
+          return `
+            <div class="p-2.5 bg-white border border-neutral-200 rounded-lg text-xs">
+              <div class="flex justify-between font-bold text-neutral-900">
+                <span>Total: ₹${d.total}</span>
+                <span class="text-[10px] text-green-700 bg-green-50 px-2 py-0.5 rounded border border-green-200">COD Verified</span>
+              </div>
+              <p class="text-neutral-600 text-[11px] mt-1 line-clamp-1">${itemsText}</p>
+              <div class="flex justify-between items-center text-[9px] text-neutral-400 mt-1">
+                <span>Coupon: ${d.coupon || 'None'}</span>
+                <span>${d.hasGift ? '🎁 Free Gift Qualified' : 'No Gift'}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      });
+    }
+
+    function deleteProduct(id) {
+      products = products.filter(p => p.id !== id);
+      renderAllSections();
+      renderAdminDashboard();
+    }
+
+    function addNewProduct() {
+      const title = document.getElementById("newProdTitle").value.trim();
+      const cat = document.getElementById("newProdCategory").value;
+      const price = parseInt(document.getElementById("newProdPrice").value) || 0;
+      const orgPrice = parseInt(document.getElementById("newProdOriginalPrice").value) || price;
+      const img = document.getElementById("newProdImage").value.trim();
+      const tag = document.getElementById("newProdTag").value.trim() || "Trending";
+
+      if (!title || !price || !img) {
+        alert("Kripya title, price aur image url zaroor daalein.");
+        return;
+      }
+
+      const newId = Date.now();
+      products.unshift({
+        id: newId,
+        title,
+        category: cat,
+        price,
+        originalPrice: orgPrice,
+        tag,
+        rating: "5.0",
+        inStock: true,
+        views: 120,
+        description: "Premium trending collection with high quality finish.",
+        images: [img]
+      });
+
+      renderAllSections();
+      renderAdminDashboard();
+      alert("Naya product live add ho gaya hai!");
+    }
+
+    function addNewCategory() {
+      const name = document.getElementById("newCatName").value.trim();
+      const emoji = document.getElementById("newCatEmoji").value.trim() || "✨";
+      if (!name) return;
+      categories.push({ name, emoji, desc: "Trending", banner: "./IMG_0388.jpeg" });
+      renderDynamicCategories();
+      renderAdminDashboard();
+      alert("Nayi category add ho gayi!");
+    }
+
+    function updateHeroBanner() {
+      const url = document.getElementById("adminHeroImgInput").value.trim();
+      if (!url) return;
+      document.getElementById("heroBannerSection").style.backgroundImage = `linear-gradient(to bottom, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.96)), url('${url}')`;
+      alert("Hero banner update ho gaya!");
+    }
+
+    function updateFreeGiftLimit() {
+      const val = parseInt(document.getElementById("adminGiftLimitInput").value) || 599;
+      storeSettings.freeGiftLimit = val;
+      const limitEl1 = document.getElementById("announcementGiftLimit");
+      const limitEl2 = document.getElementById("marqueeLimitText");
+      if (limitEl1) limitEl1.innerText = `₹${val}`;
+      if (limitEl2) limitEl2.innerText = `₹${val}`;
+      updateCartUI();
+      alert(`Free gift limit update hokar ₹${val} ho gayi hai!`);
+    }
+
+    function toggleStoreReviewForm() {
+      const form = document.getElementById("storeReviewForm");
+      if (form) form.classList.toggle("hidden");
+    }
+
+    function submitStoreReview() {
+      const name = document.getElementById("storeRevName").value.trim();
+      const phone = document.getElementById("storeRevPhone").value.trim();
+      const text = document.getElementById("storeRevText").value.trim();
+      const rating = parseInt(document.getElementById("storeRevRating").value) || 5;
+      const status = document.getElementById("storeRevStatus");
+
+      if (!name || phone.length < 10 || !text) {
+        status.className = "text-xs text-rose-600 font-semibold";
+        status.innerText = "Kripya valid name, 10-digit phone aur review message daalein.";
+        return;
+      }
+
+      const existingPhone = localStorage.getItem(`reviewed_${phone}`);
+      if (existingPhone) {
+        status.className = "text-xs text-amber-700 font-semibold";
+        status.innerText = "Aap is phone number se pehle hi review de chuke hain.";
+        return;
+      }
+
+      storeReviews.unshift({ name, rating, comment: text });
+      localStorage.setItem(`reviewed_${phone}`, "true");
+      renderStoreReviewsUI();
+      toggleStoreReviewForm();
+      alert("Dhanyawad! Aapka review safaltapoorvak publish ho gaya hai.");
+    }
+
+    function renderStoreReviewsUI() {
+      const container = document.getElementById("storeReviewsContainer");
+      if (!container) return;
+      container.innerHTML = storeReviews.map(r => `
+        <div class="bg-white p-4 rounded-xl gold-border shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-neutral-900">${r.name}</span>
+            <span class="text-amber-500 text-xs">${"★".repeat(r.rating)}</span>
+          </div>
+          <p class="text-xs text-neutral-600 leading-relaxed">${r.comment}</p>
+          <span class="text-[9px] text-green-700 font-semibold mt-2 inline-block bg-green-50 px-2 py-0.5 rounded border border-green-200">✓ Verified Buyer</span>
+        </div>
+      `).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDynamicCategories();
+      renderStoreReviewsUI();
+      listenToLiveViews();
+    });
+  </script>
+</body>
+</html>
