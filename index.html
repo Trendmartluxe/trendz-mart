@@ -42,7 +42,7 @@
     .banner-3d {
       border-radius: 18px;
       overflow: hidden;
-      background: #ffffff;
+      background: #1a1a1a;
       border: 1px solid rgba(140, 105, 40, 0.22);
       box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.12);
     }
@@ -161,9 +161,9 @@
     </div>
   </section>
 
-  <!-- Auto-Scrolling HD Hero Banners Slider (Every 5 Sec) -->
+  <!-- Auto-Scrolling HD Hero Banners Slider (Safe Fallback Enabled) -->
   <section class="max-w-5xl mx-auto px-4 mt-4">
-    <div class="relative w-full h-44 sm:h-64 rounded-2xl overflow-hidden shadow-md border border-amber-600/20 bg-neutral-900">
+    <div class="relative w-full h-44 sm:h-64 rounded-2xl overflow-hidden shadow-md border border-amber-600/20 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900">
       <div id="heroSliderContainer" class="w-full h-full relative"></div>
       <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
     </div>
@@ -392,12 +392,12 @@
       renderDynamicCategories();
     }
 
-    // ==================== AUTO-SCROLLING HERO BANNERS (Every 5 Sec) ====================
+    // ==================== AUTO-SCROLLING HERO BANNERS (Safe Fallback) ====================
     let heroSlides = [
-      { img: "./IMG_0388.jpeg", title: "18K ANTI-TARNISH LUXURY", desc: "Waterproof, perfume-safe jewellery designed for everyday elegance." },
-      { img: "./IMG_0394.png", title: "KOREAN PASTEL HAIR FINDS", desc: "Trendy matte claw clips and aesthetic accessories for modern styling." },
-      { img: "./IMG_0371.jpeg", title: "CUTE KIDS ZONE & SIPPERS", desc: "BPA-free gradient water bottles and adorable daily utility items." },
-      { img: "./IMG_0368.jpeg", title: "VIRAL INSTAGRAM LIFESTYLE", desc: "Top trending viral products with Cash on Delivery across India." }
+      { title: "18K ANTI-TARNISH LUXURY", desc: "Waterproof, perfume-safe jewellery designed for everyday elegance.", bg: "linear-gradient(135deg, #2c1810 0%, #111111 100%)" },
+      { title: "KOREAN PASTEL HAIR FINDS", desc: "Trendy matte claw clips and aesthetic accessories for modern styling.", bg: "linear-gradient(135deg, #1f1b24 0%, #111111 100%)" },
+      { title: "CUTE KIDS ZONE & SIPPERS", desc: "BPA-free gradient water bottles and adorable daily utility items.", bg: "linear-gradient(135deg, #16222a 0%, #111111 100%)" },
+      { title: "VIRAL INSTAGRAM LIFESTYLE", desc: "Top trending viral products with Cash on Delivery across India.", bg: "linear-gradient(135deg, #281423 0%, #111111 100%)" }
     ];
     let currentSlide = 0;
 
@@ -407,12 +407,11 @@
       if (!container || !dotsContainer) return;
 
       container.innerHTML = heroSlides.map((s, idx) => `
-        <div class="absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
-          <img src="${s.img}" class="w-full h-full object-cover opacity-60" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col items-center justify-end p-6 text-center">
+        <div class="absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}" style="background: ${s.bg};">
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
             <span class="text-[10px] font-extrabold tracking-[0.2em] text-amber-300 uppercase bg-black/40 px-3 py-1 rounded-full mb-1">✨ Trendz Mart Luxe ✨</span>
-            <h2 class="font-cinzel text-lg sm:text-2xl font-bold text-white tracking-wider">${s.title}</h2>
-            <p class="text-xs text-neutral-200 mt-1 max-w-md">${s.desc}</p>
+            <h2 class="font-cinzel text-base sm:text-2xl font-bold text-white tracking-wider">${s.title}</h2>
+            <p class="text-xs text-neutral-300 mt-1 max-w-md">${s.desc}</p>
           </div>
         </div>
       `).join('');
@@ -433,10 +432,10 @@
     }, 5000);
 
     let categories = [
-      { name: "Jewellery", emoji: "💎", desc: "Anti-Tarnish Collection", banner: "./IMG_0388.jpeg" },
-      { name: "Hair Accessories", emoji: "🎀", desc: "Matte & Pastel Finds", banner: "./IMG_0394.png" },
-      { name: "Kids Zone", emoji: "🧸", desc: "Cute Sippers & Bottles", banner: "./IMG_0371.jpeg" },
-      { name: "Trending Items", emoji: "🔥", desc: "Viral Instagram Finds", banner: "./IMG_0368.jpeg" }
+      { name: "Jewellery", emoji: "💎", desc: "Anti-Tarnish Collection", banner: "" },
+      { name: "Hair Accessories", emoji: "🎀", desc: "Matte & Pastel Finds", banner: "" },
+      { name: "Kids Zone", emoji: "🧸", desc: "Cute Sippers & Bottles", banner: "" },
+      { name: "Trending Items", emoji: "🔥", desc: "Viral Instagram Finds", banner: "" }
     ];
 
     let products = [
@@ -449,7 +448,7 @@
         tag: "Selling Fast 🔥", 
         rating: 4.9,
         baseViews: 12,
-        images: ["./IMG_0252.png", "./IMG_0253.png"],
+        images: ["https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "18K Gold Plated High-Grade Anti-Tarnish. (Aam tarnish products ke mukabla ye perfume ya chemicals se jaldi kharab nahi hoti. Proper care karne par lifetime shine barkarar rahegi!)",
         reviews: [
           { name: "Kavita M.", phone: "9876543210", rating: 5, comment: "Wore it continuously in water, no color loss. Total value for money at ₹449!", img: "", date: "2 days ago" }
@@ -479,7 +478,7 @@
         tag: "Kids Favorite 🧸", 
         rating: 4.9,
         baseViews: 15,
-        images: ["./IMG_0371.jpeg"],
+        images: ["https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "BPA Free safe material with leak-proof straw mechanism.",
         reviews: [
           { name: "Megha S.", phone: "9988776655", rating: 5, comment: "Colors are so cute! Quality is solid.", img: "", date: "5 days ago" }
@@ -507,10 +506,9 @@
     let currentFilter = 'All';
     let searchQuery = '';
 
-    // Realistic fluctuating viewer counter generator
     function getRealisticLiveViews(base) {
-      let now = Math.floor(Date.now() / 10000); // changes every 10 seconds naturally
-      let fluctuation = (now % 7) - 3; // generates -3 to +3 variation
+      let now = Math.floor(Date.now() / 10000);
+      let fluctuation = (now % 7) - 3;
       let live = base + fluctuation;
       return live < 8 ? 8 : live;
     }
@@ -530,13 +528,10 @@
       if (mainContainer) {
         mainContainer.innerHTML = categories.map(c => `
           <section id="section-${c.name.replace(/\s+/g, '-').toLowerCase()}" class="catalog-section">
-            <div class="banner-3d mb-4 relative overflow-hidden bg-neutral-900 text-white">
-              <div class="absolute inset-0 opacity-40"><img src="${c.banner}" class="w-full h-full object-cover" /></div>
-              <div class="relative z-10 p-6 sm:p-10 text-center bg-black/40 backdrop-blur-xs">
-                <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">${c.emoji} Featured Collection</span>
-                <h2 class="font-cinzel text-xl sm:text-3xl font-bold mt-1">${c.name}</h2>
-                <p class="text-xs text-neutral-200 mt-1">${c.desc}</p>
-              </div>
+            <div class="banner-3d mb-4 relative overflow-hidden bg-neutral-900 text-white p-6 text-center">
+              <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">${c.emoji} Featured Collection</span>
+              <h2 class="font-cinzel text-xl sm:text-2xl font-bold mt-1">${c.name}</h2>
+              <p class="text-xs text-neutral-300 mt-1">${c.desc}</p>
             </div>
             <div id="grid-${c.name.replace(/\s+/g, '-').toLowerCase()}" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
           </section>
@@ -614,7 +609,6 @@
       return currentLang === 'hi' ? `${num} लोग अभी देख रहे हैं` : `${num} people viewing right now`;
     }
 
-    // ==================== DEDICATED PRODUCT DETAIL PAGE VIEW ====================
     let activeDetailId = null;
     let detailImgIndex = 0;
 
@@ -638,7 +632,6 @@
           </button>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-2xl gold-border shadow-sm">
-            <!-- Image Slider & Click to Zoom Lightbox -->
             <div class="space-y-3">
               <div onclick="openLightbox(${detailImgIndex})" class="relative w-full h-80 sm:h-96 bg-neutral-50 rounded-xl border border-neutral-200 overflow-hidden flex items-center justify-center cursor-zoom-in">
                 <img id="detailMainImg" src="${imgs[detailImgIndex]}" class="w-full h-full object-contain p-2" />
@@ -648,16 +641,8 @@
                   <button onclick="event.stopPropagation(); nextDetailImg()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white w-8 h-8 rounded-full border shadow font-bold">❯</button>
                 ` : ''}
               </div>
-              <div class="flex gap-2 overflow-x-auto pb-1">
-                ${imgs.map((im, i) => `
-                  <button onclick="setDetailImg(${i})" class="w-16 h-16 rounded-lg border-2 ${i === detailImgIndex ? 'border-neutral-900' : 'border-neutral-200'} overflow-hidden bg-neutral-50 flex-shrink-0">
-                    <img src="${im}" class="w-full h-full object-contain" />
-                  </button>
-                `).join('')}
-              </div>
             </div>
 
-            <!-- Details & Actions -->
             <div class="space-y-4">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-[#8c6928] uppercase bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded">${prod.tag}</span>
@@ -672,7 +657,6 @@
                 <span class="text-xs font-extrabold text-white bg-green-600 px-2 py-0.5 rounded">${discount}% OFF</span>
               </div>
 
-              <!-- Realistic Fluctuating Live Viewer Ticker -->
               <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-emerald-800 text-xs font-semibold">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 live-dot"></span>
                 <span>🔥 <strong>${liveViews}</strong> ${currentLang === 'hi' ? 'लोग इस उत्पाद को अभी देख रहे हैं!' : 'people are viewing this product right now!'}</span>
@@ -685,7 +669,6 @@
                 </div>
               ` : ''}
 
-              <!-- Add to Bag & WhatsApp Quick Order with Pre-filled Product Details -->
               <div class="space-y-2 pt-2">
                 <button onclick="addToCart(${prod.id})" class="gold-btn w-full py-3 rounded-xl text-xs font-bold active:scale-95">Add to Bag (₹${prod.price})</button>
                 <button onclick="orderSingleProductWhatsApp(${prod.id})" class="w-full py-3 rounded-xl text-xs font-bold bg-[#25D366] text-white flex items-center justify-center gap-1.5 active:scale-95 shadow-sm">
@@ -694,70 +677,11 @@
               </div>
             </div>
           </div>
-
-          <!-- Customer Real Photo Reviews Section -->
-          <div class="bg-white p-6 rounded-2xl gold-border shadow-sm space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="font-cinzel text-base font-bold">Customer Photo Reviews</h3>
-              <button onclick="toggleProductReviewForm()" class="text-xs font-semibold gold-btn px-3 py-1.5 rounded-xl">✍️ Write a Review</button>
-            </div>
-
-            <!-- Product Review Form -->
-            <div id="prodReviewForm" class="hidden bg-neutral-50 p-4 rounded-xl border space-y-3">
-              <h4 class="text-xs font-bold uppercase">Upload Photo & Review</h4>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <input id="prodRevName" type="text" placeholder="Your Name" class="border p-2 text-xs rounded" />
-                <input id="prodRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
-                <input id="prodRevImgUrl" type="text" placeholder="Real Photo URL" class="border p-2 text-xs rounded" />
-              </div>
-              <textarea id="prodRevText" rows="2" placeholder="Write your feedback..." class="w-full border p-2 text-xs rounded"></textarea>
-              <button onclick="submitProductReview(${prod.id})" class="gold-btn px-5 py-2 rounded text-xs font-bold">Submit Photo Review</button>
-              <span id="prodRevStatus" class="text-xs font-medium ml-2"></span>
-            </div>
-
-            <!-- Review Items Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {(prod.reviews && prod.reviews.length > 0) ? prod.reviews.map(r => `
-                <div class="bg-neutral-50 p-3 rounded-xl border border-neutral-200 text-xs flex gap-3 items-start">
-                  ${r.img ? `<img src="${r.img}" class="w-16 h-16 object-cover rounded-lg border flex-shrink-0 bg-white" />` : ''}
-                  <div class="flex-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-neutral-900">${r.name}</span>
-                      <span class="text-[9px] text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.2 rounded">✓ Verified</span>
-                    </div>
-                    <p class="text-amber-600 text-[10px] mt-0.5">${'★'.repeat(r.rating || 5)}</p>
-                    <p class="text-neutral-600 mt-1">"${r.comment}"</p>
-                    <p class="text-[9px] text-neutral-400 mt-1">${r.date || 'Recent'}</p>
-                  </div>
-                </div>
-              `).join('') : `<p class="text-xs text-neutral-400">No reviews yet for this product. Be the first to review!</p>`}
-            </div>
-          </div>
-
-          <!-- Suggested You May Also Like Section -->
-          <div class="space-y-4">
-            <h3 class="font-cinzel text-lg font-bold">You May Also Like</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              ${suggested.map(item => `
-                <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
-                  <div>
-                    <img src="${item.images[0]}" class="w-full h-36 object-contain mb-2 bg-neutral-50 rounded" />
-                    <h4 class="text-xs font-bold line-clamp-1">${item.title}</h4>
-                  </div>
-                  <div class="mt-2">
-                    <p class="text-sm font-bold">₹${item.price}</p>
-                    <button onclick="event.stopPropagation(); addToCart(${item.id})" class="gold-btn w-full mt-1.5 py-1 rounded text-[11px] font-bold">+ Bag</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
         </div>
       `;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Lightbox Zoom & Slide Handlers
     function openLightbox(idx) {
       detailImgIndex = idx;
       const prod = products.find(p => p.id === activeDetailId);
@@ -771,62 +695,7 @@
     function closeLightbox() {
       document.getElementById("lightboxModal").classList.add("hidden");
     }
-    function prevLightboxImg() {
-      const prod = products.find(p => p.id === activeDetailId);
-      if (!prod) return;
-      detailImgIndex = detailImgIndex > 0 ? detailImgIndex - 1 : prod.images.length - 1;
-      document.getElementById("lightboxImg").src = prod.images[detailImgIndex];
-    }
-    function nextLightboxImg() {
-      const prod = products.find(p => p.id === activeDetailId);
-      if (!prod) return;
-      detailImgIndex = detailImgIndex < prod.images.length - 1 ? detailImgIndex + 1 : 0;
-      document.getElementById("lightboxImg").src = prod.images[detailImgIndex];
-    }
 
-    function setDetailImg(i) {
-      detailImgIndex = i;
-      document.getElementById("detailMainImg").src = products.find(p => p.id === activeDetailId).images[i];
-    }
-    function prevDetailImg() {
-      const prod = products.find(p => p.id === activeDetailId);
-      detailImgIndex = detailImgIndex > 0 ? detailImgIndex - 1 : prod.images.length - 1;
-      document.getElementById("detailMainImg").src = prod.images[detailImgIndex];
-    }
-    function nextDetailImg() {
-      const prod = products.find(p => p.id === activeDetailId);
-      detailImgIndex = detailImgIndex < prod.images.length - 1 ? detailImgIndex + 1 : 0;
-      document.getElementById("detailMainImg").src = prod.images[detailImgIndex];
-    }
-
-    function toggleProductReviewForm() {
-      document.getElementById("prodReviewForm").classList.toggle("hidden");
-    }
-
-    function submitProductReview(prodId) {
-      const name = document.getElementById("prodRevName").value.trim();
-      const phone = document.getElementById("prodRevPhone").value.trim();
-      const img = document.getElementById("prodRevImgUrl").value.trim();
-      const comment = document.getElementById("prodRevText").value.trim();
-
-      if (!name || !phone || !comment) { alert("Please fill name, phone and comment!"); return; }
-      if (phone.replace(/[^0-9]/g,'').length !== 10) { alert("Enter 10-digit valid phone number!"); return; }
-
-      const prod = products.find(p => p.id === prodId);
-      if (!prod) return;
-
-      if (prod.reviews && prod.reviews.some(r => r.phone === phone)) {
-        alert("⚠️ Is phone number se is product par pehle hi review diya ja chuka hai!");
-        return;
-      }
-
-      if (!prod.reviews) prod.reviews = [];
-      prod.reviews.unshift({ name, phone, rating: 5, comment, img, date: "Just now" });
-      alert("Review published successfully with photo! ✨");
-      openProductDetailPage(prodId);
-    }
-
-    // ==================== CART & FREE GIFT PROGRESS BAR (₹599) ====================
     function addToCart(id) {
       const prod = products.find(p => p.id === id);
       if (prod) {
@@ -870,17 +739,13 @@
     }
 
     function toggleCart() {
-      const sidebar = document.getElementById("cartSidebar");
-      const overlay = document.getElementById("cartOverlay");
-      sidebar.classList.toggle("translate-x-full");
-      overlay.classList.toggle("hidden");
+      document.getElementById("cartSidebar").classList.toggle("translate-x-full");
+      document.getElementById("cartOverlay").classList.toggle("hidden");
     }
 
     function toggleWishlist() {
-      const sidebar = document.getElementById("wishlistSidebar");
-      const overlay = document.getElementById("wishlistOverlay");
-      sidebar.classList.toggle("translate-x-full");
-      overlay.classList.toggle("hidden");
+      document.getElementById("wishlistSidebar").classList.toggle("translate-x-full");
+      document.getElementById("wishlistOverlay").classList.toggle("hidden");
     }
 
     function sendOrderViaWhatsApp() {
@@ -895,7 +760,6 @@
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    // Direct Pre-filled WhatsApp Quick Order
     function orderSingleProductWhatsApp(productId) {
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
@@ -904,7 +768,6 @@
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    // ==================== POLICIES MODAL ====================
     function openPolicyModal(type) {
       const modal = document.getElementById("policyModal");
       const overlay = document.getElementById("policyModalOverlay");
@@ -913,44 +776,14 @@
 
       let content = "";
       if (type === 'terms') {
-        titleEl.innerText = currentLang === 'hi' ? "नियम एवं शर्तें (Terms & Conditions)" : "Terms & Conditions";
-        content = currentLang === 'hi' ? `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) आर्डर सत्यापन</h4>
-          <p class="mb-3">TRENDZ MART LUXE पर सभी Cash on Delivery (COD) आर्डर्स की सुरक्षा और प्रामाणिकता सुनिश्चित करने के लिए हमारे सपोर्ट टीम द्वारा व्हाट्सएप या फोन कॉल के माध्यम से पुष्टि की जाती है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. एंटी-टार्निश ज्वैलरी गुणवत्ता</h4>
-          <p class="mb-3">हमारी सभी ज्वैलरी प्रीमियम 18K गोल्ड प्लेटेड हाई-ग्रेड एंटी-टार्निश क्वालिटी की होती हैं। परफ्यूम या harsh chemicals सीधे स्प्रे न करने पर चमक आजीवन बरकरार रहती है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग समय</h4>
-          <p>सभी आर्डर्स 24 से 48 घंटे के भीतर डिस्पैच होते हैं और 3 से 7 कार्य दिवसों में डिलीवर होते हैं।</p>
-        ` : `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) Order Verification</h4>
-          <p class="mb-3">All COD orders are verified via WhatsApp or phone call prior to dispatch to ensure secure fulfillment.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. Anti-Tarnish Quality Guarantee</h4>
-          <p class="mb-3">Our 18K Gold Plated anti-tarnish items maintain long-lasting shine when protected from direct harsh chemicals.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. Delivery Timelines</h4>
-          <p>Orders are dispatched within 24-48 hours and typically delivered within 3 to 7 business days pan-India.</p>
-        `;
+        titleEl.innerText = "Terms & Conditions";
+        content = `<p>All COD orders are verified via WhatsApp or phone call prior to dispatch. Premium 18K Gold Plated anti-tarnish items maintain long-lasting shine when protected from direct harsh chemicals.</p>`;
       } else if (type === 'return') {
-        titleEl.innerText = currentLang === 'hi' ? "रिटर्न और रिप्लेसमेंट पॉलिसी" : "Return & Replacement Policy";
-        content = currentLang === 'hi' ? `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. अनिवार्य 360° अनबॉक्सिंग वीडियो</h4>
-          <p class="mb-3">किसी भी डैमेज या मिसिंग आइटम के क्लेम के लिए पार्सल खोलते समय बिना किसी कट का साफ 360-डिग्री अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48 घंटे के भीतर रिप्लेसमेंट</h4>
-          <p>डैमेज या गलत प्रोडक्ट मिलने पर 48 घंटे के भीतर व्हाट्सएप सपोर्ट पर संपर्क करें।</p>
-        ` : `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Mandatory 360° Unboxing Video</h4>
-          <p class="mb-3">A clean, continuous 360-degree unboxing video is mandatory for damage or missing item claims.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48-Hour Replacement Window</h4>
-          <p>Notify our WhatsApp support team within 48 hours for instant replacement.</p>
-        `;
+        titleEl.innerText = "Return & Replacement Policy";
+        content = `<p>A clean, continuous 360-degree unboxing video is mandatory for damage or missing item claims within 48 hours of delivery.</p>`;
       } else if (type === 'privacy') {
-        titleEl.innerText = currentLang === 'hi' ? "प्राइवेसी पॉलिसी" : "Privacy Policy";
-        content = currentLang === 'hi' ? `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. ग्राहक डेटा सुरक्षा</h4>
-          <p>आपका नाम और पता केवल आर्डर शिपिंग और व्हाट्सएप अपडेट्स के लिए उपयोग होता है। किसी तीसरे पक्ष को नहीं बेचा जाता।</p>
-        ` : `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Customer Data Privacy</h4>
-          <p>Your details are strictly used for order delivery and WhatsApp shipping updates. Zero third-party sharing.</p>
-        `;
+        titleEl.innerText = "Privacy Policy";
+        content = `<p>Your delivery details are strictly used for order delivery and WhatsApp shipping updates. Zero third-party sharing.</p>`;
       }
       bodyEl.innerHTML = content;
       overlay.classList.remove("hidden");
@@ -959,16 +792,10 @@
     }
 
     function closePolicyModal() {
-      const modal = document.getElementById("policyModal");
-      const overlay = document.getElementById("policyModalOverlay");
-      overlay.classList.add("opacity-0");
-      setTimeout(() => {
-        overlay.classList.add("hidden");
-        modal.classList.add("hidden");
-      }, 250);
+      document.getElementById("policyModal").classList.add("hidden");
+      document.getElementById("policyModalOverlay").classList.add("hidden");
     }
 
-    // ==================== INVISIBLE SECRET ADMIN PANEL ====================
     let secretTap = 0;
     function triggerSecretAdmin() {
       secretTap++;
@@ -986,77 +813,9 @@
       if (document.getElementById("adminPinInput").value === "78690") {
         document.getElementById("adminPinScreen").classList.add("hidden");
         document.getElementById("adminDashboardScreen").classList.remove("hidden");
-        loadAdminProductControls();
       } else { 
         document.getElementById("adminPinInput").value = "";
       }
-    }
-
-    function updateCategoryBanner() {
-      const catName = document.getElementById("adminBannerCatSelect").value;
-      const url = document.getElementById("adminBannerImgInput").value.trim();
-      if (!url) { alert("Enter valid image URL!"); return; }
-      const cat = categories.find(c => c.name === catName);
-      if (cat) {
-        cat.banner = url;
-        renderDynamicCategories();
-        alert(`${catName} banner updated successfully!`);
-        document.getElementById("adminBannerImgInput").value = '';
-      }
-    }
-
-    function loadAdminProductControls() {
-      const revSelect = document.getElementById("adminReviewProdId");
-      revSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.title} (₹${p.price})</option>`).join('');
-    }
-
-    function addNewProduct() {
-      const title = document.getElementById("newProdTitle").value.trim();
-      const category = document.getElementById("newProdCategory").value;
-      const price = parseFloat(document.getElementById("newProdPrice").value);
-      const originalPrice = parseFloat(document.getElementById("newProdOriginalPrice").value) || (price * 2);
-      const tag = document.getElementById("newProdTag").value.trim() || "Selling Fast 🔥";
-      const img = document.getElementById("newProdImage").value.trim();
-      const rating = parseFloat(document.getElementById("newProdRating").value) || 4.9;
-
-      if (!title || isNaN(price) || !img) { alert("Fill required fields!"); return; }
-
-      products.unshift({
-        id: Date.now(),
-        title, category, price, originalPrice,
-        tag, rating, baseViews: 14,
-        images: [img],
-        qualityNote: "18K Gold Plated High-Grade Anti-Tarnish.",
-        reviews: []
-      });
-
-      renderDynamicCategories();
-      loadAdminProductControls();
-      alert("New product with custom badge published live!");
-      document.getElementById("newProdTitle").value = '';
-      document.getElementById("newProdPrice").value = '';
-      document.getElementById("newProdOriginalPrice").value = '';
-      document.getElementById("newProdImage").value = '';
-    }
-
-    function adminAddProductReview() {
-      const prodId = parseInt(document.getElementById("adminReviewProdId").value);
-      const name = document.getElementById("adminRevName").value.trim();
-      const phone = document.getElementById("adminRevPhone").value.trim();
-      const img = document.getElementById("adminRevImg").value.trim();
-      const comment = document.getElementById("adminRevComment").value.trim();
-
-      if (!name || !phone || !comment) { alert("Fill all review fields!"); return; }
-      const prod = products.find(p => p.id === prodId);
-      if (!prod) return;
-
-      if (!prod.reviews) prod.reviews = [];
-      prod.reviews.unshift({ name, phone, rating: 5, comment, img, date: "Just now" });
-      alert("Verified photo review added successfully!");
-      document.getElementById("adminRevName").value = '';
-      document.getElementById("adminRevPhone").value = '';
-      document.getElementById("adminRevImg").value = '';
-      document.getElementById("adminRevComment").value = '';
     }
 
     initHeroSlider();
