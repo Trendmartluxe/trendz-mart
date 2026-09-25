@@ -3,15 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRENDZ MART LUXE | Trending Jewellery, Kids & Lifestyle Store</title>
+  <title id="siteTitle">TRENDZ MART LUXE | Trending Jewellery, Kids & Lifestyle Store</title>
   
   <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Firebase App & Firestore Cloud Database -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <style>
     body {
@@ -64,7 +60,6 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* Seamless LED Marquee Effect */
     .marquee-container {
       overflow: hidden;
       white-space: nowrap;
@@ -79,40 +74,62 @@
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
+    @keyframes pulseWhatsapp {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-floating {
+      animation: pulseWhatsapp 2s infinite;
+    }
   </style>
 </head>
 <body class="min-h-screen">
 
+  <!-- Floating WhatsApp Quick Chat Button -->
+  <a href="https://wa.me/918369511325?text=Hello%20TRENDZ%20MART%20LUXE!%20Mujhe%20product%20ke%20bare%20me%20puchna%20hai." target="_blank" class="whatsapp-floating fixed bottom-5 right-5 z-50 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+    </svg>
+  </a>
+
   <!-- Top Seamless LED Marquee Announcement Bar -->
   <div class="bg-[#111111] text-[#f2ebd9] text-xs font-semibold py-2 marquee-container shadow-sm">
     <div class="marquee-track">
-      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above <span id="announcementGiftLimit">₹599</span> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above <span id="announcementGiftLimit2">₹599</span> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨</span>
+      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above ₹599 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above ₹599 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨</span>
     </div>
   </div>
 
-  <!-- Flash Sale Timer -->
-  <div class="bg-amber-950 text-amber-200 text-center text-[11px] font-bold py-1 px-3 tracking-wider flex items-center justify-center gap-2">
-    <span>⚡ FLASH SALE ENDS IN:</span>
-    <span id="saleCountdown" class="bg-amber-900 text-white px-2 py-0.5 rounded">02:45:12</span>
+  <!-- Flash Sale & Language Switcher Bar -->
+  <div class="bg-amber-950 text-amber-200 text-center text-[11px] font-bold py-1 px-3 tracking-wider flex items-center justify-between">
+    <div class="w-1/3 text-left hidden sm:block"></div>
+    <div class="w-full sm:w-1/3 flex items-center justify-center gap-2">
+      <span id="flashSaleText">⚡ FLASH SALE ENDS IN:</span>
+      <span id="saleCountdown" class="bg-amber-900 text-white px-2 py-0.5 rounded">02:45:12</span>
+    </div>
+    <div class="w-1/3 text-right flex justify-end gap-1.5">
+      <button onclick="setLanguage('en')" id="langBtnEn" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-900 text-white border border-amber-700">ENG</button>
+      <button onclick="setLanguage('hi')" id="langBtnHi" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800">हिन्दी</button>
+    </div>
   </div>
 
   <!-- Main Navigation Header -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-3 sm:px-4 py-2.5">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5">
+      <a href="index.html" class="flex items-center gap-2.5">
         <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
           <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover scale-110" onerror="this.style.display='none';">
         </div>
         <div>
           <h1 class="font-cinzel text-base sm:text-xl font-black tracking-[0.12em] gold-gradient-text uppercase leading-tight">TRENDZ MART LUXE</h1>
-          <p class="text-[8px] sm:text-[9px] tracking-[0.18em] text-neutral-500 uppercase font-bold mt-0.5">Jewellery • Kids • Hair • Trending</p>
+          <p id="subBrandTag" class="text-[8px] sm:text-[9px] tracking-[0.18em] text-neutral-500 uppercase font-bold mt-0.5">Jewellery • Kids • Hair • Trending</p>
         </div>
       </a>
 
       <div class="flex items-center gap-1.5">
         <a href="https://wa.me/918369511325?text=Hello!%20Mujhe%20apne%20order%20ko%20track%20karna%20hai." target="_blank" class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-100 border border-neutral-300 text-neutral-800 hover:bg-neutral-200 transition-colors">
-          <span>📦 Track Order</span>
+          <span id="navTrackText">📦 Track Order</span>
         </a>
         <button onclick="toggleWishlist()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900">
           <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -130,65 +147,25 @@
   <section class="max-w-5xl mx-auto px-4 pt-4">
     <div class="bg-white border border-neutral-200 rounded-2xl p-3 shadow-sm">
       <div class="relative mb-3">
-        <input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search jewellery, cute water sippers, hair claw clips..." class="w-full pl-4 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
+        <input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search jewellery, water sippers, claw clips..." class="w-full pl-4 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
       </div>
       <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar"></div>
     </div>
   </section>
 
-  <!-- Main Catalog Sections with Individual Category Hero Frames -->
-  <main id="mainCatalogContainer" class="max-w-5xl mx-auto px-3 sm:px-6 mt-6 space-y-12"></main>
+  <!-- Main Catalog View / Dynamic Container -->
+  <div id="appContainer">
+    <!-- Main Catalog Sections -->
+    <main id="mainCatalogContainer" class="max-w-5xl mx-auto px-3 sm:px-6 mt-6 space-y-12"></main>
+  </div>
 
   <!-- Trust Badges -->
   <section class="max-w-5xl mx-auto px-4 mt-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 bg-white rounded-2xl gold-border text-center shadow-sm">
-      <div class="p-2"><div class="text-xl mb-1">🛡️</div><h4 class="text-xs font-bold">100% Safe Checkout</h4></div>
-      <div class="p-2"><div class="text-xl mb-1">🚚</div><h4 class="text-xs font-bold">Pan India Express</h4></div>
-      <div class="p-2"><div class="text-xl mb-1">🔄</div><h4 class="text-xs font-bold">48h Replacement</h4></div>
-      <div class="p-2"><div class="text-xl mb-1">💵</div><h4 class="text-xs font-bold">Cash on Delivery</h4></div>
-    </div>
-  </section>
-
-  <!-- Customer Reviews Section (Placed Cleanly at Bottom) -->
-  <section class="max-w-5xl mx-auto px-4 mt-14">
-    <div class="bg-white p-6 rounded-2xl gold-border shadow-sm">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-        <div>
-          <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">⭐ 4.9 / 5.0 Rating</span>
-          <h3 class="font-cinzel text-lg font-bold text-neutral-900 mt-2">Loved by 2,000+ Happy Customers Across India</h3>
-        </div>
-        <button onclick="toggleStoreReviewForm()" class="px-4 py-2 rounded-xl text-xs font-semibold gold-btn active:scale-95">✍️ Leave a Review</button>
-      </div>
-
-      <div id="storeReviewForm" class="hidden bg-neutral-50 p-4 rounded-xl border mb-6 space-y-3">
-        <h4 class="text-xs font-bold uppercase">Share Your Experience</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          <input id="storeRevName" type="text" placeholder="Your Name" class="border p-2 text-xs rounded" />
-          <input id="storeRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
-          <select id="storeRevRating" class="border p-2 text-xs rounded"><option value="5">★★★★★ (5 Star)</option><option value="4">★★★★☆ (4 Star)</option></select>
-        </div>
-        <textarea id="storeRevText" rows="2" placeholder="Write review..." class="w-full border p-2 text-xs rounded"></textarea>
-        <button onclick="submitStoreReview()" class="gold-btn px-5 py-2 rounded text-xs font-bold">Submit Review</button>
-        <span id="storeRevStatus" class="text-xs font-medium ml-2"></span>
-      </div>
-
-      <div id="storeReviewsContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div class="bg-neutral-50 p-3 rounded-xl border text-xs">
-          <p class="text-amber-700">★★★★★</p>
-          <p class="text-neutral-600 mt-1">"Wore it continuously in water, no color loss. Total value for money!"</p>
-          <p class="font-bold mt-2">— Kavita M., Verified Buyer ✓</p>
-        </div>
-        <div class="bg-neutral-50 p-3 rounded-xl border text-xs">
-          <p class="text-amber-700">★★★★★</p>
-          <p class="text-neutral-600 mt-1">"COD option was very smooth. Received packaging in Dombivli within 3 days."</p>
-          <p class="font-bold mt-2">— Pooja Shr., Verified Buyer ✓</p>
-        </div>
-        <div class="bg-neutral-50 p-3 rounded-xl border text-xs">
-          <p class="text-amber-700">★★★★★</p>
-          <p class="text-neutral-600 mt-1">"Product ki quality bhot premium hai, mumbra mai 2 din mai mil gaya."</p>
-          <p class="font-bold mt-2">— Iqra Shai., Verified Buyer ✓</p>
-        </div>
-      </div>
+      <div class="p-2"><div class="text-xl mb-1">🛡️</div><h4 id="badge1" class="text-xs font-bold">100% Safe Checkout</h4></div>
+      <div class="p-2"><div class="text-xl mb-1">🚚</div><h4 id="badge2" class="text-xs font-bold">Pan India Express</h4></div>
+      <div class="p-2"><div class="text-xl mb-1">🔄</div><h4 id="badge3" class="text-xs font-bold">48h Replacement</h4></div>
+      <div class="p-2"><div class="text-xl mb-1">💵</div><h4 id="badge4" class="text-xs font-bold">Cash on Delivery</h4></div>
     </div>
   </section>
 
@@ -198,9 +175,27 @@
       <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="Logo" class="w-full h-full object-cover">
     </div>
     <h3 class="font-cinzel text-base font-bold text-neutral-900">TRENDZ MART LUXE</h3>
-    <p class="text-[10px] text-neutral-500 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
+    <p id="footerSubText" class="text-[10px] text-neutral-500 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
+    <div class="flex justify-center gap-6 text-xs text-neutral-600 mt-4 flex-wrap">
+      <a href="javascript:void(0)" onclick="openPolicyModal('terms')" id="footerTermsLink" class="hover:text-neutral-900 transition-colors">Terms & Conditions</a>
+      <a href="javascript:void(0)" onclick="openPolicyModal('return')" id="footerReturnLink" class="hover:text-neutral-900 transition-colors">Return & Replacement Policy</a>
+      <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" id="footerPrivacyLink" class="hover:text-neutral-900 transition-colors">Privacy Policy</a>
+    </div>
     <p class="text-[11px] text-neutral-500 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
+
+  <!-- Policy Modal -->
+  <div id="policyModalOverlay" onclick="closePolicyModal()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+  <div id="policyModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-xl bg-white border border-neutral-300 rounded-2xl z-50 hidden p-5 sm:p-6 shadow-2xl max-h-[85vh] overflow-y-auto">
+    <div class="flex items-center justify-between border-b pb-3 mb-4">
+      <h3 id="policyModalTitle" class="font-cinzel text-base font-bold text-neutral-900">Store Policies</h3>
+      <button onclick="closePolicyModal()" class="font-bold">✕</button>
+    </div>
+    <div id="policyModalBody" class="space-y-4 text-xs text-neutral-700 leading-relaxed"></div>
+    <div class="mt-6 pt-3 border-t text-center">
+      <button onclick="closePolicyModal()" class="gold-btn px-6 py-2 rounded-xl text-xs font-semibold">I Understand</button>
+    </div>
+  </div>
 
   <!-- Admin Modal -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden"></div>
@@ -213,32 +208,84 @@
       <input id="adminPinInput" type="password" maxlength="5" placeholder="Enter PIN" class="text-center tracking-widest text-lg w-36 border rounded-lg p-2" />
       <div><button onclick="verifyAdminPin()" class="gold-btn px-6 py-2 rounded-xl text-xs font-bold">Login</button></div>
     </div>
-    <div id="adminDashboardScreen" class="hidden space-y-4">
+    <div id="adminDashboardScreen" class="hidden space-y-6">
       <p class="text-xs text-green-700 font-bold">✔ Admin Logged In Successfully!</p>
+      
+      <!-- Hero Banners Manager -->
       <div class="bg-neutral-50 p-4 rounded-xl border space-y-2">
-        <h4 class="text-xs font-bold uppercase">Add New Product</h4>
-        <input id="newProdTitle" type="text" placeholder="Title" class="w-full border p-2 text-xs rounded" />
-        <input id="newProdPrice" type="number" placeholder="Price" class="w-full border p-2 text-xs rounded" />
-        <input id="newProdImage" type="text" placeholder="Image URL" class="w-full border p-2 text-xs rounded" />
-        <button onclick="addNewProduct()" class="gold-btn w-full py-2 text-xs font-bold">Add Product</button>
+        <h4 class="text-xs font-bold uppercase">🖼️ Change Category Hero Banner HD Image</h4>
+        <select id="adminBannerCatSelect" class="w-full border p-2 text-xs rounded font-medium">
+          <option value="Jewellery">Jewellery Category</option>
+          <option value="Hair Accessories">Hair Accessories Category</option>
+          <option value="Kids Zone">Kids Zone Category</option>
+          <option value="Trending Items">Trending Items Category</option>
+        </select>
+        <input id="adminBannerImgInput" type="text" placeholder="Paste HD Image URL" class="w-full border p-2 text-xs rounded" />
+        <button onclick="updateCategoryBanner()" class="gold-btn w-full py-2 text-xs font-bold">Update Banner HD Image</button>
+      </div>
+
+      <!-- Add Product & Views Control -->
+      <div class="bg-neutral-50 p-4 rounded-xl border space-y-3">
+        <h4 class="text-xs font-bold uppercase">📦 Manage Products, Views & Ratings</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <input id="newProdTitle" type="text" placeholder="Title" class="border p-2 text-xs rounded" />
+          <select id="newProdCategory" class="border p-2 text-xs rounded font-medium">
+            <option value="Jewellery">Jewellery</option>
+            <option value="Hair Accessories">Hair Accessories</option>
+            <option value="Kids Zone">Kids Zone</option>
+            <option value="Trending Items">Trending Items</option>
+          </select>
+          <input id="newProdPrice" type="number" placeholder="Price" class="border p-2 text-xs rounded" />
+          <input id="newProdOriginalPrice" type="number" placeholder="Original MRP" class="border p-2 text-xs rounded" />
+          <input id="newProdImage" type="text" placeholder="HD Image URL" class="border p-2 text-xs rounded sm:col-span-2" />
+          <input id="newProdRating" type="number" step="0.1" value="4.9" placeholder="Star Rating (e.g. 4.9)" class="border p-2 text-xs rounded" />
+          <input id="newProdViews" type="number" value="142" placeholder="Initial Views" class="border p-2 text-xs rounded" />
+        </div>
+        <button onclick="addNewProduct()" class="gold-btn w-full py-2 text-xs font-bold">Add New Product</button>
+        <div id="adminProductList" class="space-y-2 max-h-48 overflow-y-auto"></div>
+      </div>
+
+      <!-- Admin Real Photo Review Uploader -->
+      <div class="bg-neutral-50 p-4 rounded-xl border space-y-2">
+        <h4 class="text-xs font-bold uppercase">⭐ Add Real Photo Customer Review (Admin)</h4>
+        <select id="adminReviewProdId" class="w-full border p-2 text-xs rounded"></select>
+        <div class="grid grid-cols-2 gap-2">
+          <input id="adminRevName" type="text" placeholder="Customer Name" class="border p-2 text-xs rounded" />
+          <input id="adminRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
+        </div>
+        <input id="adminRevImg" type="text" placeholder="Real Photo URL (Customer Upload)" class="w-full border p-2 text-xs rounded" />
+        <textarea id="adminRevComment" rows="2" placeholder="Review comment..." class="w-full border p-2 text-xs rounded"></textarea>
+        <button onclick="adminAddProductReview()" class="gold-btn w-full py-2 text-xs font-bold">Publish Verified Photo Review</button>
       </div>
     </div>
   </div>
 
-  <!-- Cart Drawer -->
+  <!-- Cart Drawer with Live Free Gift Progress Bar -->
   <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden"></div>
   <div id="cartSidebar" class="drawer-panel fixed top-0 right-0 h-full w-[88%] max-w-sm bg-white border-l z-50 translate-x-full flex flex-col justify-between shadow-2xl">
     <div class="p-4 border-b flex justify-between bg-neutral-50">
-      <h3 class="font-cinzel font-bold text-sm">YOUR SHOPPING BAG</h3>
+      <h3 id="cartHeaderTitle" class="font-cinzel font-bold text-sm">YOUR SHOPPING BAG</h3>
       <button onclick="toggleCart()" class="font-bold">✕</button>
     </div>
+
+    <!-- Free Gift Live Progress Bar -->
+    <div class="p-3 bg-amber-50 border-b border-amber-200">
+      <div class="flex justify-between text-[11px] font-bold text-amber-900 mb-1">
+        <span id="giftProgressText">Add ₹599 to unlock Free Mystery Gift! 🎁</span>
+        <span id="giftUnlockedBadge" class="hidden text-green-700 bg-green-100 px-1.5 rounded">Unlocked!</span>
+      </div>
+      <div class="w-full bg-amber-200 h-2 rounded-full overflow-hidden">
+        <div id="giftProgressBar" class="bg-amber-600 h-full w-0 transition-all duration-300"></div>
+      </div>
+    </div>
+
     <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
     <div class="p-4 border-t bg-neutral-50">
       <div class="flex justify-between items-center mb-2 text-sm font-semibold">
-        <span>Subtotal:</span>
+        <span id="cartSubtotalLabel">Subtotal:</span>
         <span id="cartTotal" class="font-bold text-base">₹0</span>
       </div>
-      <button onclick="sendOrderViaWhatsApp()" class="w-full py-3 rounded-xl font-bold text-xs gold-btn flex items-center justify-center gap-2">Complete Order on WhatsApp</button>
+      <button onclick="sendOrderViaWhatsApp()" id="whatsappCheckoutBtn" class="w-full py-3 rounded-xl font-bold text-xs gold-btn flex items-center justify-center gap-2">Complete Order on WhatsApp</button>
     </div>
   </div>
 
@@ -246,7 +293,7 @@
   <div id="wishlistOverlay" onclick="toggleWishlist()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden"></div>
   <div id="wishlistSidebar" class="drawer-panel fixed top-0 right-0 h-full w-[88%] max-w-sm bg-white border-l z-50 translate-x-full flex flex-col justify-between shadow-2xl">
     <div class="p-4 border-b flex justify-between bg-neutral-50">
-      <h3 class="font-cinzel font-bold text-sm">YOUR WISHLIST</h3>
+      <h3 id="wishlistHeaderTitle" class="font-cinzel font-bold text-sm">YOUR WISHLIST</h3>
       <button onclick="toggleWishlist()" class="font-bold">✕</button>
     </div>
     <div id="wishlistItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
@@ -254,27 +301,151 @@
 
   <script>
     const WHATSAPP_NUMBER = "918369511325";
+    let currentLang = 'en';
+
+    const translations = {
+      en: {
+        subBrand: "Jewellery • Kids • Hair • Trending",
+        trackOrder: "📦 Track Order",
+        searchPlaceholder: "Search jewellery, water sippers, claw clips...",
+        allDeals: "All Deals",
+        badge1: "100% Safe Checkout",
+        badge2: "Pan India Express",
+        badge3: "48h Replacement",
+        badge4: "Cash on Delivery",
+        footerTerms: "Terms & Conditions",
+        footerReturn: "Return & Replacement Policy",
+        footerPrivacy: "Privacy Policy",
+        cartTitle: "YOUR SHOPPING BAG",
+        subtotal: "Subtotal:",
+        checkoutBtn: "Complete Order on WhatsApp"
+      },
+      hi: {
+        subBrand: "ज्वेलरी • किड्स • हेयर • ट्रेंडिंग",
+        trackOrder: "📦 आर्डर ट्रैक करें",
+        searchPlaceholder: "ज्वेलरी, पानी की बोतलें, हेयर क्लिप खोजें...",
+        allDeals: "सभी डील्स",
+        badge1: "100% सुरक्षित चेकआउट",
+        badge2: "ऑल इंडिया एक्सप्रेस डिलीवरी",
+        badge3: "48 घंटे रिप्लेसमेंट",
+        badge4: "कैश ऑन डिलीवरी (COD)",
+        footerTerms: "नियम एवं शर्तें",
+        footerReturn: "रिटर्न और रिप्लेसमेंट पॉलिसी",
+        footerPrivacy: "प्राइवेसी पॉलिसी",
+        cartTitle: "आपकी शॉपिंग बैग",
+        subtotal: "सबटोटल:",
+        checkoutBtn: "व्हाट्सएप पर आर्डर पूरा करें"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.getElementById('subBrandTag').innerText = t.subBrand;
+      document.getElementById('navTrackText').innerText = t.trackOrder;
+      document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+      document.getElementById('badge1').innerText = t.badge1;
+      document.getElementById('badge2').innerText = t.badge2;
+      document.getElementById('badge3').innerText = t.badge3;
+      document.getElementById('badge4').innerText = t.badge4;
+      document.getElementById('footerTermsLink').innerText = t.footerTerms;
+      document.getElementById('footerReturnLink').innerText = t.footerReturn;
+      document.getElementById('footerPrivacyLink').innerText = t.footerPrivacy;
+      document.getElementById('cartHeaderTitle').innerText = t.cartTitle;
+      document.getElementById('cartSubtotalLabel').innerText = t.subtotal;
+      document.getElementById('whatsappCheckoutBtn').innerText = t.checkoutBtn;
+
+      if(lang === 'hi') {
+        document.getElementById('langBtnHi').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-900 text-white border border-amber-700";
+        document.getElementById('langBtnEn').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800";
+      } else {
+        document.getElementById('langBtnEn').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-900 text-white border border-amber-700";
+        document.getElementById('langBtnHi').className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800";
+      }
+      renderDynamicCategories();
+    }
+
     let categories = [
       { name: "Jewellery", emoji: "💎", desc: "Anti-Tarnish Collection", banner: "./IMG_0388.jpeg" },
       { name: "Hair Accessories", emoji: "🎀", desc: "Matte & Pastel Finds", banner: "./IMG_0394.png" },
       { name: "Kids Zone", emoji: "🧸", desc: "Cute Sippers & Bottles", banner: "./IMG_0371.jpeg" },
       { name: "Trending Items", emoji: "🔥", desc: "Viral Instagram Finds", banner: "./IMG_0368.jpeg" }
     ];
+
     let products = [
-      { id: 1, title: "Emerald Green Heart Pendant Necklace", category: "Jewellery", price: 449, originalPrice: 899, tag: "Best Seller", images: ["./IMG_0252.png"] },
-      { id: 2, title: "Korean Matte Pastel Claw Hair Clips", category: "Hair Accessories", price: 249, originalPrice: 599, tag: "Top Offer", images: ["https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"] },
-      { id: 3, title: "Cute Pastel Gradient Water Sipper (2L)", category: "Kids Zone", price: 499, originalPrice: 999, tag: "Kids Favorite", images: ["./IMG_0371.jpeg"] },
-      { id: 4, title: "360° Rotating Acrylic Makeup Organizer", category: "Trending Items", price: 699, originalPrice: 1499, tag: "Viral", images: ["https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"] }
+      { 
+        id: 1, 
+        title: "Emerald Green Heart Pendant Necklace", 
+        category: "Jewellery", 
+        price: 449, 
+        originalPrice: 899, 
+        tag: "Best Seller", 
+        rating: 4.9,
+        views: 142,
+        images: ["./IMG_0252.png", "./IMG_0253.png"],
+        qualityNote: "18K Gold Plated High-Grade Anti-Tarnish. (Aam tarnish products ke mukabla ye perfume ya chemicals se jaldi kharab nahi hoti. Proper care karne par lifetime shine barkarar rahegi!)",
+        reviews: [
+          { name: "Kavita M.", phone: "9876543210", rating: 5, comment: "Wore it continuously in water, no color loss. Total value for money at ₹449!", img: "", date: "2 days ago" }
+        ]
+      },
+      { 
+        id: 2, 
+        title: "Korean Matte Pastel Claw Hair Clips (Pack of 4)", 
+        category: "Hair Accessories", 
+        price: 249, 
+        originalPrice: 599, 
+        tag: "Top Offer", 
+        rating: 4.8,
+        views: 210,
+        images: ["https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"],
+        qualityNote: "Heavy-duty strong grip matte finish, long lasting durability.",
+        reviews: [
+          { name: "Aashi P.", phone: "9123456789", rating: 5, comment: "Colors and grip are just perfect for thick hair!", img: "", date: "3 days ago" }
+        ]
+      },
+      { 
+        id: 3, 
+        title: "Cute Pastel Gradient Water Sipper (2L)", 
+        category: "Kids Zone", 
+        price: 499, 
+        originalPrice: 999, 
+        tag: "Kids Favorite", 
+        rating: 4.9,
+        views: 188,
+        images: ["./IMG_0371.jpeg"],
+        qualityNote: "BPA Free safe material with leak-proof straw mechanism.",
+        reviews: [
+          { name: "Megha S.", phone: "9988776655", rating: 5, comment: "Colors are so cute! Quality is solid.", img: "", date: "5 days ago" }
+        ]
+      },
+      { 
+        id: 4, 
+        title: "360° Rotating Acrylic Makeup Organizer", 
+        category: "Trending Items", 
+        price: 699, 
+        originalPrice: 1499, 
+        tag: "Viral", 
+        rating: 4.8,
+        views: 260,
+        images: ["https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"],
+        qualityNote: "Crystal clear heavy-duty acrylic with smooth 360 degree silent rotation.",
+        reviews: [
+          { name: "Farah K.", phone: "9811223344", rating: 5, comment: "Spacious and looks super clean on vanity table.", img: "", date: "1 week ago" }
+        ]
+      }
     ];
+
     let cart = [];
     let wishlist = [];
     let currentFilter = 'All';
     let searchQuery = '';
+    let viewedProducts = {};
 
     function renderDynamicCategories() {
       const filterContainer = document.getElementById("categoryFiltersContainer");
       if (filterContainer) {
-        let html = `<button onclick="filterCategory('All')" class="px-4 py-1.5 rounded-full ${currentFilter === 'All' ? 'bg-neutral-900 text-white font-semibold' : 'bg-neutral-100 text-neutral-700 border'}">All Deals</button>`;
+        let allDealsTxt = currentLang === 'hi' ? "सभी डील्स" : "All Deals";
+        let html = `<button onclick="filterCategory('All')" class="px-4 py-1.5 rounded-full ${currentFilter === 'All' ? 'bg-neutral-900 text-white font-semibold' : 'bg-neutral-100 text-neutral-700 border'}">${allDealsTxt}</button>`;
         categories.forEach(c => {
           html += `<button onclick="filterCategory('${c.name}')" class="px-4 py-1.5 rounded-full ${currentFilter === c.name ? 'bg-neutral-900 text-white font-semibold' : 'bg-neutral-100 text-neutral-700 border'}">${c.emoji} ${c.name}</button>`;
         });
@@ -285,7 +456,6 @@
       if (mainContainer) {
         mainContainer.innerHTML = categories.map(c => `
           <section id="section-${c.name.replace(/\s+/g, '-').toLowerCase()}" class="catalog-section">
-            <!-- Individual Category Hero Frame -->
             <div class="banner-3d mb-4 relative overflow-hidden bg-neutral-900 text-white">
               <div class="absolute inset-0 opacity-40"><img src="${c.banner}" class="w-full h-full object-cover" /></div>
               <div class="relative z-10 p-6 sm:p-10 text-center bg-black/40 backdrop-blur-xs">
@@ -341,15 +511,19 @@
         } else {
           secElement.style.display = 'block';
           grid.innerHTML = items.map(item => `
-            <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between">
+            <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
               <div>
                 <img src="${item.images[0]}" class="w-full h-40 object-contain mb-2 bg-neutral-50 rounded" />
-                <span class="text-[9px] text-[#8c6928] uppercase font-bold">${item.tag}</span>
+                <div class="flex items-center justify-between">
+                  <span class="text-[9px] text-[#8c6928] uppercase font-bold">${item.tag}</span>
+                  <span class="text-[10px] font-bold text-amber-600">★ ${item.rating || 4.9}</span>
+                </div>
                 <h4 class="text-xs font-bold line-clamp-1 mt-0.5">${item.title}</h4>
+                <p class="text-[9px] text-neutral-500 mt-0.5">👀 ${item.views || 120} views</p>
               </div>
               <div class="mt-3">
-                <p class="text-sm font-bold">₹${item.price} <span class="text-[10px] line-through text-neutral-400">₹${item.originalPrice}</span></p>
-                <button onclick="addToCart(${item.id})" class="gold-btn w-full mt-2 py-1.5 rounded text-xs font-bold">+ Bag</button>
+                <p class="text-sm font-bold">₹${item.price} <span class="text-[10px] text-neutral-400 line-through">₹${item.originalPrice}</span></p>
+                <button onclick="event.stopPropagation(); addToCart(${item.id})" class="gold-btn w-full mt-2 py-1.5 rounded text-xs font-bold">+ Bag</button>
               </div>
             </div>
           `).join('');
@@ -357,6 +531,196 @@
       });
     }
 
+    // ==================== DEDICATED PRODUCT DETAIL PAGE VIEW ====================
+    let activeDetailId = null;
+    let detailImgIndex = 0;
+
+    function openProductDetailPage(productId) {
+      activeDetailId = productId;
+      detailImgIndex = 0;
+
+      // Unique view increment check
+      if (!viewedProducts[productId]) {
+        viewedProducts[productId] = true;
+        const p = products.find(prod => prod.id === productId);
+        if (p) p.views = (p.views || 120) + 1;
+      }
+
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      const imgs = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
+      const discount = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
+
+      // Suggested products from same category or others
+      const suggested = products.filter(p => p.id !== prod.id).slice(0, 4);
+
+      const appContainer = document.getElementById("appContainer");
+      appContainer.innerHTML = `
+        <div class="max-w-4xl mx-auto px-4 py-6 space-y-8 select-none">
+          <button onclick="renderDynamicCategories()" class="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 border px-4 py-2 rounded-xl transition-colors">
+            ← Back to Store
+          </button>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-2xl gold-border shadow-sm">
+            <!-- Image Slider & Zoom -->
+            <div class="space-y-3">
+              <div class="relative w-full h-80 sm:h-96 bg-neutral-50 rounded-xl border border-neutral-200 overflow-hidden flex items-center justify-center">
+                <img id="detailMainImg" src="${imgs[detailImgIndex]}" class="w-full h-full object-contain p-2" />
+                ${imgs.length > 1 ? `
+                  <button onclick="prevDetailImg()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white w-8 h-8 rounded-full border shadow font-bold">❮</button>
+                  <button onclick="nextDetailImg()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white w-8 h-8 rounded-full border shadow font-bold">❯</button>
+                ` : ''}
+              </div>
+              <div class="flex gap-2 overflow-x-auto pb-1">
+                ${imgs.map((im, i) => `
+                  <button onclick="setDetailImg(${i})" class="w-16 h-16 rounded-lg border-2 ${i === detailImgIndex ? 'border-neutral-900' : 'border-neutral-200'} overflow-hidden bg-neutral-50 flex-shrink-0">
+                    <img src="${im}" class="w-full h-full object-contain" />
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Details & Actions -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-[#8c6928] uppercase bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded">${prod.tag}</span>
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">★ ${prod.rating || 4.9} (Verified)</span>
+              </div>
+
+              <h2 class="text-xl sm:text-2xl font-bold font-cinzel text-neutral-950">${prod.title}</h2>
+
+              <div class="flex items-baseline gap-3">
+                <span class="text-2xl font-black text-neutral-950">₹${prod.price}</span>
+                <span class="text-sm text-neutral-400 line-through">₹${prod.originalPrice}</span>
+                <span class="text-xs font-extrabold text-white bg-green-600 px-2 py-0.5 rounded">${discount}% OFF</span>
+              </div>
+
+              <p class="text-xs text-neutral-500">👀 ${prod.views || 120} people viewed this item today</p>
+
+              ${prod.qualityNote ? `
+                <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-900 space-y-1">
+                  <p class="font-bold">✨ Anti-Tarnish Quality Guarantee:</p>
+                  <p>${prod.qualityNote}</p>
+                </div>
+              ` : ''}
+
+              <div class="space-y-2 pt-2">
+                <button onclick="addToCart(${prod.id})" class="gold-btn w-full py-3 rounded-xl text-xs font-bold active:scale-95">Add to Bag (₹${prod.price})</button>
+                <button onclick="orderSingleProductWhatsApp(${prod.id})" class="w-full py-3 rounded-xl text-xs font-bold bg-[#25D366] text-white flex items-center justify-center gap-1.5 active:scale-95 shadow-sm">
+                  <span>Order on WhatsApp (COD)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Real Photo Reviews Section -->
+          <div class="bg-white p-6 rounded-2xl gold-border shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-cinzel text-base font-bold">Customer Photo Reviews</h3>
+              <button onclick="toggleProductReviewForm(${prod.id})" class="text-xs font-semibold gold-btn px-3 py-1.5 rounded-xl">✍️ Write a Review</button>
+            </div>
+
+            <!-- Product Review Form -->
+            <div id="prodReviewForm" class="hidden bg-neutral-50 p-4 rounded-xl border space-y-3">
+              <h4 class="text-xs font-bold uppercase">Upload Photo & Review</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <input id="prodRevName" type="text" placeholder="Your Name" class="border p-2 text-xs rounded" />
+                <input id="prodRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
+                <input id="prodRevImgUrl" type="text" placeholder="Real Photo URL" class="border p-2 text-xs rounded" />
+              </div>
+              <textarea id="prodRevText" rows="2" placeholder="Write your feedback..." class="w-full border p-2 text-xs rounded"></textarea>
+              <button onclick="submitProductReview(${prod.id})" class="gold-btn px-5 py-2 rounded text-xs font-bold">Submit Photo Review</button>
+              <span id="prodRevStatus" class="text-xs font-medium ml-2"></span>
+            </div>
+
+            <!-- Review Items Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              ${(prod.reviews && prod.reviews.length > 0) ? prod.reviews.map(r => `
+                <div class="bg-neutral-50 p-3 rounded-xl border border-neutral-200 text-xs flex gap-3 items-start">
+                  ${r.img ? `<img src="${r.img}" class="w-16 h-16 object-cover rounded-lg border flex-shrink-0 bg-white" />` : ''}
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-neutral-900">${r.name}</span>
+                      <span class="text-[9px] text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.2 rounded">✓ Verified</span>
+                    </div>
+                    <p class="text-amber-600 text-[10px] mt-0.5">${'★'.repeat(r.rating || 5)}</p>
+                    <p class="text-neutral-600 mt-1">"${r.comment}"</p>
+                    <p class="text-[9px] text-neutral-400 mt-1">${r.date || 'Recent'}</p>
+                  </div>
+                </div>
+              `).join('') : `<p class="text-xs text-neutral-400">No reviews yet for this product. Be the first to review!</p>`}
+            </div>
+          </div>
+
+          <!-- Suggested You May Also Like Section -->
+          <div class="space-y-4">
+            <h3 class="font-cinzel text-lg font-bold">You May Also Like</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              ${suggested.map(item => `
+                <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
+                  <div>
+                    <img src="${item.images[0]}" class="w-full h-36 object-contain mb-2 bg-neutral-50 rounded" />
+                    <h4 class="text-xs font-bold line-clamp-1">${item.title}</h4>
+                  </div>
+                  <div class="mt-2">
+                    <p class="text-sm font-bold">₹${item.price}</p>
+                    <button onclick="event.stopPropagation(); addToCart(${item.id})" class="gold-btn w-full mt-1.5 py-1 rounded text-[11px] font-bold">+ Bag</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setDetailImg(i) {
+      detailImgIndex = i;
+      document.getElementById("detailMainImg").src = products.find(p => p.id === activeDetailId).images[i];
+    }
+    function prevDetailImg() {
+      const prod = products.find(p => p.id === activeDetailId);
+      detailImgIndex = detailImgIndex > 0 ? detailImgIndex - 1 : prod.images.length - 1;
+      document.getElementById("detailMainImg").src = prod.images[detailImgIndex];
+    }
+    function nextDetailImg() {
+      const prod = products.find(p => p.id === activeDetailId);
+      detailImgIndex = detailImgIndex < prod.images.length - 1 ? detailImgIndex + 1 : 0;
+      document.getElementById("detailMainImg").src = prod.images[detailImgIndex];
+    }
+
+    function toggleProductReviewForm(prodId) {
+      document.getElementById("prodReviewForm").classList.toggle("hidden");
+    }
+
+    function submitProductReview(prodId) {
+      const name = document.getElementById("prodRevName").value.trim();
+      const phone = document.getElementById("prodRevPhone").value.trim();
+      const img = document.getElementById("prodRevImgUrl").value.trim();
+      const comment = document.getElementById("prodRevText").value.trim();
+      const status = document.getElementById("prodRevStatus");
+
+      if (!name || !phone || !comment) { alert("Please fill name, phone and comment!"); return; }
+      if (phone.replace(/[^0-9]/g,'').length !== 10) { alert("Enter 10-digit valid phone number!"); return; }
+
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      // Check 1-number-1-review restriction
+      if (prod.reviews && prod.reviews.some(r => r.phone === phone)) {
+        alert("⚠️ Is phone number se is product par pehle hi review diya ja chuka hai!");
+        return;
+      }
+
+      if (!prod.reviews) prod.reviews = [];
+      prod.reviews.unshift({ name, phone, rating: 5, comment, img, date: "Just now" });
+      alert("Review published successfully with photo! ✨");
+      openProductDetailPage(prodId);
+    }
+
+    // ==================== CART & FREE GIFT PROGRESS BAR (₹599) ====================
     function addToCart(id) {
       const prod = products.find(p => p.id === id);
       if (prod) {
@@ -369,8 +733,27 @@
 
     function updateCartUI() {
       document.getElementById("cartCount").innerText = cart.reduce((a, b) => a + b.qty, 0);
-      let total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-      document.getElementById("cartTotal").innerText = `₹${total}`;
+      let subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+      document.getElementById("cartTotal").innerText = `₹${subtotal}`;
+
+      // Free Gift Progress Bar Calculation (Threshold: ₹599)
+      const limit = 599;
+      let percent = Math.min(100, Math.round((subtotal / limit) * 100));
+      const bar = document.getElementById("giftProgressBar");
+      const progressText = document.getElementById("giftProgressText");
+      const unlockedBadge = document.getElementById("giftUnlockedBadge");
+
+      if (bar) bar.style.width = `${percent}%`;
+
+      if (subtotal >= limit) {
+        if (progressText) progressText.innerText = "🎁 Free Mystery Gift Unlocked with your order!";
+        if (unlockedBadge) unlockedBadge.classList.remove("hidden");
+      } else {
+        let diff = limit - subtotal;
+        if (progressText) progressText.innerText = `Add ₹${diff} more to unlock Free Mystery Gift! 🎁`;
+        if (unlockedBadge) unlockedBadge.classList.add("hidden");
+      }
+
       const list = document.getElementById("cartItemsList");
       if (cart.length === 0) { list.innerHTML = `<p class="text-xs text-center py-10 text-neutral-400">Bag is empty</p>`; return; }
       list.innerHTML = cart.map(i => `
@@ -398,12 +781,78 @@
     function sendOrderViaWhatsApp() {
       if (cart.length === 0) { alert("Cart is empty!"); return; }
       let total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+      let isGiftUnlocked = total >= 599;
+
       let msg = "Hello TRENDZ MART LUXE! 🛍️\nMujhe ye order confirm karna hai:\n\n";
       cart.forEach((i, idx) => { msg += `${idx+1}. ${i.title} (Qty: ${i.qty}) - ₹${i.price * i.qty}\n`; });
-      msg += `\nTotal: ₹${total}\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
+      if (isGiftUnlocked) msg += `\n🎁 Free Mystery Gift Included (Order > ₹599)`;
+      msg += `\n\nTotal: ₹${total}\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
+    function orderSingleProductWhatsApp(productId) {
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+      let isGiftUnlocked = prod.price >= 599;
+      let msg = `Hello TRENDZ MART LUXE! 🛍️\nMujhe ye product order karna hai:\n\n*${prod.title}* (₹${prod.price})${isGiftUnlocked ? '\n🎁 Free Mystery Gift Included' : ''}\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    // ==================== POLICIES MODAL ====================
+    function openPolicyModal(type) {
+      const modal = document.getElementById("policyModal");
+      const overlay = document.getElementById("policyModalOverlay");
+      const titleEl = document.getElementById("policyModalTitle");
+      const bodyEl = document.getElementById("policyModalBody");
+
+      let content = "";
+      if (type === 'terms') {
+        titleEl.innerText = currentLang === 'hi' ? "नियम एवं शर्तें (Terms & Conditions)" : "Terms & Conditions";
+        content = currentLang === 'hi' ? `
+          <h4 class="font-bold text-neutral-900 mb-1">1. Cash on Delivery (COD) आर्डर</h4>
+          <p class="mb-3">सभी COD आर्डर्स को व्हाट्सएप या कॉल पर कन्फर्म करने के बाद ही डिस्पैच किया जाता है।</p>
+          <h4 class="font-bold text-neutral-900 mb-1">2. एंटी-टार्निश ज्वैलरी क्वालिटी</h4>
+          <p>हमारी ज्वैलरी 18K गोल्ड प्लेटेड हाई-ग्रेड एंटी-टार्निश है। परफ्यूम स्प्रे करने के बाद पहनने से चमक आजीवन बनी रहती है।</p>
+        ` : `
+          <h4 class="font-bold text-neutral-900 mb-1">1. Cash on Delivery Verification</h4>
+          <p class="mb-3">All COD orders are verified via WhatsApp or phone call prior to dispatch.</p>
+          <h4 class="font-bold text-neutral-900 mb-1">2. Anti-Tarnish Quality Guarantee</h4>
+          <p>Our 18K Gold Plated anti-tarnish jewelry maintains long-lasting luster when cared for properly.</p>
+        `;
+      } else if (type === 'return') {
+        titleEl.innerText = currentLang === 'hi' ? "रिटर्न और रिप्लेसमेंट पॉलिसी" : "Return & Replacement Policy";
+        content = currentLang === 'hi' ? `
+          <h4 class="font-bold text-neutral-900 mb-1">1. अनिवार्य 360° अनबॉक्सिंग वीडियो</h4>
+          <p class="mb-3">पार्सल खोलते समय बिना किसी कट का 360-डिग्री अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
+          <h4 class="font-bold text-neutral-900 mb-1">2. 48 घंटे के भीतर रिप्लेसमेंट</h4>
+          <p>डैमेज या गलत प्रोडक्ट मिलने पर 48 घंटे के भीतर व्हाट्सएप पर संपर्क करें।</p>
+        ` : `
+          <h4 class="font-bold text-neutral-900 mb-1">1. Mandatory 360° Unboxing Video</h4>
+          <p class="mb-3">Continuous unboxing video is mandatory for any damage or missing claims.</p>
+          <h4 class="font-bold text-neutral-900 mb-1">2. 48-Hour Replacement Window</h4>
+          <p>Notify our WhatsApp support within 48 hours for instant replacement.</p>
+        `;
+      } else if (type === 'privacy') {
+        titleEl.innerText = currentLang === 'hi' ? "प्राइवेसी पॉलिसी" : "Privacy Policy";
+        content = currentLang === 'hi' ? `
+          <h4 class="font-bold text-neutral-900 mb-1">1. डेटा सुरक्षा</h4>
+          <p>आपका नाम और पता केवल आर्डर शिपिंग के लिए उपयोग किया जाता है। थर्ड पार्टी के साथ साझा नहीं होता।</p>
+        ` : `
+          <h4 class="font-bold text-neutral-900 mb-1">1. Data Privacy</h4>
+          <p>Your delivery details are strictly secured and used solely for order processing.</p>
+        `;
+      }
+      bodyEl.innerHTML = content;
+      overlay.classList.remove("hidden");
+      modal.classList.remove("hidden");
+      setTimeout(() => overlay.classList.remove("opacity-0"), 10);
+    }
+    function closePolicyModal() {
+      document.getElementById("policyModal").classList.add("hidden");
+      document.getElementById("policyModalOverlay").classList.add("hidden");
+    }
+
+    // ==================== SECRET ADMIN PANEL ====================
     let secretTap = 0;
     function triggerSecretAdmin() {
       secretTap++;
@@ -420,19 +869,102 @@
     function verifyAdminPin() {
       if (document.getElementById("adminPinInput").value === "78690") {
         document.getElementById("adminPinScreen").classList.add("hidden");
-        document.getElementById("adminDashboardScreen").classList.remove("main");
         document.getElementById("adminDashboardScreen").classList.remove("hidden");
+        loadAdminProductControls();
       } else { alert("Wrong PIN!"); }
     }
-    function addNewProduct() {
-      const title = document.getElementById("newProdTitle").value;
-      const price = parseFloat(document.getElementById("newProdPrice").value);
-      const img = document.getElementById("newProdImage").value;
-      if (title && price) {
-        products.unshift({ id: Date.now(), title, category: "Jewellery", price, originalPrice: price * 2, tag: "New", images: [img || "./IMG_0252.png"] });
+
+    function updateCategoryBanner() {
+      const catName = document.getElementById("adminBannerCatSelect").value;
+      const url = document.getElementById("adminBannerImgInput").value.trim();
+      if (!url) { alert("Enter valid image URL!"); return; }
+      const cat = categories.find(c => c.name === catName);
+      if (cat) {
+        cat.banner = url;
         renderDynamicCategories();
-        alert("Product Added!");
+        alert(`${catName} banner updated successfully!`);
+        document.getElementById("adminBannerImgInput").value = '';
       }
+    }
+
+    function loadAdminProductControls() {
+      const list = document.getElementById("adminProductList");
+      const revSelect = document.getElementById("adminReviewProdId");
+      
+      revSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.title} (₹${p.price})</option>`).join('');
+
+      list.innerHTML = products.map(p => `
+        <div class="flex items-center justify-between bg-white p-2 rounded border text-xs gap-2">
+          <img src="${p.images[0]}" class="w-8 h-8 object-contain bg-neutral-50 rounded" />
+          <span class="flex-1 font-bold line-clamp-1">${p.title}</span>
+          <div class="flex items-center gap-1">
+            <span>Views:</span>
+            <input type="number" value="${p.views || 120}" class="w-14 border rounded px-1 text-xs" onchange="adminUpdateViews(${p.id}, this.value)" />
+            <span>Rating:</span>
+            <input type="number" step="0.1" value="${p.rating || 4.9}" class="w-12 border rounded px-1 text-xs" onchange="adminUpdateRating(${p.id}, this.value)" />
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function adminUpdateViews(id, val) {
+      const p = products.find(prod => prod.id === id);
+      if (p) p.views = parseInt(val) || 120;
+    }
+    function adminUpdateRating(id, val) {
+      const p = products.find(prod => prod.id === id);
+      if (p) p.rating = parseFloat(val) || 4.9;
+      renderDynamicCategories();
+    }
+
+    function addNewProduct() {
+      const title = document.getElementById("newProdTitle").value.trim();
+      const category = document.getElementById("newProdCategory").value;
+      const price = parseFloat(document.getElementById("newProdPrice").value);
+      const originalPrice = parseFloat(document.getElementById("newProdOriginalPrice").value) || (price * 2);
+      const img = document.getElementById("newProdImage").value.trim();
+      const rating = parseFloat(document.getElementById("newProdRating").value) || 4.9;
+      const views = parseInt(document.getElementById("newProdViews").value) || 120;
+
+      if (!title || isNaN(price) || !img) { alert("Fill required fields!"); return; }
+
+      products.unshift({
+        id: Date.now(),
+        title, category, price, originalPrice,
+        tag: "New Arrival",
+        rating, views,
+        images: [img],
+        qualityNote: "18K Gold Plated High-Grade Anti-Tarnish.",
+        reviews: []
+      });
+
+      renderDynamicCategories();
+      loadAdminProductControls();
+      alert("New product published live!");
+      document.getElementById("newProdTitle").value = '';
+      document.getElementById("newProdPrice").value = '';
+      document.getElementById("newProdOriginalPrice").value = '';
+      document.getElementById("newProdImage").value = '';
+    }
+
+    function adminAddProductReview() {
+      const prodId = parseInt(document.getElementById("adminReviewProdId").value);
+      const name = document.getElementById("adminRevName").value.trim();
+      const phone = document.getElementById("adminRevPhone").value.trim();
+      const img = document.getElementById("adminRevImg").value.trim();
+      const comment = document.getElementById("adminRevComment").value.trim();
+
+      if (!name || !phone || !comment) { alert("Fill all review fields!"); return; }
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      if (!prod.reviews) prod.reviews = [];
+      prod.reviews.unshift({ name, phone, rating: 5, comment, img, date: "Just now" });
+      alert("Verified photo review added to product successfully!");
+      document.getElementById("adminRevName").value = '';
+      document.getElementById("adminRevPhone").value = '';
+      document.getElementById("adminRevImg").value = '';
+      document.getElementById("adminRevComment").value = '';
     }
 
     renderDynamicCategories();
