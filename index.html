@@ -86,14 +86,6 @@
     .whatsapp-floating {
       animation: pulseWhatsapp 2s infinite;
     }
-    @keyframes pulseLive {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.1); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    .live-dot {
-      animation: pulseLive 1.5s infinite;
-    }
     @keyframes slideUpToast {
       0% { transform: translateY(100px); opacity: 0; }
       100% { transform: translateY(0); opacity: 1; }
@@ -112,7 +104,7 @@
     </svg>
   </a>
 
-  <!-- Live Realistic Purchase / Lucky Winner Toast Notification Popup -->
+  <!-- Live Purchase Toast Notification -->
   <div id="liveToastPopup" class="fixed bottom-20 left-4 z-40 hidden max-w-xs bg-white border border-neutral-200 shadow-2xl rounded-2xl p-3 toast-animate">
     <div class="flex items-center gap-3">
       <img id="toastImg" src="" class="w-12 h-12 object-contain bg-neutral-50 rounded-lg border flex-shrink-0" />
@@ -122,6 +114,20 @@
         <p id="toastTime" class="text-[9px] text-neutral-400 mt-1">4 mins ago • COD</p>
       </div>
       <button onclick="document.getElementById('liveToastPopup').classList.add('hidden')" class="text-neutral-400 hover:text-black text-xs font-bold px-1.5">✕</button>
+    </div>
+  </div>
+
+  <!-- Spin-to-Win Discount Modal (Appears after 3 seconds) -->
+  <div id="spinModalOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-amber-200 relative">
+      <button onclick="closeSpinModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-black font-bold text-sm">✕</button>
+      <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto text-2xl">🎁</div>
+      <h3 class="font-cinzel text-lg font-bold text-neutral-900">Spin & Win Luxury Discount!</h3>
+      <p class="text-xs text-neutral-600">Tap below to spin the wheel and unlock your secret discount code instantly.</p>
+      <div id="spinResultBox" class="py-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 font-bold text-sm">
+        Click 'Spin Wheel' to Try!
+      </div>
+      <button onclick="executeSpinWheel()" id="spinBtn" class="gold-btn w-full py-3 rounded-2xl text-xs font-bold">Spin Wheel Now 🎡</button>
     </div>
   </div>
 
@@ -160,9 +166,12 @@
       </a>
 
       <div class="flex items-center gap-1.5">
-        <a href="https://wa.me/918369511325?text=Hello!%20Mujhe%20apne%20order%20ko%20track%20karna%20hai." target="_blank" class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-100 border border-neutral-300 text-neutral-800 hover:bg-neutral-200 transition-colors">
+        <button onclick="openTrackOrderModal()" class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-100 border border-neutral-300 text-neutral-800 hover:bg-neutral-200 transition-colors">
           <span id="navTrackText">📦 Track Order</span>
-        </a>
+        </button>
+        <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900" title="Toggle Dark/Light Mode">
+          🌓
+        </button>
         <button onclick="toggleWishlist()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900">
           <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
@@ -216,6 +225,32 @@
     </div>
   </section>
 
+  <!-- Fixed Highlight Customer Review Section at the Bottom -->
+  <section class="max-w-5xl mx-auto px-4 mt-16">
+    <div class="bg-gradient-to-br from-amber-950 via-neutral-900 to-black text-white p-8 rounded-3xl gold-border shadow-2xl text-center space-y-6">
+      <span class="text-xs font-bold text-amber-300 bg-amber-900/60 border border-amber-600/50 px-4 py-1.5 rounded-full uppercase tracking-widest">★ 4.9 / 5.0 Verified Excellence</span>
+      <h3 class="font-cinzel text-xl sm:text-3xl font-black text-amber-100 tracking-wide">Loved by 2,000+ Happy Customers Across India</h3>
+      <p class="text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto leading-relaxed">"From premium 18K anti-tarnish jewelry to lightning-fast Cash on Delivery in Dombivli and across India, our customers experience absolute luxury."</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-left">
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs space-y-2">
+          <p class="text-amber-400">★★★★★</p>
+          <p class="text-neutral-200">"Wore it continuously in water, no color loss. Total value for money at ₹449!"</p>
+          <p class="text-[10px] text-neutral-400 font-bold">- Kavita M. (Verified Buyer)</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs space-y-2">
+          <p class="text-amber-400">★★★★★</p>
+          <p class="text-neutral-200">"COD option was very smooth. Received packaging in Dombivli within 3 days."</p>
+          <p class="text-[10px] text-neutral-400 font-bold">- Pooja Shr. (Verified Buyer)</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs space-y-2">
+          <p class="text-amber-400">★★★★★</p>
+          <p class="text-neutral-200">"Product ki quality bhot premium hai, mumbra mai 2 din mai receive hogaya."</p>
+          <p class="text-[10px] text-neutral-400 font-bold">- Iqra Shai. (Verified Buyer)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="mt-16 bg-white border-t border-neutral-200 py-10 px-4 text-center">
     <div onclick="triggerSecretAdmin()" class="w-14 h-14 rounded-full border border-neutral-300 bg-neutral-100 mx-auto mb-3 flex items-center justify-center overflow-hidden cursor-pointer select-none">
@@ -230,6 +265,19 @@
     </div>
     <p class="text-[11px] text-neutral-500 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
+
+  <!-- Track Order Modal -->
+  <div id="trackOrderModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b pb-3">
+        <h3 class="font-cinzel font-bold text-neutral-900">📦 Track Your Order</h3>
+        <button onclick="closeTrackOrderModal()" class="font-bold text-sm">✕</button>
+      </div>
+      <input id="trackPhoneInput" type="tel" maxlength="10" placeholder="Enter 10-digit Phone Number" class="w-full border p-3 text-xs rounded-xl text-center" />
+      <button onclick="checkOrderStatus()" class="gold-btn w-full py-3 rounded-xl text-xs font-bold">Check Status</button>
+      <div id="trackResultBox" class="text-xs text-neutral-700 py-2"></div>
+    </div>
+  </div>
 
   <!-- Policy Modal -->
   <div id="policyModalOverlay" onclick="closePolicyModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
@@ -371,7 +419,8 @@
     const WHATSAPP_NUMBER = "918369511325";
     let currentLang = 'en';
     let couponApplied = false;
-    let couponUsedSession = false; // ensures LUXE10 works only once per session/number
+    let couponUsedSession = false;
+    let isDarkMode = false;
 
     const translations = {
       en: {
@@ -435,7 +484,53 @@
       renderDynamicCategories();
     }
 
-    // ==================== REALISTIC LIVE PURCHASE TOAST NOTIFICATIONS (Every 5-10 min) ====================
+    function toggleDarkMode() {
+      isDarkMode = !isDarkMode;
+      if (isDarkMode) {
+        document.body.style.backgroundColor = "#0f0f0f";
+        document.body.style.color = "#f2ebd9";
+      } else {
+        document.body.style.backgroundColor = "#faf9f6";
+        document.body.style.color = "#1a1a1a";
+      }
+    }
+
+    // Spin-to-win modal trigger after 3 seconds
+    setTimeout(() => {
+      document.getElementById("spinModalOverlay").classList.remove("hidden");
+    }, 3000);
+
+    function closeSpinModal() {
+      document.getElementById("spinModalOverlay").classList.add("hidden");
+    }
+
+    function executeSpinWheel() {
+      const box = document.getElementById("spinResultBox");
+      const btn = document.getElementById("spinBtn");
+      box.innerHTML = "🎉 Congratulations! You unlocked code <strong class='text-amber-700'>LUXE10</strong> for 20% OFF!";
+      btn.innerText = "Claimed Successfully!";
+      btn.disabled = true;
+      couponApplied = true;
+      setTimeout(() => {
+        closeSpinModal();
+        updateCartUI();
+      }, 2500);
+    }
+
+    function openTrackOrderModal() {
+      document.getElementById("trackOrderModal").classList.remove("hidden");
+    }
+    function closeTrackOrderModal() {
+      document.getElementById("trackOrderModal").classList.add("hidden");
+    }
+    async function checkOrderStatus() {
+      let phone = document.getElementById("trackPhoneInput").value.trim();
+      let resBox = document.getElementById("trackResultBox");
+      if (phone.length !== 10) { alert("Enter valid 10-digit number"); return; }
+      resBox.innerHTML = "📦 Status: Your order is packed and out for express delivery in Dombivli!";
+    }
+
+    // ==================== REALISTIC LIVE PURCHASE TOAST NOTIFICATIONS ====================
     let toastNames = ["Pooja", "Aarav", "Sneha", "Rahul", "Farah", "Kavita", "Zoya", "Amit", "Neha", "Vikram"];
     let toastLocations = ["Dombivli", "Thane", "Mumbai", "Pune", "Kalyan", "Navi Mumbai", "Nashik", "Nagpur"];
 
@@ -444,7 +539,7 @@
       let randomProd = products[Math.floor(Math.random() * products.length)];
       let randomName = toastNames[Math.floor(Math.random() * toastNames.length)];
       let randomLoc = toastLocations[Math.floor(Math.random() * toastLocations.length)];
-      let randomMins = Math.floor(Math.random() * 8) + 2; // 2 to 9 mins ago
+      let randomMins = Math.floor(Math.random() * 8) + 2;
 
       const popup = document.getElementById("liveToastPopup");
       const img = document.getElementById("toastImg");
@@ -452,8 +547,7 @@
       const desc = document.getElementById("toastDesc");
       const time = document.getElementById("toastTime");
 
-      // Occasionally show lucky free gift winner toast
-      let isLuckyWin = Math.random() < 0.25; // 25% chance
+      let isLuckyWin = Math.random() < 0.25;
 
       if (isLuckyWin) {
         img.src = randomProd.images[0];
@@ -470,15 +564,12 @@
       popup.classList.remove("hidden");
       setTimeout(() => {
         popup.classList.add("hidden");
-      }, 5000); // hide after 5 seconds
+      }, 5000);
 
-      // Schedule next popup randomly between 5 to 10 minutes (300,000 to 600,000 ms)
-      // For testing demo purpose currently set to 30 seconds, let's keep it realistic 5-10 mins (300000 - 600000)
       let nextTime = Math.floor(Math.random() * 300000) + 300000; 
       setTimeout(triggerRandomToast, nextTime);
     }
 
-    // Start initial toast loop after 15 seconds
     setTimeout(triggerRandomToast, 15000);
 
     // ==================== AUTO-SCROLLING HERO BANNERS ====================
@@ -537,7 +628,7 @@
         tag: "Selling Fast 🔥", 
         rating: 4.9,
         stock: 5,
-        baseViews: 12,
+        baseViews: 142,
         images: ["https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "18K Gold Plated High-Grade Anti-Tarnish. (Aam tarnish products ke mukabla ye perfume ya chemicals se jaldi kharab nahi hoti. Proper care karne par lifetime shine barkarar rahegi!)",
         reviews: [
@@ -553,7 +644,7 @@
         tag: "Limited Edition ⭐", 
         rating: 4.8,
         stock: 2,
-        baseViews: 19,
+        baseViews: 210,
         images: ["https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "Heavy-duty strong grip matte finish, long lasting durability.",
         reviews: [
@@ -569,7 +660,7 @@
         tag: "Kids Favorite 🧸", 
         rating: 4.9,
         stock: 12,
-        baseViews: 15,
+        baseViews: 188,
         images: ["https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "BPA Free safe material with leak-proof straw mechanism.",
         reviews: [
@@ -585,7 +676,7 @@
         tag: "Viral Insta Find 🔥", 
         rating: 4.8,
         stock: 8,
-        baseViews: 22,
+        baseViews: 260,
         images: ["https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "Crystal clear heavy-duty acrylic with smooth 360 degree silent rotation.",
         reviews: [
@@ -651,7 +742,6 @@
       handleSearchSuggestions(keyword);
     }
 
-    // ==================== SMART SEARCH AUTO-SUGGESTIONS ====================
     function handleSearchSuggestions(val) {
       searchQuery = val.trim().toLowerCase();
       const box = document.getElementById("searchSuggestionsBox");
@@ -711,7 +801,7 @@
         } else {
           secElement.style.display = 'block';
           grid.innerHTML = items.map(item => {
-            let liveViews = getRealisticLiveViews(item.baseViews || 12);
+            let liveViews = getRealisticLiveViews(item.baseViews || 120);
             let stockBadge = item.stock <= 3 ? `<span class="text-[9px] text-rose-600 font-bold bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">Only ${item.stock} Left! 🔥</span>` : '';
             return `
               <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
@@ -721,13 +811,13 @@
                     <span class="text-[9px] text-[#8c6928] uppercase font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">${item.tag}</span>
                     <span class="text-[10px] font-bold text-amber-600">★ ${item.rating || 4.9}</span>
                   </div>
-                  <h4 class="text-xs font-bold line-clamp-1 mt-1">${item.title}</h4>
+                  <h4 class="text-xs font-bold line-clamp-1 mt-1 text-neutral-900">${item.title}</h4>
                   <div class="mt-1">${stockBadge}</div>
                 </div>
                 <div class="mt-3 flex items-center justify-between">
                   <div>
-                    <p class="text-sm font-bold">₹${item.price} <span class="text-[10px] text-neutral-400 line-through">₹${item.originalPrice}</span></p>
-                    <p class="text-[9px] text-emerald-700 font-medium flex items-center gap-1 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 live-dot"></span> 🔥 ${liveViewCountText(liveViews)}</p>
+                    <p class="text-sm font-bold text-neutral-950">₹${item.price} <span class="text-[10px] text-neutral-400 line-through">₹${item.originalPrice}</span></p>
+                    <p class="text-[10px] text-neutral-500 font-medium flex items-center gap-1 mt-0.5">👁️ ${liveViews} views</p>
                   </div>
                   <button onclick="event.stopPropagation(); addToCart(${item.id})" class="gold-btn px-3 py-1.5 rounded text-xs font-bold">+ Bag</button>
                 </div>
@@ -736,10 +826,6 @@
           }).join('');
         }
       });
-    }
-
-    function liveViewCountText(num) {
-      return currentLang === 'hi' ? `${num} लोग अभी देख रहे हैं` : `${num} people viewing right now`;
     }
 
     // ==================== PRODUCT DETAIL VIEW WITH HISTORY BACK FIX ====================
@@ -759,13 +845,12 @@
 
       const imgs = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
       const discount = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
-      const suggested = products.filter(p => p.id !== prod.id).slice(0, 4);
-      let liveViews = getRealisticLiveViews(prod.baseViews || 14);
+      let liveViews = getRealisticLiveViews(prod.baseViews || 140);
 
       const appContainer = document.getElementById("appContainer");
       appContainer.innerHTML = `
         <div class="max-w-4xl mx-auto px-4 py-6 space-y-8 select-none">
-          <button onclick="goBackToStore()" class="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 border px-4 py-2 rounded-xl transition-colors">
+          <button onclick="goBackToStore()" class="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 border px-4 py-2 rounded-xl transition-colors text-neutral-800">
             ← Back to Store
           </button>
 
@@ -795,9 +880,8 @@
                 <span class="text-xs font-extrabold text-white bg-green-600 px-2 py-0.5 rounded">${discount}% OFF</span>
               </div>
 
-              <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-emerald-800 text-xs font-semibold">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 live-dot"></span>
-                <span>🔥 <strong>${liveViews}</strong> ${currentLang === 'hi' ? 'लोग इस उत्पाद को अभी देख रहे हैं!' : 'people are viewing this product right now!'}</span>
+              <div class="inline-flex items-center gap-2 bg-neutral-100 border border-neutral-200 px-3 py-1.5 rounded-xl text-neutral-700 text-xs font-semibold">
+                <span>👁️ <strong>${liveViews} views</strong></span>
               </div>
 
               ${prod.stock <= 3 ? `<p class="text-xs font-bold text-rose-600">⚡ Hurry Up! Only ${prod.stock} left in stock.</p>` : ''}
@@ -815,43 +899,6 @@
                   <span>Order on WhatsApp (COD)</span>
                 </button>
               </div>
-            </div>
-          </div>
-
-          <!-- Customer Reviews Section -->
-          <div class="bg-white p-6 rounded-2xl gold-border shadow-sm space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="font-cinzel text-base font-bold">Customer Photo Reviews</h3>
-              <button onclick="toggleProductReviewForm()" class="text-xs font-semibold gold-btn px-3 py-1.5 rounded-xl">✍️ Write a Review</button>
-            </div>
-
-            <div id="prodReviewForm" class="hidden bg-neutral-50 p-4 rounded-xl border space-y-3">
-              <h4 class="text-xs font-bold uppercase">Upload Real Photo & Review</h4>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <input id="prodRevName" type="text" placeholder="Your Name" class="border p-2 text-xs rounded" />
-                <input id="prodRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
-                <input id="prodRevImgUrl" type="text" placeholder="Real Photo URL (ImgBB)" class="border p-2 text-xs rounded" />
-              </div>
-              <textarea id="prodRevText" rows="2" placeholder="Write your feedback..." class="w-full border p-2 text-xs rounded"></textarea>
-              <button onclick="submitCloudReview(${prod.id})" class="gold-btn px-5 py-2 rounded text-xs font-bold">Submit Cloud Review</button>
-              <span id="prodRevStatus" class="text-xs font-medium ml-2"></span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="cloudReviewsGrid">
-              ${(prod.reviews && prod.reviews.length > 0) ? prod.reviews.map(r => `
-                <div class="bg-neutral-50 p-3 rounded-xl border border-neutral-200 text-xs flex gap-3 items-start">
-                  ${r.img ? `<img src="${r.img}" class="w-16 h-16 object-cover rounded-lg border flex-shrink-0 bg-white" />` : ''}
-                  <div class="flex-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-neutral-900">${r.name}</span>
-                      <span class="text-[9px] text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.2 rounded">✓ Verified</span>
-                    </div>
-                    <p class="text-amber-600 text-[10px] mt-0.5">${'★'.repeat(r.rating || 5)}</p>
-                    <p class="text-neutral-600 mt-1">"${r.comment}"</p>
-                    <p class="text-[9px] text-neutral-400 mt-1">${r.date || 'Recent'}</p>
-                  </div>
-                </div>
-              `).join('') : `<p class="text-xs text-neutral-400">No reviews yet for this product.</p>`}
             </div>
           </div>
         </div>
@@ -872,44 +919,6 @@
         renderDynamicCategories();
       }
     });
-
-    function toggleProductReviewForm() {
-      document.getElementById("prodReviewForm").classList.toggle("hidden");
-    }
-
-    async function submitCloudReview(prodId) {
-      const name = document.getElementById("prodRevName").value.trim();
-      const phone = document.getElementById("prodRevPhone").value.trim();
-      const img = document.getElementById("prodRevImgUrl").value.trim();
-      const comment = document.getElementById("prodRevText").value.trim();
-      const status = document.getElementById("prodRevStatus");
-
-      if (!name || !phone || !comment) { alert("Please fill name, phone and comment!"); return; }
-      if (phone.replace(/[^0-9]/g,'').length !== 10) { alert("Enter 10-digit valid phone number!"); return; }
-
-      const prod = products.find(p => p.id === prodId);
-      if (!prod) return;
-
-      if (prod.reviews && prod.reviews.some(r => r.phone === phone)) {
-        alert("⚠️ Is phone number se is product par pehle hi review diya ja chuka hai!");
-        return;
-      }
-
-      let newRev = { name, phone, rating: 5, comment, img, date: "Just now" };
-      if (!prod.reviews) prod.reviews = [];
-      prod.reviews.unshift(newRev);
-
-      try {
-        await db.collection("reviews").add({ prodId, ...newRev, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-        status.innerText = "✔ Review saved to Cloud!";
-        status.className = "text-xs font-medium ml-2 text-green-700";
-      } catch (err) {
-        console.log("Cloud sync note:", err);
-      }
-
-      alert("Review published successfully to Cloud! ✨");
-      openProductDetailPage(prodId);
-    }
 
     function openLightbox(idx) {
       detailImgIndex = idx;
@@ -962,16 +971,15 @@
       document.getElementById("cartCount").innerText = cart.reduce((a, b) => a + b.qty, 0);
       let subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
 
-      // Apply 20% discount if LUXE10 is applied
       let discountAmount = couponApplied ? Math.round(subtotal * 0.20) : 0;
       let discountedSubtotal = subtotal - discountAmount;
 
-      // Delivery Fee Rule: ₹50, but FREE if subtotal >= ₹799
+      // Delivery Fee: ₹50, FREE if subtotal >= ₹799
       let deliveryFee = discountedSubtotal >= 799 || discountedSubtotal === 0 ? 0 : 50;
       let grandTotal = discountedSubtotal + deliveryFee;
 
       let deliveryText = deliveryFee === 0 ? "FREE Delivery 🚚" : "₹50 (Free above ₹799)";
-      document.getElementById("deliveryFeeText" ).innerText = deliveryText;
+      document.getElementById("deliveryFeeText").innerText = deliveryText;
       document.getElementById("cartTotal").innerText = `₹${grandTotal}`;
 
       const limit = 599;
@@ -996,7 +1004,7 @@
       list.innerHTML = cart.map(i => `
         <div class="flex items-center gap-3 bg-neutral-50 p-2 rounded border text-xs">
           <img src="${i.images[0]}" class="w-10 h-10 object-contain bg-white p-1 rounded" />
-          <div class="flex-1"><p class="font-bold line-clamp-1">${i.title}</p><p>₹${i.price} × ${i.qty}</p></div>
+          <div class="flex-1"><p class="font-bold line-clamp-1 text-neutral-900">${i.title}</p><p class="text-neutral-600">₹${i.price} × ${i.qty}</p></div>
         </div>
       `).join('');
     }
@@ -1088,7 +1096,7 @@
           <p class="mb-4">TRENDZ MART LUXE पर सभी Cash on Delivery (COD) आर्डर्स की सुरक्षा और प्रामाणिकता सुनिश्चित करने के लिए हमारे सपोर्ट टीम द्वारा व्हाट्सएप या फोन कॉल के माध्यम से पुष्टि की जाती है।</p>
           <h4 class="font-bold text-neutral-900 text-sm mb-1">2. एंटी-टार्निश ज्वैलरी गुणवत्ता</h4>
           <p class="mb-4">हमारी सभी ज्वैलरी प्रीमियम 18K गोल्ड प्लेटेड हाई-ग्रेड एंटी-टार्निश क्वालिटी की होती हैं। परफ्यूम या harsh chemicals सीधे स्प्रे न करने पर चमक आजीवन बनी रहती है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग और डिलीवरी शुल्क</h4>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग समय</h4>
           <p>सभी आर्डर्स पर सामान्य डिलीवरी शुल्क ₹50 है, लेकिन ₹799 या उससे अधिक के आर्डर पर डिलीवरी बिल्कुल फ्री है।</p>
         ` : `
           <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) Order Verification</h4>
@@ -1205,7 +1213,7 @@
       let newProd = {
         id: Date.now(),
         title, category, price, originalPrice, stock, tag,
-        rating: 4.9, baseViews: 14,
+        rating: 4.9, baseViews: 140,
         images: [img],
         qualityNote: "18K Gold Plated High-Grade Anti-Tarnish.",
         reviews: []
