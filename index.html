@@ -9,7 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase SDKs (App & Firestore Cloud Database) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
@@ -94,6 +94,13 @@
     .live-dot {
       animation: pulseLive 1.5s infinite;
     }
+    @keyframes slideUpToast {
+      0% { transform: translateY(100px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    .toast-animate {
+      animation: slideUpToast 0.4s ease forwards;
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -105,11 +112,24 @@
     </svg>
   </a>
 
+  <!-- Live Realistic Purchase / Lucky Winner Toast Notification Popup -->
+  <div id="liveToastPopup" class="fixed bottom-20 left-4 z-40 hidden max-w-xs bg-white border border-neutral-200 shadow-2xl rounded-2xl p-3 toast-animate">
+    <div class="flex items-center gap-3">
+      <img id="toastImg" src="" class="w-12 h-12 object-contain bg-neutral-50 rounded-lg border flex-shrink-0" />
+      <div class="flex-1">
+        <p id="toastTitle" class="text-[11px] font-bold text-neutral-900 leading-tight">Pooja from Dombivli</p>
+        <p id="toastDesc" class="text-[10px] text-neutral-600 mt-0.5">Ordered Emerald Necklace</p>
+        <p id="toastTime" class="text-[9px] text-neutral-400 mt-1">4 mins ago • COD</p>
+      </div>
+      <button onclick="document.getElementById('liveToastPopup').classList.add('hidden')" class="text-neutral-400 hover:text-black text-xs font-bold px-1.5">✕</button>
+    </div>
+  </div>
+
   <!-- Top Seamless LED Marquee Announcement Bar -->
   <div class="bg-[#111111] text-[#f2ebd9] text-xs font-semibold py-2 marquee-container shadow-sm">
     <div class="marquee-track">
-      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above ₹599 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above ₹599 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 💵 Cash on Delivery Available Across India ✨</span>
+      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above ₹599 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🚚 Free Delivery on Orders Above ₹799 (Else ₹50) ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span>✨ Use Code <strong class="text-amber-400">LUXE10</strong> for Extra 20% OFF on First Order &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🎁 Free Mystery Gift Unlocked on Orders Above ₹599 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🚚 Free Delivery on Orders Above ₹799 (Else ₹50) ✨</span>
     </div>
   </div>
 
@@ -162,7 +182,6 @@
         <input id="searchInput" type="text" oninput="handleSearchSuggestions(this.value)" placeholder="Search jewellery, water sippers, claw clips..." class="w-full pl-4 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
         <div id="searchSuggestionsBox" class="absolute left-0 right-0 top-full mt-2 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 hidden max-h-60 overflow-y-auto"></div>
       </div>
-      <!-- Trending Searches Pill Tags -->
       <div class="flex items-center gap-1.5 mt-2.5 overflow-x-auto no-scrollbar text-[11px]">
         <span class="text-neutral-400 font-bold uppercase tracking-wider text-[10px] flex-shrink-0">Trending:</span>
         <button onclick="quickSearchTag('Necklace')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">💎 Necklace</button>
@@ -238,7 +257,7 @@
     <button onclick="nextLightboxImg()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-white/20 hover:bg-white/40 w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">❯</button>
   </div>
 
-  <!-- Hidden Secret Admin Portal with Live Firebase Orders & Inventory -->
+  <!-- Hidden Secret Admin Portal -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden"></div>
   <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-3xl bg-white rounded-2xl z-50 hidden p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between border-b pb-3 mb-4">
@@ -252,7 +271,7 @@
     <div id="adminDashboardScreen" class="hidden space-y-6">
       <p class="text-xs text-green-700 font-bold">✔ Connected to Firebase Cloud Database & Real-Time Sync Active!</p>
       
-      <!-- Live Orders Dashboard Section -->
+      <!-- Live Orders Dashboard -->
       <div class="bg-neutral-50 p-4 rounded-xl border space-y-3">
         <h4 class="text-xs font-bold uppercase">📦 Live Cloud Orders Manager</h4>
         <div id="adminLiveOrdersList" class="space-y-2 max-h-48 overflow-y-auto text-xs">
@@ -302,10 +321,22 @@
     </div>
 
     <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
-    <div class="p-4 border-t bg-neutral-50">
-      <div class="flex justify-between items-center mb-2 text-sm font-semibold">
-        <span id="cartSubtotalLabel">Subtotal:</span>
-        <span id="cartTotal" class="font-bold text-base">₹0</span>
+    <div class="p-4 border-t bg-neutral-50 space-y-2">
+      <!-- Coupon Code Input Box -->
+      <div class="flex gap-2">
+        <input id="couponInput" type="text" placeholder="Enter Code (e.g. LUXE10)" class="border p-2 text-xs rounded flex-1 uppercase" />
+        <button onclick="applyCouponCode()" class="bg-neutral-900 text-white px-3 py-2 rounded text-xs font-bold">Apply</button>
+      </div>
+      <p id="couponMsg" class="text-[10px] text-green-700 font-medium"></p>
+
+      <!-- Subtotal & Delivery Fee Display -->
+      <div class="flex justify-between items-center text-xs text-neutral-600 pt-1">
+        <span>Delivery Fee:</span>
+        <span id="deliveryFeeText" class="font-bold">₹50 (Free above ₹799)</span>
+      </div>
+      <div class="flex justify-between items-center text-sm font-semibold pt-1 border-t">
+        <span id="cartSubtotalLabel">Total Amount:</span>
+        <span id="cartTotal" class="font-bold text-base text-neutral-950">₹0</span>
       </div>
       <button onclick="sendOrderViaWhatsApp()" id="whatsappCheckoutBtn" class="w-full py-3 rounded-xl font-bold text-xs gold-btn flex items-center justify-center gap-2">Complete Order on WhatsApp</button>
     </div>
@@ -332,7 +363,6 @@
       appId: "1:123456:web:abcdef"
     };
 
-    // Initialize Firebase
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -340,6 +370,8 @@
 
     const WHATSAPP_NUMBER = "918369511325";
     let currentLang = 'en';
+    let couponApplied = false;
+    let couponUsedSession = false; // ensures LUXE10 works only once per session/number
 
     const translations = {
       en: {
@@ -355,7 +387,7 @@
         footerReturn: "Return & Replacement Policy",
         footerPrivacy: "Privacy Policy",
         cartTitle: "YOUR SHOPPING BAG",
-        subtotal: "Subtotal:",
+        subtotal: "Total Amount:",
         checkoutBtn: "Complete Order on WhatsApp"
       },
       hi: {
@@ -371,7 +403,7 @@
         footerReturn: "रिटर्न और रिप्लेसमेंट पॉलिसी",
         footerPrivacy: "प्राइवेसी पॉलिसी",
         cartTitle: "आपकी शॉपिंग बैग",
-        subtotal: "सबटोटल:",
+        subtotal: "कुल राशि:",
         checkoutBtn: "व्हाट्सएप पर आर्डर पूरा करें"
       }
     };
@@ -402,6 +434,52 @@
       }
       renderDynamicCategories();
     }
+
+    // ==================== REALISTIC LIVE PURCHASE TOAST NOTIFICATIONS (Every 5-10 min) ====================
+    let toastNames = ["Pooja", "Aarav", "Sneha", "Rahul", "Farah", "Kavita", "Zoya", "Amit", "Neha", "Vikram"];
+    let toastLocations = ["Dombivli", "Thane", "Mumbai", "Pune", "Kalyan", "Navi Mumbai", "Nashik", "Nagpur"];
+
+    function triggerRandomToast() {
+      if (products.length === 0) return;
+      let randomProd = products[Math.floor(Math.random() * products.length)];
+      let randomName = toastNames[Math.floor(Math.random() * toastNames.length)];
+      let randomLoc = toastLocations[Math.floor(Math.random() * toastLocations.length)];
+      let randomMins = Math.floor(Math.random() * 8) + 2; // 2 to 9 mins ago
+
+      const popup = document.getElementById("liveToastPopup");
+      const img = document.getElementById("toastImg");
+      const title = document.getElementById("toastTitle");
+      const desc = document.getElementById("toastDesc");
+      const time = document.getElementById("toastTime");
+
+      // Occasionally show lucky free gift winner toast
+      let isLuckyWin = Math.random() < 0.25; // 25% chance
+
+      if (isLuckyWin) {
+        img.src = randomProd.images[0];
+        title.innerText = `🎉 ${randomName} from ${randomLoc}`;
+        desc.innerText = `Won a Free Mystery Gift on Order! 🎁`;
+        time.innerText = `Just now • Verified`;
+      } else {
+        img.src = randomProd.images[0];
+        title.innerText = `${randomName} from ${randomLoc}`;
+        desc.innerText = `Ordered ${randomProd.title}`;
+        time.innerText = `${randomMins} mins ago • COD`;
+      }
+
+      popup.classList.remove("hidden");
+      setTimeout(() => {
+        popup.classList.add("hidden");
+      }, 5000); // hide after 5 seconds
+
+      // Schedule next popup randomly between 5 to 10 minutes (300,000 to 600,000 ms)
+      // For testing demo purpose currently set to 30 seconds, let's keep it realistic 5-10 mins (300000 - 600000)
+      let nextTime = Math.floor(Math.random() * 300000) + 300000; 
+      setTimeout(triggerRandomToast, nextTime);
+    }
+
+    // Start initial toast loop after 15 seconds
+    setTimeout(triggerRandomToast, 15000);
 
     // ==================== AUTO-SCROLLING HERO BANNERS ====================
     let heroSlides = [
@@ -740,14 +818,13 @@
             </div>
           </div>
 
-          <!-- Real-Time Dynamic Firebase Cloud Reviews Section -->
+          <!-- Customer Reviews Section -->
           <div class="bg-white p-6 rounded-2xl gold-border shadow-sm space-y-4">
             <div class="flex items-center justify-between">
               <h3 class="font-cinzel text-base font-bold">Customer Photo Reviews</h3>
               <button onclick="toggleProductReviewForm()" class="text-xs font-semibold gold-btn px-3 py-1.5 rounded-xl">✍️ Write a Review</button>
             </div>
 
-            <!-- Product Review Form -->
             <div id="prodReviewForm" class="hidden bg-neutral-50 p-4 rounded-xl border space-y-3">
               <h4 class="text-xs font-bold uppercase">Upload Real Photo & Review</h4>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -760,7 +837,6 @@
               <span id="prodRevStatus" class="text-xs font-medium ml-2"></span>
             </div>
 
-            <!-- Review Items Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="cloudReviewsGrid">
               ${(prod.reviews && prod.reviews.length > 0) ? prod.reviews.map(r => `
                 <div class="bg-neutral-50 p-3 rounded-xl border border-neutral-200 text-xs flex gap-3 items-start">
@@ -801,7 +877,6 @@
       document.getElementById("prodReviewForm").classList.toggle("hidden");
     }
 
-    // Submit Review to Firebase Cloud
     async function submitCloudReview(prodId) {
       const name = document.getElementById("prodRevName").value.trim();
       const phone = document.getElementById("prodRevPhone").value.trim();
@@ -824,7 +899,6 @@
       if (!prod.reviews) prod.reviews = [];
       prod.reviews.unshift(newRev);
 
-      // Save to Firebase Firestore Cloud
       try {
         await db.collection("reviews").add({ prodId, ...newRev, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
         status.innerText = "✔ Review saved to Cloud!";
@@ -851,7 +925,6 @@
       document.getElementById("lightboxModal").classList.add("hidden");
     }
 
-    // Cloud Cart & Wishlist Sync (LocalStorage + Firebase ready)
     function addToCart(id) {
       const prod = products.find(p => p.id === id);
       if (prod) {
@@ -863,10 +936,43 @@
       toggleCart();
     }
 
+    // ==================== COUPON CODE & DELIVERY FEE LOGIC ====================
+    function applyCouponCode() {
+      const code = document.getElementById("couponInput").value.trim().toUpperCase();
+      const msg = document.getElementById("couponMsg");
+
+      if (code === "LUXE10") {
+        if (couponUsedSession) {
+          msg.innerText = "⚠️ This coupon code has already been used once!";
+          msg.className = "text-[10px] text-rose-600 font-medium";
+          return;
+        }
+        couponApplied = true;
+        couponUsedSession = true;
+        msg.innerText = "✔ LUXE10 Applied! 20% OFF Unlocked.";
+        msg.className = "text-[10px] text-green-700 font-medium";
+        updateCartUI();
+      } else {
+        msg.innerText = "❌ Invalid Coupon Code";
+        msg.className = "text-[10px] text-rose-600 font-medium";
+      }
+    }
+
     function updateCartUI() {
       document.getElementById("cartCount").innerText = cart.reduce((a, b) => a + b.qty, 0);
       let subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-      document.getElementById("cartTotal").innerText = `₹${subtotal}`;
+
+      // Apply 20% discount if LUXE10 is applied
+      let discountAmount = couponApplied ? Math.round(subtotal * 0.20) : 0;
+      let discountedSubtotal = subtotal - discountAmount;
+
+      // Delivery Fee Rule: ₹50, but FREE if subtotal >= ₹799
+      let deliveryFee = discountedSubtotal >= 799 || discountedSubtotal === 0 ? 0 : 50;
+      let grandTotal = discountedSubtotal + deliveryFee;
+
+      let deliveryText = deliveryFee === 0 ? "FREE Delivery 🚚" : "₹50 (Free above ₹799)";
+      document.getElementById("deliveryFeeText" ).innerText = deliveryText;
+      document.getElementById("cartTotal").innerText = `₹${grandTotal}`;
 
       const limit = 599;
       let percent = Math.min(100, Math.round((subtotal / limit) * 100));
@@ -905,21 +1011,27 @@
       document.getElementById("wishlistOverlay").classList.toggle("hidden");
     }
 
-    // Save Order to Firebase Cloud & Open WhatsApp
     async function sendOrderViaWhatsApp() {
       if (cart.length === 0) { alert("Cart is empty!"); return; }
-      let total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-      let isGiftUnlocked = total >= 599;
+      let subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+      let discountAmount = couponApplied ? Math.round(subtotal * 0.20) : 0;
+      let discountedSubtotal = subtotal - discountAmount;
+      let deliveryFee = discountedSubtotal >= 799 ? 0 : 50;
+      let grandTotal = discountedSubtotal + deliveryFee;
+      let isGiftUnlocked = subtotal >= 599;
 
       let orderData = {
         items: cart.map(i => ({ title: i.title, qty: i.qty, price: i.price })),
-        totalAmount: total,
+        subtotalAmount: subtotal,
+        discount: discountAmount,
+        deliveryFee: deliveryFee,
+        totalAmount: grandTotal,
         giftUnlocked: isGiftUnlocked,
+        couponUsed: couponApplied ? "LUXE10" : "None",
         status: "Pending Verification",
         createdAt: new Date().toISOString()
       };
 
-      // Save order to Firebase Cloud Firestore
       try {
         await db.collection("orders").add(orderData);
       } catch (e) {
@@ -928,19 +1040,24 @@
 
       let msg = "Hello TRENDZ MART LUXE! 🛍️\nMujhe ye order confirm karna hai:\n\n";
       cart.forEach((i, idx) => { msg += `${idx+1}. ${i.title} (Qty: ${i.qty}) - ₹${i.price * i.qty}\n`; });
+      if (couponApplied) msg += `\n🏷️ Coupon Applied: LUXE10 (-₹${discountAmount})`;
+      msg += `\n🚚 Delivery Fee: ${deliveryFee === 0 ? 'FREE' : '₹50'}`;
       if (isGiftUnlocked) msg += `\n🎁 Free Mystery Gift Included (Order > ₹599)`;
-      msg += `\n\nTotal: ₹${total}\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
+      msg += `\n\n*Grand Total: ₹${grandTotal}*\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
     async function orderSingleProductWhatsApp(productId) {
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
+      let deliveryFee = prod.price >= 799 ? 0 : 50;
+      let grandTotal = prod.price + deliveryFee;
       let isGiftUnlocked = prod.price >= 599;
 
       let orderData = {
         items: [{ title: prod.title, qty: 1, price: prod.price }],
-        totalAmount: prod.price,
+        totalAmount: grandTotal,
+        deliveryFee: deliveryFee,
         giftUnlocked: isGiftUnlocked,
         status: "Pending Verification",
         createdAt: new Date().toISOString()
@@ -952,11 +1069,11 @@
         console.log("Cloud Order Sync Note:", e);
       }
 
-      let msg = `Hello TRENDZ MART LUXE! 🛍️\nMujhe ye product order karna hai:\n\n📦 *${prod.title}*\n💰 Price: ₹${prod.price}${isGiftUnlocked ? '\n🎁 Free Mystery Gift Included' : ''}\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
+      let msg = `Hello TRENDZ MART LUXE! 🛍️\nMujhe ye product order karna hai:\n\n📦 *${prod.title}*\n💰 Price: ₹${prod.price}\n🚚 Delivery: ${deliveryFee === 0 ? 'FREE' : '₹50'}${isGiftUnlocked ? '\n🎁 Free Mystery Gift Included' : ''}\n*Grand Total: ₹${grandTotal}*\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    // ==================== LUXURY DETAILED POLICIES MODAL ====================
+    // ==================== POLICIES MODAL ====================
     function openPolicyModal(type) {
       const modal = document.getElementById("policyModal");
       const overlay = document.getElementById("policyModalOverlay");
@@ -971,21 +1088,21 @@
           <p class="mb-4">TRENDZ MART LUXE पर सभी Cash on Delivery (COD) आर्डर्स की सुरक्षा और प्रामाणिकता सुनिश्चित करने के लिए हमारे सपोर्ट टीम द्वारा व्हाट्सएप या फोन कॉल के माध्यम से पुष्टि की जाती है।</p>
           <h4 class="font-bold text-neutral-900 text-sm mb-1">2. एंटी-टार्निश ज्वैलरी गुणवत्ता</h4>
           <p class="mb-4">हमारी सभी ज्वैलरी प्रीमियम 18K गोल्ड प्लेटेड हाई-ग्रेड एंटी-टार्निश क्वालिटी की होती हैं। परफ्यूम या harsh chemicals सीधे स्प्रे न करने पर चमक आजीवन बनी रहती है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग समय</h4>
-          <p>सभी आर्डर्स 24 से 48 घंटे के भीतर डिस्पैच होते हैं और 3 से 7 कार्य दिवसों में डिलीवर होते हैं।</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग और डिलीवरी शुल्क</h4>
+          <p>सभी आर्डर्स पर सामान्य डिलीवरी शुल्क ₹50 है, लेकिन ₹799 या उससे अधिक के आर्डर पर डिलीवरी बिल्कुल फ्री है।</p>
         ` : `
           <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) Order Verification</h4>
           <p class="mb-4">All COD orders are verified via WhatsApp or phone call prior to dispatch to ensure secure fulfillment.</p>
           <h4 class="font-bold text-neutral-900 text-sm mb-1">2. Anti-Tarnish Quality Guarantee</h4>
           <p class="mb-4">Our 18K Gold Plated anti-tarnish items maintain long-lasting shine when protected from direct harsh chemicals.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. Delivery Timelines</h4>
-          <p>Orders are dispatched within 24-48 hours and typically delivered within 3 to 7 business days pan-India.</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. Shipping & Delivery Charges</h4>
+          <p>Standard delivery charge is ₹50 across India, while orders of ₹799 and above qualify for Free Delivery.</p>
         `;
       } else if (type === 'return') {
         titleEl.innerText = currentLang === 'hi' ? "रिटर्न और रिप्लेसमेंट पॉलिसी" : "Return & Replacement Policy";
         content = currentLang === 'hi' ? `
           <h4 class="font-bold text-neutral-900 text-sm mb-1">1. अनिवार्य 360° अनबॉक्सिंग वीडियो</h4>
-          <p class="mb-4">किसी भी डैमेज या मिसिंग आइटम के क्लेम के लिए पार्सल खोलते समय बिना किसी कट का साफ 360-डिग्री अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
+          <p class="mb-4">पार्सल खोलते समय बिना किसी कट का साफ 360-डिग्री अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
           <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48 घंटे के भीतर रिप्लेसमेंट</h4>
           <p>डैमेज या गलत प्रोडक्ट मिलने पर 48 घंटे के भीतर व्हाट्सएप सपोर्ट पर संपर्क करें।</p>
         ` : `
@@ -1020,7 +1137,7 @@
       }, 250);
     }
 
-    // ==================== FIREBASE CLOUD ADMIN PORTAL ====================
+    // ==================== ADMIN PORTAL ====================
     let secretTap = 0;
     function triggerSecretAdmin() {
       secretTap++;
@@ -1045,7 +1162,6 @@
       }
     }
 
-    // Load Live Cloud Orders in Admin
     async function loadAdminCloudOrders() {
       const list = document.getElementById("adminLiveOrdersList");
       try {
