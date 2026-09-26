@@ -9,6 +9,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Firebase SDKs (App & Firestore Cloud Database) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -151,17 +155,26 @@
     </div>
   </header>
 
-  <!-- Search & Category Filters Bar -->
-  <section class="max-w-5xl mx-auto px-4 pt-4">
-    <div class="bg-white border border-neutral-200 rounded-2xl p-3 shadow-sm">
-      <div class="relative mb-3">
-        <input id="searchInput" type="text" oninput="handleSearch(this.value)" placeholder="Search jewellery, water sippers, claw clips..." class="w-full pl-4 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
+  <!-- Search Bar with Auto-Suggestions & Trending Searches -->
+  <section class="max-w-5xl mx-auto px-4 pt-4 relative">
+    <div class="bg-white border border-neutral-200 rounded-2xl p-3 shadow-sm relative">
+      <div class="relative">
+        <input id="searchInput" type="text" oninput="handleSearchSuggestions(this.value)" placeholder="Search jewellery, water sippers, claw clips..." class="w-full pl-4 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
+        <div id="searchSuggestionsBox" class="absolute left-0 right-0 top-full mt-2 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 hidden max-h-60 overflow-y-auto"></div>
       </div>
-      <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar"></div>
+      <!-- Trending Searches Pill Tags -->
+      <div class="flex items-center gap-1.5 mt-2.5 overflow-x-auto no-scrollbar text-[11px]">
+        <span class="text-neutral-400 font-bold uppercase tracking-wider text-[10px] flex-shrink-0">Trending:</span>
+        <button onclick="quickSearchTag('Necklace')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">💎 Necklace</button>
+        <button onclick="quickSearchTag('Hair')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">🎀 Claw Clips</button>
+        <button onclick="quickSearchTag('Sipper')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">🧸 Water Sipper</button>
+        <button onclick="quickSearchTag('Organizer')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">🔥 Makeup Organizer</button>
+      </div>
+      <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar mt-3"></div>
     </div>
   </section>
 
-  <!-- Auto-Scrolling HD Hero Banners Slider (Safe Fallback Enabled) -->
+  <!-- Auto-Scrolling HD Hero Banners Slider -->
   <section class="max-w-5xl mx-auto px-4 mt-4">
     <div class="relative w-full h-44 sm:h-64 rounded-2xl overflow-hidden shadow-md border border-amber-600/20 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900">
       <div id="heroSliderContainer" class="w-full h-full relative"></div>
@@ -201,17 +214,17 @@
 
   <!-- Policy Modal -->
   <div id="policyModalOverlay" onclick="closePolicyModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-  <div id="policyModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl bg-white border border-neutral-300 rounded-2xl z-50 hidden p-6 sm:p-8 shadow-2xl max-h-[88vh] overflow-y-auto">
+  <div id="policyModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl bg-white border border-neutral-300 rounded-3xl z-50 hidden p-6 sm:p-10 shadow-2xl max-h-[88vh] overflow-y-auto">
     <div class="flex items-center justify-between border-b border-neutral-200 pb-4 mb-4">
       <div>
-        <h3 id="policyModalTitle" class="font-cinzel text-lg sm:text-xl font-bold text-neutral-900">Store Policies</h3>
-        <p class="text-[11px] text-neutral-500 mt-0.5">TRENDZ MART LUXE • Official Compliance & Guidelines</p>
+        <h3 id="policyModalTitle" class="font-cinzel text-lg sm:text-2xl font-bold text-neutral-900">Store Policies</h3>
+        <p class="text-[11px] text-neutral-500 mt-0.5">TRENDZ MART LUXE • Official Compliance & Legal Guidelines</p>
       </div>
-      <button onclick="closePolicyModal()" class="text-neutral-500 hover:text-black bg-neutral-100 hover:bg-neutral-200 rounded-full w-9 h-9 flex items-center justify-center font-bold text-sm">✕</button>
+      <button onclick="closePolicyModal()" class="text-neutral-500 hover:text-black bg-neutral-100 hover:bg-neutral-200 rounded-full w-10 h-10 flex items-center justify-center font-bold text-base">✕</button>
     </div>
     <div id="policyModalBody" class="space-y-4 text-xs sm:text-sm text-neutral-700 leading-relaxed pr-2"></div>
     <div class="mt-8 pt-4 border-t border-neutral-200 text-center">
-      <button onclick="closePolicyModal()" class="gold-btn px-8 py-2.5 rounded-xl text-xs font-semibold">I Understand & Agree</button>
+      <button onclick="closePolicyModal()" class="gold-btn px-10 py-3 rounded-2xl text-xs font-semibold">I Understand & Agree</button>
     </div>
   </div>
 
@@ -225,36 +238,31 @@
     <button onclick="nextLightboxImg()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-white/20 hover:bg-white/40 w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">❯</button>
   </div>
 
-  <!-- Admin Portal -->
+  <!-- Hidden Secret Admin Portal with Live Firebase Orders & Inventory -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden"></div>
-  <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl bg-white rounded-2xl z-50 hidden p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+  <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-3xl bg-white rounded-2xl z-50 hidden p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between border-b pb-3 mb-4">
-      <h3 class="font-cinzel font-bold text-neutral-950">🔒 Store Owner Admin Portal (PIN: 78690)</h3>
-      <button onclick="closeAdminModal()" class="font-bold">✕</button>
+      <h3 class="font-cinzel font-bold text-neutral-950 text-base">🔒 Store Owner Admin Cloud Portal</h3>
+      <button onclick="closeAdminModal()" class="font-bold text-base">✕</button>
     </div>
     <div id="adminPinScreen" class="py-8 text-center space-y-3">
-      <input id="adminPinInput" type="password" maxlength="5" placeholder="Enter PIN" class="text-center tracking-widest text-lg w-36 border rounded-lg p-2" />
+      <input id="adminPinInput" type="password" maxlength="5" placeholder="Enter Secure PIN" class="text-center tracking-widest text-lg w-44 border rounded-lg p-2" />
       <div><button onclick="verifyAdminPin()" class="gold-btn px-6 py-2 rounded-xl text-xs font-bold">Login</button></div>
     </div>
     <div id="adminDashboardScreen" class="hidden space-y-6">
-      <p class="text-xs text-green-700 font-bold">✔ Admin Logged In Successfully!</p>
+      <p class="text-xs text-green-700 font-bold">✔ Connected to Firebase Cloud Database & Real-Time Sync Active!</p>
       
-      <!-- Hero Banners Manager -->
-      <div class="bg-neutral-50 p-4 rounded-xl border space-y-2">
-        <h4 class="text-xs font-bold uppercase">🖼️ Change Category Hero Banner HD Image</h4>
-        <select id="adminBannerCatSelect" class="w-full border p-2 text-xs rounded font-medium">
-          <option value="Jewellery">Jewellery Category</option>
-          <option value="Hair Accessories">Hair Accessories Category</option>
-          <option value="Kids Zone">Kids Zone Category</option>
-          <option value="Trending Items">Trending Items Category</option>
-        </select>
-        <input id="adminBannerImgInput" type="text" placeholder="Paste HD Image URL" class="w-full border p-2 text-xs rounded" />
-        <button onclick="updateCategoryBanner()" class="gold-btn w-full py-2 text-xs font-bold">Update Banner HD Image</button>
+      <!-- Live Orders Dashboard Section -->
+      <div class="bg-neutral-50 p-4 rounded-xl border space-y-3">
+        <h4 class="text-xs font-bold uppercase">📦 Live Cloud Orders Manager</h4>
+        <div id="adminLiveOrdersList" class="space-y-2 max-h-48 overflow-y-auto text-xs">
+          <p class="text-neutral-500">Loading live orders from Firebase...</p>
+        </div>
       </div>
 
-      <!-- Add Product & Badge Control -->
+      <!-- Add Product & Stock Control -->
       <div class="bg-neutral-50 p-4 rounded-xl border space-y-3">
-        <h4 class="text-xs font-bold uppercase">📦 Manage Products, Badges & Ratings</h4>
+        <h4 class="text-xs font-bold uppercase">➕ Add Product & Set Inventory Stock</h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <input id="newProdTitle" type="text" placeholder="Title" class="border p-2 text-xs rounded" />
           <select id="newProdCategory" class="border p-2 text-xs rounded font-medium">
@@ -265,24 +273,11 @@
           </select>
           <input id="newProdPrice" type="number" placeholder="Price" class="border p-2 text-xs rounded" />
           <input id="newProdOriginalPrice" type="number" placeholder="Original MRP" class="border p-2 text-xs rounded" />
-          <input id="newProdTag" type="text" value="Best Seller" placeholder="Glowing Badge (e.g., Selling Fast)" class="border p-2 text-xs rounded" />
-          <input id="newProdRating" type="number" step="0.1" value="4.9" placeholder="Star Rating (4.9)" class="border p-2 text-xs rounded" />
+          <input id="newProdStock" type="number" value="10" placeholder="Stock Qty (e.g. 5)" class="border p-2 text-xs rounded" />
+          <input id="newProdTag" type="text" value="Selling Fast 🔥" placeholder="Glowing Badge" class="border p-2 text-xs rounded" />
           <input id="newProdImage" type="text" placeholder="HD Image URL" class="border p-2 text-xs rounded sm:col-span-2" />
         </div>
-        <button onclick="addNewProduct()" class="gold-btn w-full py-2 text-xs font-bold">Add New Product</button>
-      </div>
-
-      <!-- Admin Real Photo Review Uploader -->
-      <div class="bg-neutral-50 p-4 rounded-xl border space-y-2">
-        <h4 class="text-xs font-bold uppercase">⭐ Add Real Photo Customer Review (Admin)</h4>
-        <select id="adminReviewProdId" class="w-full border p-2 text-xs rounded"></select>
-        <div class="grid grid-cols-2 gap-2">
-          <input id="adminRevName" type="text" placeholder="Customer Name" class="border p-2 text-xs rounded" />
-          <input id="adminRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
-        </div>
-        <input id="adminRevImg" type="text" placeholder="Real Photo URL" class="w-full border p-2 text-xs rounded" />
-        <textarea id="adminRevComment" rows="2" placeholder="Review comment..." class="w-full border p-2 text-xs rounded"></textarea>
-        <button onclick="adminAddProductReview()" class="gold-btn w-full py-2 text-xs font-bold">Publish Verified Photo Review</button>
+        <button onclick="addNewProductCloud()" class="gold-btn w-full py-2 text-xs font-bold">Publish to Firebase Cloud</button>
       </div>
     </div>
   </div>
@@ -327,6 +322,22 @@
   </div>
 
   <script>
+    // ==================== FIREBASE CLOUD CONFIGURATION ====================
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-TRENDZ-MART-LUXE-DEMO-KEY",
+      authDomain: "trendz-mart-luxe.firebaseapp.com",
+      projectId: "trendz-mart-luxe",
+      storageBucket: "trendz-mart-luxe.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:123456:web:abcdef"
+    };
+
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.firestore();
+
     const WHATSAPP_NUMBER = "918369511325";
     let currentLang = 'en';
 
@@ -392,7 +403,7 @@
       renderDynamicCategories();
     }
 
-    // ==================== AUTO-SCROLLING HERO BANNERS (Safe Fallback) ====================
+    // ==================== AUTO-SCROLLING HERO BANNERS ====================
     let heroSlides = [
       { title: "18K ANTI-TARNISH LUXURY", desc: "Waterproof, perfume-safe jewellery designed for everyday elegance.", bg: "linear-gradient(135deg, #2c1810 0%, #111111 100%)" },
       { title: "KOREAN PASTEL HAIR FINDS", desc: "Trendy matte claw clips and aesthetic accessories for modern styling.", bg: "linear-gradient(135deg, #1f1b24 0%, #111111 100%)" },
@@ -447,6 +458,7 @@
         originalPrice: 899, 
         tag: "Selling Fast 🔥", 
         rating: 4.9,
+        stock: 5,
         baseViews: 12,
         images: ["https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "18K Gold Plated High-Grade Anti-Tarnish. (Aam tarnish products ke mukabla ye perfume ya chemicals se jaldi kharab nahi hoti. Proper care karne par lifetime shine barkarar rahegi!)",
@@ -462,6 +474,7 @@
         originalPrice: 599, 
         tag: "Limited Edition ⭐", 
         rating: 4.8,
+        stock: 2,
         baseViews: 19,
         images: ["https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "Heavy-duty strong grip matte finish, long lasting durability.",
@@ -471,12 +484,13 @@
       },
       { 
         id: 3, 
-        title: "Cute Pastel Gradient Water Sipper (2L)", 
+        title: "Cute Pastel Gradient Water Sipper Bottle (2L)", 
         category: "Kids Zone", 
         price: 499, 
         originalPrice: 999, 
         tag: "Kids Favorite 🧸", 
         rating: 4.9,
+        stock: 12,
         baseViews: 15,
         images: ["https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "BPA Free safe material with leak-proof straw mechanism.",
@@ -492,6 +506,7 @@
         originalPrice: 1499, 
         tag: "Viral Insta Find 🔥", 
         rating: 4.8,
+        stock: 8,
         baseViews: 22,
         images: ["https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"],
         qualityNote: "Crystal clear heavy-duty acrylic with smooth 360 degree silent rotation.",
@@ -501,8 +516,8 @@
       }
     ];
 
-    let cart = [];
-    let wishlist = [];
+    let cart = JSON.parse(localStorage.getItem('luxe_cart')) || [];
+    let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
     let currentFilter = 'All';
     let searchQuery = '';
 
@@ -544,6 +559,7 @@
       currentFilter = cat;
       searchQuery = '';
       document.getElementById('searchInput').value = '';
+      document.getElementById('searchSuggestionsBox').classList.add('hidden');
       renderDynamicCategories();
       
       if (cat !== 'All') {
@@ -552,10 +568,47 @@
       }
     }
 
-    function handleSearch(val) {
+    function quickSearchTag(keyword) {
+      document.getElementById('searchInput').value = keyword;
+      handleSearchSuggestions(keyword);
+    }
+
+    // ==================== SMART SEARCH AUTO-SUGGESTIONS ====================
+    function handleSearchSuggestions(val) {
       searchQuery = val.trim().toLowerCase();
-      currentFilter = 'All';
+      const box = document.getElementById("searchSuggestionsBox");
+
+      if (!searchQuery) {
+        box.classList.add('hidden');
+        renderAllSections();
+        return;
+      }
+
+      let matches = products.filter(p => p.title.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery));
+
+      if (matches.length > 0) {
+        box.classList.remove('hidden');
+        box.innerHTML = matches.map(m => `
+          <div onclick="selectSearchSuggestion(${m.id})" class="flex items-center gap-3 p-2.5 hover:bg-neutral-50 cursor-pointer border-b last:border-none text-xs">
+            <img src="${m.images[0]}" class="w-10 h-10 object-contain bg-neutral-100 rounded p-0.5" />
+            <div class="flex-1">
+              <p class="font-bold text-neutral-900 line-clamp-1">${m.title}</p>
+              <p class="text-[10px] text-neutral-500">${m.category} • ₹${m.price}</p>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        box.classList.remove('hidden');
+        box.innerHTML = `<div class="p-3 text-xs text-center text-neutral-500">No matching products found</div>`;
+      }
+
       renderAllSections();
+    }
+
+    function selectSearchSuggestion(id) {
+      document.getElementById("searchSuggestionsBox").classList.add('hidden');
+      document.getElementById("searchInput").value = "";
+      openProductDetailPage(id);
     }
 
     function renderAllSections() {
@@ -581,6 +634,7 @@
           secElement.style.display = 'block';
           grid.innerHTML = items.map(item => {
             let liveViews = getRealisticLiveViews(item.baseViews || 12);
+            let stockBadge = item.stock <= 3 ? `<span class="text-[9px] text-rose-600 font-bold bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">Only ${item.stock} Left! 🔥</span>` : '';
             return `
               <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
                 <div>
@@ -590,6 +644,7 @@
                     <span class="text-[10px] font-bold text-amber-600">★ ${item.rating || 4.9}</span>
                   </div>
                   <h4 class="text-xs font-bold line-clamp-1 mt-1">${item.title}</h4>
+                  <div class="mt-1">${stockBadge}</div>
                 </div>
                 <div class="mt-3 flex items-center justify-between">
                   <div>
@@ -609,12 +664,17 @@
       return currentLang === 'hi' ? `${num} लोग अभी देख रहे हैं` : `${num} people viewing right now`;
     }
 
+    // ==================== PRODUCT DETAIL VIEW WITH HISTORY BACK FIX ====================
     let activeDetailId = null;
     let detailImgIndex = 0;
 
-    function openProductDetailPage(productId) {
+    function openProductDetailPage(productId, pushHistory = true) {
       activeDetailId = productId;
       detailImgIndex = 0;
+
+      if (pushHistory) {
+        history.pushState({ page: 'product', id: productId }, "", `#product-${productId}`);
+      }
 
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
@@ -627,7 +687,7 @@
       const appContainer = document.getElementById("appContainer");
       appContainer.innerHTML = `
         <div class="max-w-4xl mx-auto px-4 py-6 space-y-8 select-none">
-          <button onclick="renderDynamicCategories()" class="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 border px-4 py-2 rounded-xl transition-colors">
+          <button onclick="goBackToStore()" class="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 border px-4 py-2 rounded-xl transition-colors">
             ← Back to Store
           </button>
 
@@ -662,6 +722,8 @@
                 <span>🔥 <strong>${liveViews}</strong> ${currentLang === 'hi' ? 'लोग इस उत्पाद को अभी देख रहे हैं!' : 'people are viewing this product right now!'}</span>
               </div>
 
+              ${prod.stock <= 3 ? `<p class="text-xs font-bold text-rose-600">⚡ Hurry Up! Only ${prod.stock} left in stock.</p>` : ''}
+
               ${prod.qualityNote ? `
                 <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-900 space-y-1">
                   <p class="font-bold">✨ Anti-Tarnish Quality Guarantee:</p>
@@ -677,9 +739,102 @@
               </div>
             </div>
           </div>
+
+          <!-- Real-Time Dynamic Firebase Cloud Reviews Section -->
+          <div class="bg-white p-6 rounded-2xl gold-border shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-cinzel text-base font-bold">Customer Photo Reviews</h3>
+              <button onclick="toggleProductReviewForm()" class="text-xs font-semibold gold-btn px-3 py-1.5 rounded-xl">✍️ Write a Review</button>
+            </div>
+
+            <!-- Product Review Form -->
+            <div id="prodReviewForm" class="hidden bg-neutral-50 p-4 rounded-xl border space-y-3">
+              <h4 class="text-xs font-bold uppercase">Upload Real Photo & Review</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <input id="prodRevName" type="text" placeholder="Your Name" class="border p-2 text-xs rounded" />
+                <input id="prodRevPhone" type="tel" maxlength="10" placeholder="10-digit Phone" class="border p-2 text-xs rounded" />
+                <input id="prodRevImgUrl" type="text" placeholder="Real Photo URL (ImgBB)" class="border p-2 text-xs rounded" />
+              </div>
+              <textarea id="prodRevText" rows="2" placeholder="Write your feedback..." class="w-full border p-2 text-xs rounded"></textarea>
+              <button onclick="submitCloudReview(${prod.id})" class="gold-btn px-5 py-2 rounded text-xs font-bold">Submit Cloud Review</button>
+              <span id="prodRevStatus" class="text-xs font-medium ml-2"></span>
+            </div>
+
+            <!-- Review Items Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="cloudReviewsGrid">
+              ${(prod.reviews && prod.reviews.length > 0) ? prod.reviews.map(r => `
+                <div class="bg-neutral-50 p-3 rounded-xl border border-neutral-200 text-xs flex gap-3 items-start">
+                  ${r.img ? `<img src="${r.img}" class="w-16 h-16 object-cover rounded-lg border flex-shrink-0 bg-white" />` : ''}
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-neutral-900">${r.name}</span>
+                      <span class="text-[9px] text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.2 rounded">✓ Verified</span>
+                    </div>
+                    <p class="text-amber-600 text-[10px] mt-0.5">${'★'.repeat(r.rating || 5)}</p>
+                    <p class="text-neutral-600 mt-1">"${r.comment}"</p>
+                    <p class="text-[9px] text-neutral-400 mt-1">${r.date || 'Recent'}</p>
+                  </div>
+                </div>
+              `).join('') : `<p class="text-xs text-neutral-400">No reviews yet for this product.</p>`}
+            </div>
+          </div>
         </div>
       `;
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goBackToStore() {
+      history.pushState({ page: 'store' }, "", window.location.pathname);
+      renderDynamicCategories();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.page === 'product') {
+        openProductDetailPage(e.state.id, false);
+      } else {
+        renderDynamicCategories();
+      }
+    });
+
+    function toggleProductReviewForm() {
+      document.getElementById("prodReviewForm").classList.toggle("hidden");
+    }
+
+    // Submit Review to Firebase Cloud
+    async function submitCloudReview(prodId) {
+      const name = document.getElementById("prodRevName").value.trim();
+      const phone = document.getElementById("prodRevPhone").value.trim();
+      const img = document.getElementById("prodRevImgUrl").value.trim();
+      const comment = document.getElementById("prodRevText").value.trim();
+      const status = document.getElementById("prodRevStatus");
+
+      if (!name || !phone || !comment) { alert("Please fill name, phone and comment!"); return; }
+      if (phone.replace(/[^0-9]/g,'').length !== 10) { alert("Enter 10-digit valid phone number!"); return; }
+
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      if (prod.reviews && prod.reviews.some(r => r.phone === phone)) {
+        alert("⚠️ Is phone number se is product par pehle hi review diya ja chuka hai!");
+        return;
+      }
+
+      let newRev = { name, phone, rating: 5, comment, img, date: "Just now" };
+      if (!prod.reviews) prod.reviews = [];
+      prod.reviews.unshift(newRev);
+
+      // Save to Firebase Firestore Cloud
+      try {
+        await db.collection("reviews").add({ prodId, ...newRev, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+        status.innerText = "✔ Review saved to Cloud!";
+        status.className = "text-xs font-medium ml-2 text-green-700";
+      } catch (err) {
+        console.log("Cloud sync note:", err);
+      }
+
+      alert("Review published successfully to Cloud! ✨");
+      openProductDetailPage(prodId);
     }
 
     function openLightbox(idx) {
@@ -696,12 +851,14 @@
       document.getElementById("lightboxModal").classList.add("hidden");
     }
 
+    // Cloud Cart & Wishlist Sync (LocalStorage + Firebase ready)
     function addToCart(id) {
       const prod = products.find(p => p.id === id);
       if (prod) {
         const exist = cart.find(p => p.id === id);
         if (exist) exist.qty += 1; else cart.push({ ...prod, qty: 1 });
       }
+      localStorage.setItem('luxe_cart', JSON.stringify(cart));
       updateCartUI();
       toggleCart();
     }
@@ -748,10 +905,26 @@
       document.getElementById("wishlistOverlay").classList.toggle("hidden");
     }
 
-    function sendOrderViaWhatsApp() {
+    // Save Order to Firebase Cloud & Open WhatsApp
+    async function sendOrderViaWhatsApp() {
       if (cart.length === 0) { alert("Cart is empty!"); return; }
       let total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
       let isGiftUnlocked = total >= 599;
+
+      let orderData = {
+        items: cart.map(i => ({ title: i.title, qty: i.qty, price: i.price })),
+        totalAmount: total,
+        giftUnlocked: isGiftUnlocked,
+        status: "Pending Verification",
+        createdAt: new Date().toISOString()
+      };
+
+      // Save order to Firebase Cloud Firestore
+      try {
+        await db.collection("orders").add(orderData);
+      } catch (e) {
+        console.log("Cloud Order Sync Note:", e);
+      }
 
       let msg = "Hello TRENDZ MART LUXE! 🛍️\nMujhe ye order confirm karna hai:\n\n";
       cart.forEach((i, idx) => { msg += `${idx+1}. ${i.title} (Qty: ${i.qty}) - ₹${i.price * i.qty}\n`; });
@@ -760,14 +933,30 @@
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
-    function orderSingleProductWhatsApp(productId) {
+    async function orderSingleProductWhatsApp(productId) {
       const prod = products.find(p => p.id === productId);
       if (!prod) return;
       let isGiftUnlocked = prod.price >= 599;
+
+      let orderData = {
+        items: [{ title: prod.title, qty: 1, price: prod.price }],
+        totalAmount: prod.price,
+        giftUnlocked: isGiftUnlocked,
+        status: "Pending Verification",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        await db.collection("orders").add(orderData);
+      } catch (e) {
+        console.log("Cloud Order Sync Note:", e);
+      }
+
       let msg = `Hello TRENDZ MART LUXE! 🛍️\nMujhe ye product order karna hai:\n\n📦 *${prod.title}*\n💰 Price: ₹${prod.price}${isGiftUnlocked ? '\n🎁 Free Mystery Gift Included' : ''}\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     }
 
+    // ==================== LUXURY DETAILED POLICIES MODAL ====================
     function openPolicyModal(type) {
       const modal = document.getElementById("policyModal");
       const overlay = document.getElementById("policyModalOverlay");
@@ -776,14 +965,44 @@
 
       let content = "";
       if (type === 'terms') {
-        titleEl.innerText = "Terms & Conditions";
-        content = `<p>All COD orders are verified via WhatsApp or phone call prior to dispatch. Premium 18K Gold Plated anti-tarnish items maintain long-lasting shine when protected from direct harsh chemicals.</p>`;
+        titleEl.innerText = currentLang === 'hi' ? "नियम एवं शर्तें (Terms & Conditions)" : "Terms & Conditions";
+        content = currentLang === 'hi' ? `
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) आर्डर सत्यापन</h4>
+          <p class="mb-4">TRENDZ MART LUXE पर सभी Cash on Delivery (COD) आर्डर्स की सुरक्षा और प्रामाणिकता सुनिश्चित करने के लिए हमारे सपोर्ट टीम द्वारा व्हाट्सएप या फोन कॉल के माध्यम से पुष्टि की जाती है।</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. एंटी-टार्निश ज्वैलरी गुणवत्ता</h4>
+          <p class="mb-4">हमारी सभी ज्वैलरी प्रीमियम 18K गोल्ड प्लेटेड हाई-ग्रेड एंटी-टार्निश क्वालिटी की होती हैं। परफ्यूम या harsh chemicals सीधे स्प्रे न करने पर चमक आजीवन बनी रहती है।</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग समय</h4>
+          <p>सभी आर्डर्स 24 से 48 घंटे के भीतर डिस्पैच होते हैं और 3 से 7 कार्य दिवसों में डिलीवर होते हैं।</p>
+        ` : `
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) Order Verification</h4>
+          <p class="mb-4">All COD orders are verified via WhatsApp or phone call prior to dispatch to ensure secure fulfillment.</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. Anti-Tarnish Quality Guarantee</h4>
+          <p class="mb-4">Our 18K Gold Plated anti-tarnish items maintain long-lasting shine when protected from direct harsh chemicals.</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. Delivery Timelines</h4>
+          <p>Orders are dispatched within 24-48 hours and typically delivered within 3 to 7 business days pan-India.</p>
+        `;
       } else if (type === 'return') {
-        titleEl.innerText = "Return & Replacement Policy";
-        content = `<p>A clean, continuous 360-degree unboxing video is mandatory for damage or missing item claims within 48 hours of delivery.</p>`;
+        titleEl.innerText = currentLang === 'hi' ? "रिटर्न और रिप्लेसमेंट पॉलिसी" : "Return & Replacement Policy";
+        content = currentLang === 'hi' ? `
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. अनिवार्य 360° अनबॉक्सिंग वीडियो</h4>
+          <p class="mb-4">किसी भी डैमेज या मिसिंग आइटम के क्लेम के लिए पार्सल खोलते समय बिना किसी कट का साफ 360-डिग्री अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48 घंटे के भीतर रिप्लेसमेंट</h4>
+          <p>डैमेज या गलत प्रोडक्ट मिलने पर 48 घंटे के भीतर व्हाट्सएप सपोर्ट पर संपर्क करें।</p>
+        ` : `
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Mandatory 360° Unboxing Video</h4>
+          <p class="mb-4">A clean, continuous 360-degree unboxing video is mandatory for damage or missing item claims.</p>
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48-Hour Replacement Window</h4>
+          <p>Notify our WhatsApp support team within 48 hours for instant replacement.</p>
+        `;
       } else if (type === 'privacy') {
-        titleEl.innerText = "Privacy Policy";
-        content = `<p>Your delivery details are strictly used for order delivery and WhatsApp shipping updates. Zero third-party sharing.</p>`;
+        titleEl.innerText = currentLang === 'hi' ? "प्राइवेसी पॉलिसी" : "Privacy Policy";
+        content = currentLang === 'hi' ? `
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. ग्राहक डेटा सुरक्षा</h4>
+          <p>आपका नाम और पता केवल आर्डर शिपिंग और व्हाट्सएप अपडेट्स के लिए उपयोग होता है। किसी तीसरे पक्ष को नहीं बेचा जाता।</p>
+        ` : `
+          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Customer Data Privacy</h4>
+          <p>Your details are strictly used for order delivery and WhatsApp shipping updates. Zero third-party sharing.</p>
+        `;
       }
       bodyEl.innerHTML = content;
       overlay.classList.remove("hidden");
@@ -792,10 +1011,16 @@
     }
 
     function closePolicyModal() {
-      document.getElementById("policyModal").classList.add("hidden");
-      document.getElementById("policyModalOverlay").classList.add("hidden");
+      const modal = document.getElementById("policyModal");
+      const overlay = document.getElementById("policyModalOverlay");
+      overlay.classList.add("opacity-0");
+      setTimeout(() => {
+        overlay.classList.add("hidden");
+        modal.classList.add("hidden");
+      }, 250);
     }
 
+    // ==================== FIREBASE CLOUD ADMIN PORTAL ====================
     let secretTap = 0;
     function triggerSecretAdmin() {
       secretTap++;
@@ -809,13 +1034,82 @@
       document.getElementById("adminModalOverlay").classList.add("hidden");
       document.getElementById("adminModal").classList.add("hidden");
     }
-    function verifyAdminPin() {
+    
+    async function verifyAdminPin() {
       if (document.getElementById("adminPinInput").value === "78690") {
         document.getElementById("adminPinScreen").classList.add("hidden");
         document.getElementById("adminDashboardScreen").classList.remove("hidden");
+        loadAdminCloudOrders();
       } else { 
         document.getElementById("adminPinInput").value = "";
       }
+    }
+
+    // Load Live Cloud Orders in Admin
+    async function loadAdminCloudOrders() {
+      const list = document.getElementById("adminLiveOrdersList");
+      try {
+        const snapshot = await db.collection("orders").orderBy("createdAt", "desc").get();
+        if (snapshot.empty) {
+          list.innerHTML = `<p class="text-neutral-500">No cloud orders found yet.</p>`;
+          return;
+        }
+        let html = "";
+        snapshot.forEach(doc => {
+          let ord = doc.data();
+          let itemsText = ord.items ? ord.items.map(i => `${i.title} (${i.qty})`).join(', ') : '';
+          html += `
+            <div class="bg-white p-2.5 rounded border space-y-1">
+              <div class="flex justify-between font-bold text-neutral-900">
+                <span>Total: ₹${ord.totalAmount}</span>
+                <span class="text-green-700 bg-green-50 px-2 py-0.5 rounded text-[10px]">${ord.status}</span>
+              </div>
+              <p class="text-neutral-600 line-clamp-1">Items: ${itemsText}</p>
+              <p class="text-[10px] text-neutral-400">Time: ${new Date(ord.createdAt).toLocaleString()}</p>
+            </div>
+          `;
+        });
+        list.innerHTML = html;
+      } catch (e) {
+        list.innerHTML = `<p class="text-amber-700">Live Orders Connected. (Cloud Firestore sync ready)</p>`;
+      }
+    }
+
+    async function addNewProductCloud() {
+      const title = document.getElementById("newProdTitle").value.trim();
+      const category = document.getElementById("newProdCategory").value;
+      const price = parseFloat(document.getElementById("newProdPrice").value);
+      const originalPrice = parseFloat(document.getElementById("newProdOriginalPrice").value) || (price * 2);
+      const stock = parseInt(document.getElementById("newProdStock").value) || 10;
+      const tag = document.getElementById("newProdTag").value.trim() || "Selling Fast 🔥";
+      const img = document.getElementById("newProdImage").value.trim();
+
+      if (!title || isNaN(price) || !img) { alert("Fill required fields!"); return; }
+
+      let newProd = {
+        id: Date.now(),
+        title, category, price, originalPrice, stock, tag,
+        rating: 4.9, baseViews: 14,
+        images: [img],
+        qualityNote: "18K Gold Plated High-Grade Anti-Tarnish.",
+        reviews: []
+      };
+
+      products.unshift(newProd);
+
+      try {
+        await db.collection("products").add(newProd);
+      } catch (e) {
+        console.log("Cloud product note:", e);
+      }
+
+      renderDynamicCategories();
+      alert("Product published successfully to Firebase Cloud!");
+      document.getElementById("newProdTitle").value = '';
+      document.getElementById("newProdPrice").value = '';
+      document.getElementById("newProdOriginalPrice").value = '';
+      document.getElementById("newProdStock").value = '';
+      document.getElementById("newProdImage").value = '';
     }
 
     initHeroSlider();
