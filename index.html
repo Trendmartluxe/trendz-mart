@@ -14,17 +14,36 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <style>
+    :root {
+      --bg-color: #faf9f6;
+      --text-color: #1a1a1a;
+      --card-bg: #ffffff;
+      --border-color: #e7e5e0;
+      --header-bg: rgba(255, 255, 255, 0.95);
+    }
+    .dark-mode {
+      --bg-color: #0f0f0f;
+      --text-color: #f2ebd9;
+      --card-bg: #1a1a1a;
+      --border-color: #333333;
+      --header-bg: rgba(15, 15, 15, 0.95);
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #faf9f6;
-      color: #1a1a1a;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       scroll-behavior: smooth;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
+    .dynamic-bg { background-color: var(--card-bg) !important; color: var(--text-color) !important; }
+    .dynamic-border { border-color: var(--border-color) !important; }
+    
     .font-cinzel {
       font-family: 'Cinzel', serif;
     }
     .gold-gradient-text {
-      background: linear-gradient(135deg, #111111 0%, #4d3a12 50%, #8c6928 100%);
+      background: linear-gradient(135deg, #d4af37 0%, #aa771c 50%, #f3e5ab 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -36,12 +55,14 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: all 0.2s ease;
     }
+    .dark-mode .gold-btn {
+      background: #d4af37;
+      color: #000000;
+      border-color: #d4af37;
+    }
     .gold-btn:hover {
       background: #8c6928;
       border-color: #8c6928;
-    }
-    .gold-border {
-      border: 1px solid #e7e5e0;
     }
     .banner-3d {
       border-radius: 18px;
@@ -51,6 +72,8 @@
       box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.12);
     }
     .product-card-3d {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
       transition: all 0.3s ease;
     }
@@ -59,6 +82,8 @@
       box-shadow: 0 14px 26px -6px rgba(0, 0, 0, 0.1);
     }
     .drawer-panel {
+      background-color: var(--card-bg);
+      color: var(--text-color);
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -98,36 +123,22 @@
 <body class="min-h-screen">
 
   <!-- Floating WhatsApp Quick Chat Button -->
-  <a href="https://wa.me/918369511325?text=Hello%20TRENDZ%20MART%20LUXE!%20Mujhe%20product%20ke%20bare%20me%20puchna%20hai." target="_blank" class="whatsapp-floating fixed bottom-5 right-5 z-50 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+  <a href="https://wa.me/message/WG6NJD536W4KH1" target="_blank" class="whatsapp-floating fixed bottom-5 right-5 z-50 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
     <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
     </svg>
   </a>
 
   <!-- Live Purchase Toast Notification -->
-  <div id="liveToastPopup" class="fixed bottom-20 left-4 z-40 hidden max-w-xs bg-white border border-neutral-200 shadow-2xl rounded-2xl p-3 toast-animate">
+  <div id="liveToastPopup" class="fixed bottom-20 left-4 z-40 hidden max-w-xs dynamic-bg border dynamic-border shadow-2xl rounded-2xl p-3 toast-animate">
     <div class="flex items-center gap-3">
       <img id="toastImg" src="" class="w-12 h-12 object-contain bg-neutral-50 rounded-lg border flex-shrink-0" />
       <div class="flex-1">
-        <p id="toastTitle" class="text-[11px] font-bold text-neutral-900 leading-tight">Pooja from Dombivli</p>
-        <p id="toastDesc" class="text-[10px] text-neutral-600 mt-0.5">Ordered Emerald Necklace</p>
+        <p id="toastTitle" class="text-[11px] font-bold leading-tight">Pooja from Dombivli</p>
+        <p id="toastDesc" class="text-[10px] opacity-80 mt-0.5">Ordered Emerald Necklace</p>
         <p id="toastTime" class="text-[9px] text-neutral-400 mt-1">4 mins ago • COD</p>
       </div>
       <button onclick="document.getElementById('liveToastPopup').classList.add('hidden')" class="text-neutral-400 hover:text-black text-xs font-bold px-1.5">✕</button>
-    </div>
-  </div>
-
-  <!-- Spin-to-Win Discount Modal (Appears after 3 seconds) -->
-  <div id="spinModalOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-amber-200 relative">
-      <button onclick="closeSpinModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-black font-bold text-sm">✕</button>
-      <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto text-2xl">🎁</div>
-      <h3 class="font-cinzel text-lg font-bold text-neutral-900">Spin & Win Luxury Discount!</h3>
-      <p class="text-xs text-neutral-600">Tap below to spin the wheel and unlock your secret discount code instantly.</p>
-      <div id="spinResultBox" class="py-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 font-bold text-sm">
-        Click 'Spin Wheel' to Try!
-      </div>
-      <button onclick="executeSpinWheel()" id="spinBtn" class="gold-btn w-full py-3 rounded-2xl text-xs font-bold">Spin Wheel Now 🎡</button>
     </div>
   </div>
 
@@ -152,33 +163,33 @@
     </div>
   </div>
 
-  <!-- Main Navigation Header -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 px-3 sm:px-4 py-2.5">
+  <!-- Main Navigation Header (Fixed alignment and smaller icons) -->
+  <header class="sticky top-0 z-40 backdrop-blur-md border-b dynamic-border px-3 sm:px-4 py-2.5" style="background-color: var(--header-bg);">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5">
-        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-amber-600/50 bg-neutral-900 flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
           <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="TRENDZ MART LUXE" class="w-full h-full object-cover scale-110" onerror="this.style.display='none';">
         </div>
-        <div>
-          <h1 class="font-cinzel text-base sm:text-xl font-black tracking-[0.12em] gold-gradient-text uppercase leading-tight">TRENDZ MART LUXE</h1>
-          <p id="subBrandTag" class="text-[8px] sm:text-[9px] tracking-[0.18em] text-neutral-500 uppercase font-bold mt-0.5">Jewellery • Kids • Hair • Trending</p>
+        <div class="flex flex-col justify-center">
+          <h1 class="font-cinzel text-sm sm:text-lg font-black tracking-[0.1em] gold-gradient-text uppercase leading-none whitespace-nowrap">TRENDZ MART LUXE</h1>
+          <p id="subBrandTag" class="text-[7px] sm:text-[8px] tracking-[0.15em] text-neutral-400 uppercase font-bold mt-1">Jewellery • Kids • Hair • Trending</p>
         </div>
       </a>
 
       <div class="flex items-center gap-1.5">
-        <button onclick="openTrackOrderModal()" class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-100 border border-neutral-300 text-neutral-800 hover:bg-neutral-200 transition-colors">
-          <span id="navTrackText">📦 Track Order</span>
+        <button onclick="openTrackOrderModal()" class="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold dynamic-bg dynamic-border border hover:opacity-80 transition-opacity">
+          <span id="navTrackText">📦 Track</span>
         </button>
-        <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900" title="Toggle Dark/Light Mode">
+        <button onclick="toggleDarkMode()" class="p-1.5 rounded-full dynamic-bg dynamic-border border text-xs" title="Toggle Dark/Light Mode">
           🌓
         </button>
-        <button onclick="toggleWishlist()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900">
-          <svg class="w-4 h-4 text-rose-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
+        <button onclick="toggleWishlist()" class="relative p-1.5 rounded-full dynamic-bg dynamic-border border">
+          <svg class="w-3.5 h-3.5 text-rose-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span id="wishlistCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[8px] font-extrabold h-3 w-3 rounded-full flex items-center justify-center">0</span>
         </button>
-        <button onclick="toggleCart()" class="relative p-2 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-900">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-          <span id="cartCount" class="absolute -top-1 -right-1 bg-neutral-900 text-white text-[9px] font-extrabold h-3.5 w-3.5 rounded-full flex items-center justify-center">0</span>
+        <button onclick="toggleCart()" class="relative p-1.5 rounded-full dynamic-bg dynamic-border border">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-neutral-900 text-white text-[8px] font-extrabold h-3 w-3 rounded-full flex items-center justify-center">0</span>
         </button>
       </div>
     </div>
@@ -186,17 +197,17 @@
 
   <!-- Search Bar with Auto-Suggestions & Trending Searches -->
   <section class="max-w-5xl mx-auto px-4 pt-4 relative">
-    <div class="bg-white border border-neutral-200 rounded-2xl p-3 shadow-sm relative">
+    <div class="dynamic-bg border dynamic-border rounded-2xl p-3 shadow-sm relative">
       <div class="relative">
-        <input id="searchInput" type="text" oninput="handleSearchSuggestions(this.value)" placeholder="Search jewellery, water sippers, claw clips..." class="w-full pl-4 pr-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" />
-        <div id="searchSuggestionsBox" class="absolute left-0 right-0 top-full mt-2 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 hidden max-h-60 overflow-y-auto"></div>
+        <input id="searchInput" type="text" oninput="handleSearchSuggestions(this.value)" placeholder="Search jewellery, water sippers, claw clips..." class="w-full pl-4 pr-4 py-2 dynamic-bg border dynamic-border rounded-xl text-xs focus:outline-none" />
+        <div id="searchSuggestionsBox" class="absolute left-0 right-0 top-full mt-2 dynamic-bg border dynamic-border rounded-xl shadow-xl z-50 hidden max-h-60 overflow-y-auto"></div>
       </div>
       <div class="flex items-center gap-1.5 mt-2.5 overflow-x-auto no-scrollbar text-[11px]">
         <span class="text-neutral-400 font-bold uppercase tracking-wider text-[10px] flex-shrink-0">Trending:</span>
-        <button onclick="quickSearchTag('Necklace')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">💎 Necklace</button>
-        <button onclick="quickSearchTag('Hair')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">🎀 Claw Clips</button>
-        <button onclick="quickSearchTag('Sipper')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">🧸 Water Sipper</button>
-        <button onclick="quickSearchTag('Organizer')" class="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 rounded-full font-medium text-neutral-700 flex-shrink-0">🔥 Makeup Organizer</button>
+        <button onclick="quickSearchTag('Necklace')" class="px-2.5 py-1 dynamic-bg dynamic-border border rounded-full font-medium flex-shrink-0">💎 Necklace</button>
+        <button onclick="quickSearchTag('Hair')" class="px-2.5 py-1 dynamic-bg dynamic-border border rounded-full font-medium flex-shrink-0">🎀 Claw Clips</button>
+        <button onclick="quickSearchTag('Sipper')" class="px-2.5 py-1 dynamic-bg dynamic-border border rounded-full font-medium flex-shrink-0">🧸 Water Sipper</button>
+        <button onclick="quickSearchTag('Organizer')" class="px-2.5 py-1 dynamic-bg dynamic-border border rounded-full font-medium flex-shrink-0">🔥 Makeup Organizer</button>
       </div>
       <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar mt-3"></div>
     </div>
@@ -217,7 +228,7 @@
 
   <!-- Trust Badges -->
   <section class="max-w-5xl mx-auto px-4 mt-16">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 bg-white rounded-2xl gold-border text-center shadow-sm">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-6 px-4 dynamic-bg rounded-2xl gold-border text-center shadow-sm">
       <div class="p-2"><div class="text-xl mb-1">🛡️</div><h4 id="badge1" class="text-xs font-bold">100% Safe Checkout</h4></div>
       <div class="p-2"><div class="text-xl mb-1">🚚</div><h4 id="badge2" class="text-xs font-bold">Pan India Express</h4></div>
       <div class="p-2"><div class="text-xl mb-1">🔄</div><h4 id="badge3" class="text-xs font-bold">48h Replacement</h4></div>
@@ -225,7 +236,7 @@
     </div>
   </section>
 
-  <!-- Fixed Highlight Customer Review Section at the Bottom -->
+  <!-- Fixed Highlight Customer Review Section at the Bottom (Non-Floating) -->
   <section class="max-w-5xl mx-auto px-4 mt-16">
     <div class="bg-gradient-to-br from-amber-950 via-neutral-900 to-black text-white p-8 rounded-3xl gold-border shadow-2xl text-center space-y-6">
       <span class="text-xs font-bold text-amber-300 bg-amber-900/60 border border-amber-600/50 px-4 py-1.5 rounded-full uppercase tracking-widest">★ 4.9 / 5.0 Verified Excellence</span>
@@ -252,45 +263,45 @@
   </section>
 
   <!-- Footer -->
-  <footer class="mt-16 bg-white border-t border-neutral-200 py-10 px-4 text-center">
-    <div onclick="triggerSecretAdmin()" class="w-14 h-14 rounded-full border border-neutral-300 bg-neutral-100 mx-auto mb-3 flex items-center justify-center overflow-hidden cursor-pointer select-none">
+  <footer class="mt-16 dynamic-bg border-t dynamic-border py-10 px-4 text-center">
+    <div onclick="triggerSecretAdmin()" class="w-14 h-14 rounded-full border dynamic-border dynamic-bg mx-auto mb-3 flex items-center justify-center overflow-hidden cursor-pointer select-none">
       <img src="./0525c00a-5ab0-4ab3-8ecf-d73a9d8654db.jpeg" alt="Logo" class="w-full h-full object-cover">
     </div>
-    <h3 class="font-cinzel text-base font-bold text-neutral-900">TRENDZ MART LUXE</h3>
+    <h3 class="font-cinzel text-base font-bold">TRENDZ MART LUXE</h3>
     <p id="footerSubText" class="text-[10px] text-neutral-500 mt-1 uppercase tracking-widest">Trends You Love, Quality You Deserve</p>
-    <div class="flex justify-center gap-6 text-xs text-neutral-600 mt-4 flex-wrap">
-      <a href="javascript:void(0)" onclick="openPolicyModal('terms')" id="footerTermsLink" class="hover:text-neutral-900 transition-colors">Terms & Conditions</a>
-      <a href="javascript:void(0)" onclick="openPolicyModal('return')" id="footerReturnLink" class="hover:text-neutral-900 transition-colors">Return & Replacement Policy</a>
-      <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" id="footerPrivacyLink" class="hover:text-neutral-900 transition-colors">Privacy Policy</a>
+    <div class="flex justify-center gap-6 text-xs text-neutral-500 mt-4 flex-wrap">
+      <a href="javascript:void(0)" onclick="openPolicyModal('terms')" id="footerTermsLink" class="hover:opacity-85 transition-opacity">Terms & Conditions</a>
+      <a href="javascript:void(0)" onclick="openPolicyModal('return')" id="footerReturnLink" class="hover:opacity-85 transition-opacity">Return & Replacement Policy</a>
+      <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" id="footerPrivacyLink" class="hover:opacity-85 transition-opacity">Privacy Policy</a>
     </div>
     <p class="text-[11px] text-neutral-500 mt-6">© 2026 TRENDZ MART LUXE. All Rights Reserved.</p>
   </footer>
 
   <!-- Track Order Modal -->
   <div id="trackOrderModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
-      <div class="flex justify-between items-center border-b pb-3">
-        <h3 class="font-cinzel font-bold text-neutral-900">📦 Track Your Order</h3>
+    <div class="dynamic-bg rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl border dynamic-border">
+      <div class="flex justify-between items-center border-b dynamic-border pb-3">
+        <h3 class="font-cinzel font-bold">📦 Track Your Order</h3>
         <button onclick="closeTrackOrderModal()" class="font-bold text-sm">✕</button>
       </div>
-      <input id="trackPhoneInput" type="tel" maxlength="10" placeholder="Enter 10-digit Phone Number" class="w-full border p-3 text-xs rounded-xl text-center" />
+      <input id="trackPhoneInput" type="tel" maxlength="10" placeholder="Enter 10-digit Phone Number" class="w-full dynamic-bg border dynamic-border p-3 text-xs rounded-xl text-center" />
       <button onclick="checkOrderStatus()" class="gold-btn w-full py-3 rounded-xl text-xs font-bold">Check Status</button>
-      <div id="trackResultBox" class="text-xs text-neutral-700 py-2"></div>
+      <div id="trackResultBox" class="text-xs py-2"></div>
     </div>
   </div>
 
   <!-- Policy Modal -->
   <div id="policyModalOverlay" onclick="closePolicyModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-  <div id="policyModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl bg-white border border-neutral-300 rounded-3xl z-50 hidden p-6 sm:p-10 shadow-2xl max-h-[88vh] overflow-y-auto">
-    <div class="flex items-center justify-between border-b border-neutral-200 pb-4 mb-4">
+  <div id="policyModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-2xl dynamic-bg border dynamic-border rounded-3xl z-50 hidden p-6 sm:p-10 shadow-2xl max-h-[88vh] overflow-y-auto">
+    <div class="flex items-center justify-between border-b dynamic-border pb-4 mb-4">
       <div>
-        <h3 id="policyModalTitle" class="font-cinzel text-lg sm:text-2xl font-bold text-neutral-900">Store Policies</h3>
+        <h3 id="policyModalTitle" class="font-cinzel text-lg sm:text-2xl font-bold">Store Policies</h3>
         <p class="text-[11px] text-neutral-500 mt-0.5">TRENDZ MART LUXE • Official Compliance & Legal Guidelines</p>
       </div>
-      <button onclick="closePolicyModal()" class="text-neutral-500 hover:text-black bg-neutral-100 hover:bg-neutral-200 rounded-full w-10 h-10 flex items-center justify-center font-bold text-base">✕</button>
+      <button onclick="closePolicyModal()" class="dynamic-bg dynamic-border border rounded-full w-10 h-10 flex items-center justify-center font-bold text-base">✕</button>
     </div>
-    <div id="policyModalBody" class="space-y-4 text-xs sm:text-sm text-neutral-700 leading-relaxed pr-2"></div>
-    <div class="mt-8 pt-4 border-t border-neutral-200 text-center">
+    <div id="policyModalBody" class="space-y-4 text-xs sm:text-sm leading-relaxed pr-2"></div>
+    <div class="mt-8 pt-4 border-t dynamic-border text-center">
       <button onclick="closePolicyModal()" class="gold-btn px-10 py-3 rounded-2xl text-xs font-semibold">I Understand & Agree</button>
     </div>
   </div>
@@ -307,20 +318,20 @@
 
   <!-- Hidden Secret Admin Portal -->
   <div id="adminModalOverlay" onclick="closeAdminModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden"></div>
-  <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-3xl bg-white rounded-2xl z-50 hidden p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
-    <div class="flex justify-between border-b pb-3 mb-4">
-      <h3 class="font-cinzel font-bold text-neutral-950 text-base">🔒 Store Owner Admin Cloud Portal</h3>
+  <div id="adminModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-3xl dynamic-bg rounded-2xl z-50 hidden p-6 shadow-2xl max-h-[90vh] overflow-y-auto border dynamic-border">
+    <div class="flex justify-between border-b dynamic-border pb-3 mb-4">
+      <h3 class="font-cinzel font-bold text-base">🔒 Store Owner Admin Cloud Portal</h3>
       <button onclick="closeAdminModal()" class="font-bold text-base">✕</button>
     </div>
     <div id="adminPinScreen" class="py-8 text-center space-y-3">
-      <input id="adminPinInput" type="password" maxlength="5" placeholder="Enter Secure PIN" class="text-center tracking-widest text-lg w-44 border rounded-lg p-2" />
+      <input id="adminPinInput" type="password" maxlength="5" placeholder="Enter Secure PIN" class="text-center tracking-widest text-lg w-44 dynamic-bg border dynamic-border rounded-lg p-2" />
       <div><button onclick="verifyAdminPin()" class="gold-btn px-6 py-2 rounded-xl text-xs font-bold">Login</button></div>
     </div>
     <div id="adminDashboardScreen" class="hidden space-y-6">
       <p class="text-xs text-green-700 font-bold">✔ Connected to Firebase Cloud Database & Real-Time Sync Active!</p>
       
       <!-- Live Orders Dashboard -->
-      <div class="bg-neutral-50 p-4 rounded-xl border space-y-3">
+      <div class="dynamic-bg p-4 rounded-xl border dynamic-border space-y-3">
         <h4 class="text-xs font-bold uppercase">📦 Live Cloud Orders Manager</h4>
         <div id="adminLiveOrdersList" class="space-y-2 max-h-48 overflow-y-auto text-xs">
           <p class="text-neutral-500">Loading live orders from Firebase...</p>
@@ -328,21 +339,21 @@
       </div>
 
       <!-- Add Product & Stock Control -->
-      <div class="bg-neutral-50 p-4 rounded-xl border space-y-3">
+      <div class="dynamic-bg p-4 rounded-xl border dynamic-border space-y-3">
         <h4 class="text-xs font-bold uppercase">➕ Add Product & Set Inventory Stock</h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <input id="newProdTitle" type="text" placeholder="Title" class="border p-2 text-xs rounded" />
-          <select id="newProdCategory" class="border p-2 text-xs rounded font-medium">
+          <input id="newProdTitle" type="text" placeholder="Title" class="dynamic-bg border dynamic-border p-2 text-xs rounded" />
+          <select id="newProdCategory" class="dynamic-bg border dynamic-border p-2 text-xs rounded font-medium">
             <option value="Jewellery">Jewellery</option>
             <option value="Hair Accessories">Hair Accessories</option>
             <option value="Kids Zone">Kids Zone</option>
             <option value="Trending Items">Trending Items</option>
           </select>
-          <input id="newProdPrice" type="number" placeholder="Price" class="border p-2 text-xs rounded" />
-          <input id="newProdOriginalPrice" type="number" placeholder="Original MRP" class="border p-2 text-xs rounded" />
-          <input id="newProdStock" type="number" value="10" placeholder="Stock Qty (e.g. 5)" class="border p-2 text-xs rounded" />
-          <input id="newProdTag" type="text" value="Selling Fast 🔥" placeholder="Glowing Badge" class="border p-2 text-xs rounded" />
-          <input id="newProdImage" type="text" placeholder="HD Image URL" class="border p-2 text-xs rounded sm:col-span-2" />
+          <input id="newProdPrice" type="number" placeholder="Price" class="dynamic-bg border dynamic-border p-2 text-xs rounded" />
+          <input id="newProdOriginalPrice" type="number" placeholder="Original MRP" class="dynamic-bg border dynamic-border p-2 text-xs rounded" />
+          <input id="newProdStock" type="number" value="10" placeholder="Stock Qty (e.g. 5)" class="dynamic-bg border dynamic-border p-2 text-xs rounded" />
+          <input id="newProdTag" type="text" value="Selling Fast 🔥" placeholder="Glowing Badge" class="dynamic-bg border dynamic-border p-2 text-xs rounded" />
+          <input id="newProdImage" type="text" placeholder="HD Image URL" class="dynamic-bg border dynamic-border p-2 text-xs rounded sm:col-span-2" />
         </div>
         <button onclick="addNewProductCloud()" class="gold-btn w-full py-2 text-xs font-bold">Publish to Firebase Cloud</button>
       </div>
@@ -351,40 +362,38 @@
 
   <!-- Cart Drawer -->
   <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden"></div>
-  <div id="cartSidebar" class="drawer-panel fixed top-0 right-0 h-full w-[88%] max-w-sm bg-white border-l z-50 translate-x-full flex flex-col justify-between shadow-2xl">
-    <div class="p-4 border-b flex justify-between bg-neutral-50">
+  <div id="cartSidebar" class="drawer-panel fixed top-0 right-0 h-full w-[88%] max-w-sm border-l dynamic-border z-50 translate-x-full flex flex-col justify-between shadow-2xl">
+    <div class="p-4 border-b dynamic-border flex justify-between dynamic-bg">
       <h3 id="cartHeaderTitle" class="font-cinzel font-bold text-sm">YOUR SHOPPING BAG</h3>
       <button onclick="toggleCart()" class="font-bold">✕</button>
     </div>
 
     <!-- Free Gift Live Progress Bar -->
-    <div class="p-3 bg-amber-50 border-b border-amber-200">
-      <div class="flex justify-between text-[11px] font-bold text-amber-900 mb-1">
+    <div class="p-3 bg-amber-50/10 border-b dynamic-border">
+      <div class="flex justify-between text-[11px] font-bold text-amber-600 mb-1">
         <span id="giftProgressText">Add ₹599 to unlock Free Mystery Gift! 🎁</span>
         <span id="giftUnlockedBadge" class="hidden text-green-700 bg-green-100 px-1.5 rounded">Unlocked!</span>
       </div>
-      <div class="w-full bg-amber-200 h-2 rounded-full overflow-hidden">
+      <div class="w-full bg-amber-200/30 h-2 rounded-full overflow-hidden">
         <div id="giftProgressBar" class="bg-amber-600 h-full w-0 transition-all duration-300"></div>
       </div>
     </div>
 
     <div id="cartItemsList" class="p-4 flex-1 overflow-y-auto space-y-3"></div>
-    <div class="p-4 border-t bg-neutral-50 space-y-2">
-      <!-- Coupon Code Input Box -->
+    <div class="p-4 border-t dynamic-border dynamic-bg space-y-2">
       <div class="flex gap-2">
-        <input id="couponInput" type="text" placeholder="Enter Code (e.g. LUXE10)" class="border p-2 text-xs rounded flex-1 uppercase" />
+        <input id="couponInput" type="text" placeholder="Enter Code (e.g. LUXE10)" class="dynamic-bg border dynamic-border p-2 text-xs rounded flex-1 uppercase" />
         <button onclick="applyCouponCode()" class="bg-neutral-900 text-white px-3 py-2 rounded text-xs font-bold">Apply</button>
       </div>
-      <p id="couponMsg" class="text-[10px] text-green-700 font-medium"></p>
+      <p id="couponMsg" class="text-[10px] font-medium"></p>
 
-      <!-- Subtotal & Delivery Fee Display -->
-      <div class="flex justify-between items-center text-xs text-neutral-600 pt-1">
+      <div class="flex justify-between items-center text-xs pt-1 opacity-80">
         <span>Delivery Fee:</span>
         <span id="deliveryFeeText" class="font-bold">₹50 (Free above ₹799)</span>
       </div>
-      <div class="flex justify-between items-center text-sm font-semibold pt-1 border-t">
+      <div class="flex justify-between items-center text-sm font-semibold pt-1 border-t dynamic-border">
         <span id="cartSubtotalLabel">Total Amount:</span>
-        <span id="cartTotal" class="font-bold text-base text-neutral-950">₹0</span>
+        <span id="cartTotal" class="font-bold text-base">₹0</span>
       </div>
       <button onclick="sendOrderViaWhatsApp()" id="whatsappCheckoutBtn" class="w-full py-3 rounded-xl font-bold text-xs gold-btn flex items-center justify-center gap-2">Complete Order on WhatsApp</button>
     </div>
@@ -392,8 +401,8 @@
 
   <!-- Wishlist Drawer -->
   <div id="wishlistOverlay" onclick="toggleWishlist()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden"></div>
-  <div id="wishlistSidebar" class="drawer-panel fixed top-0 right-0 h-full w-[88%] max-w-sm bg-white border-l z-50 translate-x-full flex flex-col justify-between shadow-2xl">
-    <div class="p-4 border-b flex justify-between bg-neutral-50">
+  <div id="wishlistSidebar" class="drawer-panel fixed top-0 right-0 h-full w-[88%] max-w-sm border-l dynamic-border z-50 translate-x-full flex flex-col justify-between shadow-2xl">
+    <div class="p-4 border-b dynamic-border flex justify-between dynamic-bg">
       <h3 id="wishlistHeaderTitle" class="font-cinzel font-bold text-sm">YOUR WISHLIST</h3>
       <button onclick="toggleWishlist()" class="font-bold">✕</button>
     </div>
@@ -416,7 +425,7 @@
     }
     const db = firebase.firestore();
 
-    const WHATSAPP_NUMBER = "918369511325";
+    const WHATSAPP_LINK = "https://wa.me/message/WG6NJD536W4KH1";
     let currentLang = 'en';
     let couponApplied = false;
     let couponUsedSession = false;
@@ -425,7 +434,7 @@
     const translations = {
       en: {
         subBrand: "Jewellery • Kids • Hair • Trending",
-        trackOrder: "📦 Track Order",
+        trackOrder: "📦 Track",
         searchPlaceholder: "Search jewellery, water sippers, claw clips...",
         allDeals: "All Deals",
         badge1: "100% Safe Checkout",
@@ -441,7 +450,7 @@
       },
       hi: {
         subBrand: "ज्वेलरी • किड्स • हेयर • ट्रेंडिंग",
-        trackOrder: "📦 आर्डर ट्रैक करें",
+        trackOrder: "📦 ट्रैक",
         searchPlaceholder: "ज्वेलरी, पानी की बोतलें, हेयर क्लिप खोजें...",
         allDeals: "सभी डील्स",
         badge1: "100% सुरक्षित चेकआउट",
@@ -487,34 +496,10 @@
     function toggleDarkMode() {
       isDarkMode = !isDarkMode;
       if (isDarkMode) {
-        document.body.style.backgroundColor = "#0f0f0f";
-        document.body.style.color = "#f2ebd9";
+        document.documentElement.classList.add('dark-mode');
       } else {
-        document.body.style.backgroundColor = "#faf9f6";
-        document.body.style.color = "#1a1a1a";
+        document.documentElement.classList.remove('dark-mode');
       }
-    }
-
-    // Spin-to-win modal trigger after 3 seconds
-    setTimeout(() => {
-      document.getElementById("spinModalOverlay").classList.remove("hidden");
-    }, 3000);
-
-    function closeSpinModal() {
-      document.getElementById("spinModalOverlay").classList.add("hidden");
-    }
-
-    function executeSpinWheel() {
-      const box = document.getElementById("spinResultBox");
-      const btn = document.getElementById("spinBtn");
-      box.innerHTML = "🎉 Congratulations! You unlocked code <strong class='text-amber-700'>LUXE10</strong> for 20% OFF!";
-      btn.innerText = "Claimed Successfully!";
-      btn.disabled = true;
-      couponApplied = true;
-      setTimeout(() => {
-        closeSpinModal();
-        updateCartUI();
-      }, 2500);
     }
 
     function openTrackOrderModal() {
@@ -701,9 +686,9 @@
       const filterContainer = document.getElementById("categoryFiltersContainer");
       if (filterContainer) {
         let allDealsTxt = currentLang === 'hi' ? "सभी डील्स" : "All Deals";
-        let html = `<button onclick="filterCategory('All')" class="px-4 py-1.5 rounded-full ${currentFilter === 'All' ? 'bg-neutral-900 text-white font-semibold' : 'bg-neutral-100 text-neutral-700 border'}">${allDealsTxt}</button>`;
+        let html = `<button onclick="filterCategory('All')" class="px-4 py-1.5 rounded-full ${currentFilter === 'All' ? 'bg-neutral-900 text-white font-semibold' : 'dynamic-bg dynamic-border border'}">${allDealsTxt}</button>`;
         categories.forEach(c => {
-          html += `<button onclick="filterCategory('${c.name}')" class="px-4 py-1.5 rounded-full ${currentFilter === c.name ? 'bg-neutral-900 text-white font-semibold' : 'bg-neutral-100 text-neutral-700 border'}">${c.emoji} ${c.name}</button>`;
+          html += `<button onclick="filterCategory('${c.name}')" class="px-4 py-1.5 rounded-full ${currentFilter === c.name ? 'bg-neutral-900 text-white font-semibold' : 'dynamic-bg dynamic-border border'}">${c.emoji} ${c.name}</button>`;
         });
         filterContainer.innerHTML = html;
       }
@@ -757,10 +742,10 @@
       if (matches.length > 0) {
         box.classList.remove('hidden');
         box.innerHTML = matches.map(m => `
-          <div onclick="selectSearchSuggestion(${m.id})" class="flex items-center gap-3 p-2.5 hover:bg-neutral-50 cursor-pointer border-b last:border-none text-xs">
+          <div onclick="selectSearchSuggestion(${m.id})" class="flex items-center gap-3 p-2.5 hover:opacity-85 cursor-pointer border-b dynamic-border last:border-none text-xs">
             <img src="${m.images[0]}" class="w-10 h-10 object-contain bg-neutral-100 rounded p-0.5" />
             <div class="flex-1">
-              <p class="font-bold text-neutral-900 line-clamp-1">${m.title}</p>
+              <p class="font-bold line-clamp-1">${m.title}</p>
               <p class="text-[10px] text-neutral-500">${m.category} • ₹${m.price}</p>
             </div>
           </div>
@@ -804,20 +789,20 @@
             let liveViews = getRealisticLiveViews(item.baseViews || 120);
             let stockBadge = item.stock <= 3 ? `<span class="text-[9px] text-rose-600 font-bold bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">Only ${item.stock} Left! 🔥</span>` : '';
             return `
-              <div class="bg-white rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
+              <div class="rounded-xl p-3 border product-card-3d flex flex-col justify-between cursor-pointer" onclick="openProductDetailPage(${item.id})">
                 <div>
                   <img src="${item.images[0]}" class="w-full h-40 object-contain mb-2 bg-neutral-50 rounded" />
                   <div class="flex items-center justify-between">
                     <span class="text-[9px] text-[#8c6928] uppercase font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">${item.tag}</span>
                     <span class="text-[10px] font-bold text-amber-600">★ ${item.rating || 4.9}</span>
                   </div>
-                  <h4 class="text-xs font-bold line-clamp-1 mt-1 text-neutral-900">${item.title}</h4>
+                  <h4 class="text-xs font-bold line-clamp-1 mt-1">${item.title}</h4>
                   <div class="mt-1">${stockBadge}</div>
                 </div>
                 <div class="mt-3 flex items-center justify-between">
                   <div>
-                    <p class="text-sm font-bold text-neutral-950">₹${item.price} <span class="text-[10px] text-neutral-400 line-through">₹${item.originalPrice}</span></p>
-                    <p class="text-[10px] text-neutral-500 font-medium flex items-center gap-1 mt-0.5">👁️ ${liveViews} views</p>
+                    <p class="text-sm font-bold">₹${item.price} <span class="text-[10px] text-neutral-400 line-through">₹${item.originalPrice}</span></p>
+                    <p class="text-[10px] opacity-75 font-medium flex items-center gap-1 mt-0.5">👁️ ${liveViews} views</p>
                   </div>
                   <button onclick="event.stopPropagation(); addToCart(${item.id})" class="gold-btn px-3 py-1.5 rounded text-xs font-bold">+ Bag</button>
                 </div>
@@ -850,11 +835,11 @@
       const appContainer = document.getElementById("appContainer");
       appContainer.innerHTML = `
         <div class="max-w-4xl mx-auto px-4 py-6 space-y-8 select-none">
-          <button onclick="goBackToStore()" class="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 border px-4 py-2 rounded-xl transition-colors text-neutral-800">
+          <button onclick="goBackToStore()" class="text-xs font-bold dynamic-bg dynamic-border border px-4 py-2 rounded-xl transition-colors">
             ← Back to Store
           </button>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-2xl gold-border shadow-sm">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 dynamic-bg p-6 rounded-2xl gold-border shadow-sm">
             <div class="space-y-3">
               <div onclick="openLightbox(${detailImgIndex})" class="relative w-full h-80 sm:h-96 bg-neutral-50 rounded-xl border border-neutral-200 overflow-hidden flex items-center justify-center cursor-zoom-in">
                 <img id="detailMainImg" src="${imgs[detailImgIndex]}" class="w-full h-full object-contain p-2" />
@@ -872,15 +857,15 @@
                 <span class="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">★ ${prod.rating || 4.9} (Verified)</span>
               </div>
 
-              <h2 class="text-xl sm:text-2xl font-bold font-cinzel text-neutral-950">${prod.title}</h2>
+              <h2 class="text-xl sm:text-2xl font-bold font-cinzel">${prod.title}</h2>
 
               <div class="flex items-baseline gap-3">
-                <span class="text-2xl font-black text-neutral-950">₹${prod.price}</span>
+                <span class="text-2xl font-black">₹${prod.price}</span>
                 <span class="text-sm text-neutral-400 line-through">₹${prod.originalPrice}</span>
                 <span class="text-xs font-extrabold text-white bg-green-600 px-2 py-0.5 rounded">${discount}% OFF</span>
               </div>
 
-              <div class="inline-flex items-center gap-2 bg-neutral-100 border border-neutral-200 px-3 py-1.5 rounded-xl text-neutral-700 text-xs font-semibold">
+              <div class="inline-flex items-center gap-2 dynamic-bg border dynamic-border px-3 py-1.5 rounded-xl text-xs font-semibold">
                 <span>👁️ <strong>${liveViews} views</strong></span>
               </div>
 
@@ -974,7 +959,6 @@
       let discountAmount = couponApplied ? Math.round(subtotal * 0.20) : 0;
       let discountedSubtotal = subtotal - discountAmount;
 
-      // Delivery Fee: ₹50, FREE if subtotal >= ₹799
       let deliveryFee = discountedSubtotal >= 799 || discountedSubtotal === 0 ? 0 : 50;
       let grandTotal = discountedSubtotal + deliveryFee;
 
@@ -1002,9 +986,9 @@
       const list = document.getElementById("cartItemsList");
       if (cart.length === 0) { list.innerHTML = `<p class="text-xs text-center py-10 text-neutral-400">Bag is empty</p>`; return; }
       list.innerHTML = cart.map(i => `
-        <div class="flex items-center gap-3 bg-neutral-50 p-2 rounded border text-xs">
+        <div class="flex items-center gap-3 dynamic-bg p-2 rounded border dynamic-border text-xs">
           <img src="${i.images[0]}" class="w-10 h-10 object-contain bg-white p-1 rounded" />
-          <div class="flex-1"><p class="font-bold line-clamp-1 text-neutral-900">${i.title}</p><p class="text-neutral-600">₹${i.price} × ${i.qty}</p></div>
+          <div class="flex-1"><p class="font-bold line-clamp-1">${i.title}</p><p class="opacity-75">₹${i.price} × ${i.qty}</p></div>
         </div>
       `).join('');
     }
@@ -1052,7 +1036,7 @@
       msg += `\n🚚 Delivery Fee: ${deliveryFee === 0 ? 'FREE' : '₹50'}`;
       if (isGiftUnlocked) msg += `\n🎁 Free Mystery Gift Included (Order > ₹599)`;
       msg += `\n\n*Grand Total: ₹${grandTotal}*\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+      window.open(`${WHATSAPP_LINK}&text=${encodeURIComponent(msg)}`, "_blank");
     }
 
     async function orderSingleProductWhatsApp(productId) {
@@ -1078,7 +1062,7 @@
       }
 
       let msg = `Hello TRENDZ MART LUXE! 🛍️\nMujhe ye product order karna hai:\n\n📦 *${prod.title}*\n💰 Price: ₹${prod.price}\n🚚 Delivery: ${deliveryFee === 0 ? 'FREE' : '₹50'}${isGiftUnlocked ? '\n🎁 Free Mystery Gift Included' : ''}\n*Grand Total: ₹${grandTotal}*\nPayment: Cash on Delivery (COD)\n\nMera Address:\n[Yahan apna naam aur address likhein]`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+      window.open(`${WHATSAPP_LINK}&text=${encodeURIComponent(msg)}`, "_blank");
     }
 
     // ==================== POLICIES MODAL ====================
@@ -1092,40 +1076,40 @@
       if (type === 'terms') {
         titleEl.innerText = currentLang === 'hi' ? "नियम एवं शर्तें (Terms & Conditions)" : "Terms & Conditions";
         content = currentLang === 'hi' ? `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) आर्डर सत्यापन</h4>
+          <h4 class="font-bold text-sm mb-1">1. Cash on Delivery (COD) आर्डर सत्यापन</h4>
           <p class="mb-4">TRENDZ MART LUXE पर सभी Cash on Delivery (COD) आर्डर्स की सुरक्षा और प्रामाणिकता सुनिश्चित करने के लिए हमारे सपोर्ट टीम द्वारा व्हाट्सएप या फोन कॉल के माध्यम से पुष्टि की जाती है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. एंटी-टार्निश ज्वैलरी गुणवत्ता</h4>
+          <h4 class="font-bold text-sm mb-1">2. एंटी-टार्निश ज्वैलरी गुणवत्ता</h4>
           <p class="mb-4">हमारी सभी ज्वैलरी प्रीमियम 18K गोल्ड प्लेटेड हाई-ग्रेड एंटी-टार्निश क्वालिटी की होती हैं। परफ्यूम या harsh chemicals सीधे स्प्रे न करने पर चमक आजीवन बनी रहती है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. शिपिंग समय</h4>
+          <h4 class="font-bold text-sm mb-1">3. शिपिंग समय</h4>
           <p>सभी आर्डर्स पर सामान्य डिलीवरी शुल्क ₹50 है, लेकिन ₹799 या उससे अधिक के आर्डर पर डिलीवरी बिल्कुल फ्री है।</p>
         ` : `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Cash on Delivery (COD) Order Verification</h4>
+          <h4 class="font-bold text-sm mb-1">1. Cash on Delivery (COD) Order Verification</h4>
           <p class="mb-4">All COD orders are verified via WhatsApp or phone call prior to dispatch to ensure secure fulfillment.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. Anti-Tarnish Quality Guarantee</h4>
+          <h4 class="font-bold text-sm mb-1">2. Anti-Tarnish Quality Guarantee</h4>
           <p class="mb-4">Our 18K Gold Plated anti-tarnish items maintain long-lasting shine when protected from direct harsh chemicals.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">3. Shipping & Delivery Charges</h4>
+          <h4 class="font-bold text-sm mb-1">3. Shipping & Delivery Charges</h4>
           <p>Standard delivery charge is ₹50 across India, while orders of ₹799 and above qualify for Free Delivery.</p>
         `;
       } else if (type === 'return') {
         titleEl.innerText = currentLang === 'hi' ? "रिटर्न और रिप्लेसमेंट पॉलिसी" : "Return & Replacement Policy";
         content = currentLang === 'hi' ? `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. अनिवार्य 360° अनबॉक्सिंग वीडियो</h4>
+          <h4 class="font-bold text-sm mb-1">1. अनिवार्य 360° अनबॉक्सिंग वीडियो</h4>
           <p class="mb-4">पार्सल खोलते समय बिना किसी कट का साफ 360-डिग्री अनबॉक्सिंग वीडियो होना अनिवार्य है।</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48 घंटे के भीतर रिप्लेसमेंट</h4>
+          <h4 class="font-bold text-sm mb-1">2. 48 घंटे के भीतर रिप्लेसमेंट</h4>
           <p>डैमेज या गलत प्रोडक्ट मिलने पर 48 घंटे के भीतर व्हाट्सएप सपोर्ट पर संपर्क करें।</p>
         ` : `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Mandatory 360° Unboxing Video</h4>
+          <h4 class="font-bold text-sm mb-1">1. Mandatory 360° Unboxing Video</h4>
           <p class="mb-4">A clean, continuous 360-degree unboxing video is mandatory for damage or missing item claims.</p>
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">2. 48-Hour Replacement Window</h4>
+          <h4 class="font-bold text-sm mb-1">2. 48-Hour Replacement Window</h4>
           <p>Notify our WhatsApp support team within 48 hours for instant replacement.</p>
         `;
       } else if (type === 'privacy') {
         titleEl.innerText = currentLang === 'hi' ? "प्राइवेसी पॉलिसी" : "Privacy Policy";
         content = currentLang === 'hi' ? `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. ग्राहक डेटा सुरक्षा</h4>
+          <h4 class="font-bold text-sm mb-1">1. ग्राहक डेटा सुरक्षा</h4>
           <p>आपका नाम और पता केवल आर्डर शिपिंग और व्हाट्सएप अपडेट्स के लिए उपयोग होता है। किसी तीसरे पक्ष को नहीं बेचा जाता।</p>
         ` : `
-          <h4 class="font-bold text-neutral-900 text-sm mb-1">1. Customer Data Privacy</h4>
+          <h4 class="font-bold text-sm mb-1">1. Customer Data Privacy</h4>
           <p>Your details are strictly used for order delivery and WhatsApp shipping updates. Zero third-party sharing.</p>
         `;
       }
@@ -1183,12 +1167,12 @@
           let ord = doc.data();
           let itemsText = ord.items ? ord.items.map(i => `${i.title} (${i.qty})`).join(', ') : '';
           html += `
-            <div class="bg-white p-2.5 rounded border space-y-1">
-              <div class="flex justify-between font-bold text-neutral-900">
+            <div class="dynamic-bg p-2.5 rounded border dynamic-border space-y-1">
+              <div class="flex justify-between font-bold">
                 <span>Total: ₹${ord.totalAmount}</span>
                 <span class="text-green-700 bg-green-50 px-2 py-0.5 rounded text-[10px]">${ord.status}</span>
               </div>
-              <p class="text-neutral-600 line-clamp-1">Items: ${itemsText}</p>
+              <p class="opacity-75 line-clamp-1">Items: ${itemsText}</p>
               <p class="text-[10px] text-neutral-400">Time: ${new Date(ord.createdAt).toLocaleString()}</p>
             </div>
           `;
